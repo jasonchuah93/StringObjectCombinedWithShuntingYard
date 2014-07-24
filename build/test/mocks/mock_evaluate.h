@@ -14,11 +14,11 @@ void mock_Evaluate_Verify(void);
 
 #define evaluate_IgnoreAndReturn(cmock_retval) evaluate_CMockIgnoreAndReturn(__LINE__, cmock_retval)
 void evaluate_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, int cmock_to_return);
-#define evaluate_ExpectAndReturn(charbla, cmock_retval) evaluate_CMockExpectAndReturn(__LINE__, charbla, cmock_retval)
-void evaluate_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, char* charbla, int cmock_to_return);
-typedef int (* CMOCK_evaluate_CALLBACK)(char* charbla, int cmock_num_calls);
+#define evaluate_ExpectAndReturn(expression, cmock_retval) evaluate_CMockExpectAndReturn(__LINE__, expression, cmock_retval)
+void evaluate_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, char* expression, int cmock_to_return);
+typedef int (* CMOCK_evaluate_CALLBACK)(char* expression, int cmock_num_calls);
 void evaluate_StubWithCallback(CMOCK_evaluate_CALLBACK Callback);
-#define evaluate_ExpectAndThrow(charbla, cmock_to_throw) evaluate_CMockExpectAndThrow(__LINE__, charbla, cmock_to_throw)
-void evaluate_CMockExpectAndThrow(UNITY_LINE_TYPE cmock_line, char* charbla, CEXCEPTION_T cmock_to_throw);
+#define evaluate_ExpectAndThrow(expression, cmock_to_throw) evaluate_CMockExpectAndThrow(__LINE__, expression, cmock_to_throw)
+void evaluate_CMockExpectAndThrow(UNITY_LINE_TYPE cmock_line, char* expression, CEXCEPTION_T cmock_to_throw);
 
 #endif

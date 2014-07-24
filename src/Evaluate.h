@@ -1,6 +1,8 @@
 #ifndef Evaluate_H
 #define Evaluate_H
 
-int evaluate(char *charbla); //jason shuntingyard
+#include "StringObject.h"
+
+int evaluate(char *expression);
 
 #endif // Evaluate_H

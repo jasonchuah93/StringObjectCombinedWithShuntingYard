@@ -1,7 +1,10 @@
+#include "StringObject.h"
 
 
 
 
 
 
-int evaluate(char *charbla);
+
+
+int evaluate(char *expression);

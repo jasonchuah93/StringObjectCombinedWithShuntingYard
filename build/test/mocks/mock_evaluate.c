@@ -11,7 +11,7 @@ typedef struct _CMOCK_evaluate_CALL_INSTANCE
   UNITY_LINE_TYPE LineNumber;
   int ReturnVal;
   int CallOrder;
-  char* Expected_charbla;
+  char* Expected_expression;
   CEXCEPTION_T ExceptionToThrow;
 
 } CMOCK_evaluate_CALL_INSTANCE;
@@ -54,7 +54,7 @@ void mock_Evaluate_Destroy(void)
   GlobalVerifyOrder = 0;
 }
 
-int evaluate(char* charbla)
+int evaluate(char* expression)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
   CMOCK_evaluate_CALL_INSTANCE* cmock_call_instance = (CMOCK_evaluate_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.evaluate_CallInstance);
@@ -68,7 +68,7 @@ int evaluate(char* charbla)
   }
   if (Mock.evaluate_CallbackFunctionPointer != NULL)
   {
-    return Mock.evaluate_CallbackFunctionPointer(charbla, Mock.evaluate_CallbackCalls++);
+    return Mock.evaluate_CallbackFunctionPointer(expression, Mock.evaluate_CallbackCalls++);
   }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, "Function 'evaluate' called more times than expected.");
   cmock_line = cmock_call_instance->LineNumber;
@@ -76,7 +76,7 @@ int evaluate(char* charbla)
     UNITY_TEST_FAIL(cmock_line, "Function 'evaluate' called earlier than expected.");
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, "Function 'evaluate' called later than expected.");
-  UNITY_TEST_ASSERT_EQUAL_STRING(cmock_call_instance->Expected_charbla, charbla, cmock_line, "Function 'evaluate' called with unexpected value for argument 'charbla'.");
+  UNITY_TEST_ASSERT_EQUAL_STRING(cmock_call_instance->Expected_expression, expression, cmock_line, "Function 'evaluate' called with unexpected value for argument 'expression'.");
   if (cmock_call_instance->ExceptionToThrow != CEXCEPTION_NONE)
   {
     Throw(cmock_call_instance->ExceptionToThrow);
@@ -84,9 +84,9 @@ int evaluate(char* charbla)
   return cmock_call_instance->ReturnVal;
 }
 
-void CMockExpectParameters_evaluate(CMOCK_evaluate_CALL_INSTANCE* cmock_call_instance, char* charbla)
+void CMockExpectParameters_evaluate(CMOCK_evaluate_CALL_INSTANCE* cmock_call_instance, char* expression)
 {
-  cmock_call_instance->Expected_charbla = charbla;
+  cmock_call_instance->Expected_expression = expression;
 }
 
 void evaluate_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, int cmock_to_return)
@@ -101,7 +101,7 @@ void evaluate_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, int cmock_to_retu
   Mock.evaluate_IgnoreBool = (int)1;
 }
 
-void evaluate_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, char* charbla, int cmock_to_return)
+void evaluate_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, char* expression, int cmock_to_return)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_evaluate_CALL_INSTANCE));
   CMOCK_evaluate_CALL_INSTANCE* cmock_call_instance = (CMOCK_evaluate_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
@@ -110,7 +110,7 @@ void evaluate_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, char* charbla, in
   cmock_call_instance->LineNumber = cmock_line;
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
   cmock_call_instance->ExceptionToThrow = CEXCEPTION_NONE;
-  CMockExpectParameters_evaluate(cmock_call_instance, charbla);
+  CMockExpectParameters_evaluate(cmock_call_instance, expression);
   cmock_call_instance->ReturnVal = cmock_to_return;
 }
 
@@ -119,7 +119,7 @@ void evaluate_StubWithCallback(CMOCK_evaluate_CALLBACK Callback)
   Mock.evaluate_CallbackFunctionPointer = Callback;
 }
 
-void evaluate_CMockExpectAndThrow(UNITY_LINE_TYPE cmock_line, char* charbla, CEXCEPTION_T cmock_to_throw)
+void evaluate_CMockExpectAndThrow(UNITY_LINE_TYPE cmock_line, char* expression, CEXCEPTION_T cmock_to_throw)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_evaluate_CALL_INSTANCE));
   CMOCK_evaluate_CALL_INSTANCE* cmock_call_instance = (CMOCK_evaluate_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
@@ -128,7 +128,7 @@ void evaluate_CMockExpectAndThrow(UNITY_LINE_TYPE cmock_line, char* charbla, CEX
   cmock_call_instance->LineNumber = cmock_line;
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
   cmock_call_instance->ExceptionToThrow = CEXCEPTION_NONE;
-  CMockExpectParameters_evaluate(cmock_call_instance, charbla);
+  CMockExpectParameters_evaluate(cmock_call_instance, expression);
   cmock_call_instance->ExceptionToThrow = cmock_to_throw;
 }
 
