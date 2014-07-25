@@ -42,13 +42,14 @@ Using following real function :
 	int check;
 	Try
 	{
-		evaluate(NULL);
-		TEST_FAIL_MESSAGE("Should throw Error no expression ");
+		printf("test \n");
+		evaluate("1+2");
+		
 	}
 	Catch(e)
 	{
-		TEST_ASSERT_EQUAL(ERR_NO_ARGUMENT,e);
-		
+		TEST_ASSERT_EQUAL(ERR_NO_ARGUMENT +1,e);
+
 	}
 	
 	

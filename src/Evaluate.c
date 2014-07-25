@@ -45,8 +45,11 @@ int evaluate(char *expression){
 	newText=textNew(expression);
 	tokenizer = stringNew(newText);
 	
+	
 	if(expression ==NULL){	
+		printf("test0 \n");
 		Throw(ERR_NO_ARGUMENT);
+		
 	}
 	
 	while((token=getToken(tokenizer))!=NULL){

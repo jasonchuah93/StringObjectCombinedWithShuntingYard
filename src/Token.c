@@ -212,6 +212,7 @@ Token *getToken(String *str) {
 		}
 	}
 	else
+		printf("test4 \n");
 		Throw(ERR_NO_ARGUMENT);
 		
 	free(strReturn);
