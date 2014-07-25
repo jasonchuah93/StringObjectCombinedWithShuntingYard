@@ -23,7 +23,10 @@ OperatorInfo mainOperatorTable[] = {
   {.symbol="|", .id=BITWISE_OR_OP, .precedence=40, .affix=INFIX, .assoc=LEFT_TO_RIGHT},  
   {.symbol="&&", .id=LOGICAL_AND_OP, .precedence=30, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
   {.symbol="||", .id=LOGICAL_OR_OP, .precedence=20, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
+  
   // All other symbols MUST have higher precedence than those below:
+  {.symbol="++", .id=INCREMENT, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
+  {.symbol="--", .id=DECREMENT, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol="(", .id=OPENING_BRACKET_OP, .precedence=10, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol=")", .id=CLOSING_BRACKET_OP, .precedence=9,  .affix=POSTFIX, .assoc=LEFT_TO_RIGHT}
 };
@@ -174,6 +177,16 @@ Token *getToken(String *str) {
 				charReturn[1] = '|';
 				charReturn[2] = 0;
 			}
+			else if(charReturn[0] == '+'){
+				charReturn[0] = '+';
+				charReturn[1] = '+';
+				charReturn[2] = 0;
+			}
+			else if(charReturn[0] == '-'){
+				charReturn[0] = '-';
+				charReturn[1] = '-';
+				charReturn[2] = 0;
+			}
 			else
 				Throw(ERR_NUMBER_NOT_WELL_FORMED);
 				
@@ -219,4 +232,46 @@ void tokenDel(Token *token){
 			tokenDel((Token *)(((Identifier *)token)->number));
 		free(token);
 	}
+}
+
+/*
+	This function will determine token is operator or not.
+	
+	input :
+	unknownToken		The token that consists the type.(number, operator)
+	
+	output:
+	none
+	
+	return:
+	0					indicate it is not an operator
+	1					indicate it is an operator
+*/
+int isOperator (Token * unknownToken)
+{
+	if(unknownToken->type==OPERATOR_TOKEN)
+		return 1;
+		
+	return 0;
+}
+
+/*
+	This function will determine token is number or not.
+	
+	input :
+	unknownToken		The token that consists the type.(number, operator)
+	
+	output:
+	none
+	
+	return:
+	0					indicate it is not a number
+	1					indicate it is a number
+*/
+int isNumber (Token * unknownToken)
+{
+	if(unknownToken->type==NUMBER_TOKEN)
+		return 1;
+		
+	return 0;
 }

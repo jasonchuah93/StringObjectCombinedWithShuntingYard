@@ -30,6 +30,8 @@ typedef enum {
   LOGICAL_NOT_OP,     // !  (prefix)
   OPENING_BRACKET_OP, // (  (prefix)
   CLOSING_BRACKET_OP, // )  (prefix)
+  INCREMENT,		 // ++(prefix)
+  DECREMENT			// --(prefix)
 } OperatorID;
 
 typedef enum {
@@ -80,6 +82,8 @@ Identifier *identifierNew(Text *name);//2nd
 Token *getToken(String *str);
 void tokenDel(Token *token);
 
+int isOperator(Token * unknownToken);
+int isNumber(Token * unknownToken);
 
 
 #endif // Token_H

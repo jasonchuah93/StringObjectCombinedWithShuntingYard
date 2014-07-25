@@ -1,16 +1,18 @@
 #include "unity.h"
 #include "Evaluate.h"
 #include "mock_Stack.h"
-#include "StringObject.h"
 #include "Text.h"
+#include "StringObject.h"
 #include "Types.h"
+#include "Token.h"
+#include "CharSet.h"
 //#include "LinkedList.h"
 //#include "mock_StringObject.h"
 //#include "mock_getToken.h"
-//#include "tryEvaluatethenPush.h"
-//#include "operatorEvaluate.h"
-//#include "calculateToken.h"
-//#include "mock_createNumberToken.h"
+#include "tryEvaluatethenPush.h"
+#include "operatorEvaluate.h"
+#include "calculateToken.h"
+#include "mock_createNumberToken.h"
 //#include "stackForEvaluate.h"
 #include "ErrorCode.h"
 #include "CException.h"
@@ -42,8 +44,11 @@ Using following real function :
 	Stack numberStack;
 	Stack operatorStack;
 	ErrorCode exception;
-	String tokenizer = {.text = "0", .start = 0, .length=1};
+	Token *token;
+	//String tokenizer = {.text = "0", .start = 0, .length=1};
 	
+	Text *text=textNew("0");
+	String *string=stringNew(text);
 	//Number number2 = {.type= NUMBER, .value=0};
 	//Token *token1 = (Token*)&number2;
 	
