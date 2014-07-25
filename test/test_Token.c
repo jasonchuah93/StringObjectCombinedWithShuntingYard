@@ -132,8 +132,6 @@ void test_operatorFindInfoById_should_return_null_if_the_input_is_not_within_the
 	OperatorInfo *operator = operatorFindInfoByID(HASH_OP);
 	
 	TEST_ASSERT_EQUAL(NULL,operator);
-
-	
 }
 
 void test_getToken_sould_return_NumberToken_324(void){

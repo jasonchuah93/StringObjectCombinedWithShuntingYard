@@ -43,61 +43,61 @@
   :line: 128
   :message: ''
 - :test: test_getToken_sould_return_NumberToken_324
-  :line: 139
+  :line: 137
   :message: ''
 - :test: test_getToken_sould_return_NumberToken_123
-  :line: 152
+  :line: 150
   :message: ''
 - :test: test_getToken_sould_return_NumberToken_123_without_ending_with_space
-  :line: 165
+  :line: 163
   :message: ''
 - :test: test_getToken_sould_return_IdentifierToken_AuCheeLiang
-  :line: 177
+  :line: 175
   :message: ''
 - :test: test_getToken_should_return_IdentifierToken_ChiewBingXuan
-  :line: 190
+  :line: 188
   :message: ''
 - :test: test_getToken_sould_return_IdentifierToken_AuCheeLiang_without_ending_with_space
-  :line: 203
+  :line: 201
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_BITWISE_NOT_OP
-  :line: 216
+  :line: 214
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_BITWISE_AND_OP
-  :line: 231
+  :line: 229
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_LOGICAL_AND_OP
-  :line: 246
+  :line: 244
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_LOGICAL_OR_OP
-  :line: 261
+  :line: 259
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_number_and_alphabet
-  :line: 276
+  :line: 274
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_number_and_operator
-  :line: 289
+  :line: 287
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_all_together
-  :line: 302
+  :line: 300
   :message: ''
 - :test: test_getToken_multiple_times_abc_BITWISE_NOT_OP_123
-  :line: 315
+  :line: 313
   :message: ''
 - :test: test_getToken_multiple_times_abc_LOGICAL_AND_OP_123
-  :line: 341
+  :line: 339
   :message: ''
 - :test: test_getToken_multiple_times_abc_LOGICAL_AND_OP_12a3_should_throw_error
-  :line: 367
+  :line: 365
   :message: ''
 - :test: test_tokenDel_should_not_cause_error
-  :line: 399
+  :line: 397
   :message: ''
 - :test: test_getToken_sould_throw_error_mix_Number_Identifier
-  :line: 429
+  :line: 427
   :message: ''
 - :test: test_getToken_sould_not_throw_error_mix_Identifier_Number
-  :line: 442
+  :line: 440
   :message: ''
 :failures: []
 :ignores: []

@@ -1,6 +1,9 @@
 #include "unity.h"
 #include "Evaluate.h"
 #include "Stack.h"
+#include "Text.h"
+#include "Types.h"
+#include "StringObject.h"
 #include "LinkedList.h"
 #include "Token.h"
 #include "tryEvaluatethenPush.h"
@@ -11,9 +14,7 @@
 #include "ErrorCode.h"
 #include "CException.h"
 #include "CharSet.h"
-#include "Text.h"
-#include "StringObject.h"
-#include "Types.h"
+
 
 
 
@@ -41,8 +42,8 @@ Mock function left stringCreate
 
 
 ********************************************************************************************************************************/	
-/*
-void test_should_return_3_for_1_plus_2(void){
+
+void xtest_should_return_3_for_1_plus_2(void){
 	int check;
 	//Initialize tokenizer,token and stack
 	String tokenizer = {.text = t"1+2", .start = 0, .length=3};
@@ -53,7 +54,7 @@ void test_should_return_3_for_1_plus_2(void){
 	TEST_ASSERT_EQUAL(3,check);
 	printf("Answer : %d ",check);
 }
-*/
+
 /*
 void test_should_return_6_for_60_divide_10(void){
 	

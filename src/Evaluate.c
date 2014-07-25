@@ -46,7 +46,7 @@ int evaluate(char *expression){
 	tokenizer = stringNew(newText);
 	
 	if(expression ==NULL){	
-		Throw(ERR_EMPTY_ARGUMENT);
+		Throw(ERR_NO_ARGUMENT);
 	}
 	
 	while((token=getToken(tokenizer))!=NULL){
