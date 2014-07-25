@@ -53,11 +53,11 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 			answer=~first->value;
 		break;
 		
-		case INCREMENT:
+		case INCREMENT_OP:
 			answer=++first->value;
 		break;
 		
-		case DECREMENT:
+		case DECREMENT_OP:
 			answer=--first->value;
 		break;
 			

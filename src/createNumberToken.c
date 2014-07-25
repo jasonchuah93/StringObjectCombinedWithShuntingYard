@@ -24,7 +24,7 @@
 Token *createNumberToken(int number)
 {
 	Number *newToken = malloc (sizeof(Number));
-	newToken->type = NUMBER;
+	newToken->type = NUMBER_TOKEN;
 	newToken->value=number;
 	
 	return (Token*)newToken;

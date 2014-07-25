@@ -30,8 +30,9 @@ typedef enum {
   LOGICAL_NOT_OP,     // !  (prefix)
   OPENING_BRACKET_OP, // (  (prefix)
   CLOSING_BRACKET_OP, // )  (prefix)
-  INCREMENT,		 // ++(prefix)
-  DECREMENT			// --(prefix)
+  INCREMENT_OP,		 // ++(prefix)
+  DECREMENT_OP,			// --(prefix)
+  HASH_OP			// #(illegal)
 } OperatorID;
 
 typedef enum {
@@ -78,6 +79,7 @@ typedef struct {
 Number *numberNew(int value); //1st
 Operator *operatorNewBySymbol(char *symbol);//3rd
 Operator *operatorNewByID(OperatorID id);
+OperatorInfo *operatorFindInfoByID(OperatorID id);
 Identifier *identifierNew(Text *name);//2nd
 Token *getToken(String *str);
 void tokenDel(Token *token);

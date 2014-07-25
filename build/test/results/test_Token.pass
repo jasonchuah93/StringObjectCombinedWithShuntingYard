@@ -33,68 +33,77 @@
 - :test: test_operatorNewByID_should_retun_NULL
   :line: 98
   :message: ''
+- :test: test_operatorFindInfoById_should_get_the_correct_ID_in_the_Table_List
+  :line: 106
+  :message: ''
+- :test: test_operatorFindInfoById_should_get_the_correct_ID_in_the_Table_List2
+  :line: 117
+  :message: ''
+- :test: test_operatorFindInfoById_should_return_null_if_the_input_is_not_within_the_table_list
+  :line: 128
+  :message: ''
 - :test: test_getToken_sould_return_NumberToken_324
-  :line: 105
+  :line: 139
   :message: ''
 - :test: test_getToken_sould_return_NumberToken_123
-  :line: 118
+  :line: 152
   :message: ''
 - :test: test_getToken_sould_return_NumberToken_123_without_ending_with_space
-  :line: 131
+  :line: 165
   :message: ''
 - :test: test_getToken_sould_return_IdentifierToken_AuCheeLiang
-  :line: 143
+  :line: 177
   :message: ''
 - :test: test_getToken_should_return_IdentifierToken_ChiewBingXuan
-  :line: 156
+  :line: 190
   :message: ''
 - :test: test_getToken_sould_return_IdentifierToken_AuCheeLiang_without_ending_with_space
-  :line: 169
+  :line: 203
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_BITWISE_NOT_OP
-  :line: 182
+  :line: 216
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_BITWISE_AND_OP
-  :line: 197
+  :line: 231
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_LOGICAL_AND_OP
-  :line: 212
+  :line: 246
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_LOGICAL_OR_OP
-  :line: 227
+  :line: 261
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_number_and_alphabet
-  :line: 242
+  :line: 276
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_number_and_operator
-  :line: 255
+  :line: 289
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_all_together
-  :line: 268
+  :line: 302
   :message: ''
 - :test: test_getToken_multiple_times_abc_BITWISE_NOT_OP_123
-  :line: 281
+  :line: 315
   :message: ''
 - :test: test_getToken_multiple_times_abc_LOGICAL_AND_OP_123
-  :line: 307
+  :line: 341
   :message: ''
 - :test: test_getToken_multiple_times_abc_LOGICAL_AND_OP_12a3_should_throw_error
-  :line: 333
+  :line: 367
   :message: ''
 - :test: test_tokenDel_should_not_cause_error
-  :line: 365
+  :line: 399
   :message: ''
 - :test: test_getToken_sould_throw_error_mix_Number_Identifier
-  :line: 395
+  :line: 429
   :message: ''
 - :test: test_getToken_sould_not_throw_error_mix_Identifier_Number
-  :line: 408
+  :line: 442
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 29
-  :passed: 29
+  :total: 32
+  :passed: 32
   :failed: 0
   :ignored: 0
 :stdout: []

@@ -102,6 +102,40 @@ void test_operatorNewByID_should_retun_NULL(){
 	TEST_ASSERT_EQUAL(NULL,operator);
 }
 
+//Test for find ID 
+void test_operatorFindInfoById_should_get_the_correct_ID_in_the_Table_List()
+{
+	int toCompare;
+	OperatorInfo *operator = operatorFindInfoByID(LOGICAL_OR_OP);
+
+	toCompare = strcmp(operator->symbol,"||");
+	TEST_ASSERT_EQUAL(20,operator->precedence);
+	TEST_ASSERT_EQUAL(LOGICAL_OR_OP,operator->id);
+	TEST_ASSERT_EQUAL(0,toCompare);
+}
+
+void test_operatorFindInfoById_should_get_the_correct_ID_in_the_Table_List2()
+{
+	int toCompare;
+	OperatorInfo *operator = operatorFindInfoByID(SUB_OP);
+
+	toCompare = strcmp(operator->symbol,"-");
+	TEST_ASSERT_EQUAL(80,operator->precedence);
+	TEST_ASSERT_EQUAL(SUB_OP,operator->id);
+	TEST_ASSERT_EQUAL(0,toCompare);
+}
+
+void test_operatorFindInfoById_should_return_null_if_the_input_is_not_within_the_table_list()
+{
+	int toCompare;
+	
+	OperatorInfo *operator = operatorFindInfoByID(HASH_OP);
+	
+	TEST_ASSERT_EQUAL(NULL,operator);
+
+	
+}
+
 void test_getToken_sould_return_NumberToken_324(void){
 	int test;
 	Text *text = textNew("324 123 435 01010");

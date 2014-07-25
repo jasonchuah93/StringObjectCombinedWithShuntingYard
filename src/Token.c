@@ -25,8 +25,8 @@ OperatorInfo mainOperatorTable[] = {
   {.symbol="||", .id=LOGICAL_OR_OP, .precedence=20, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
   
   // All other symbols MUST have higher precedence than those below:
-  {.symbol="++", .id=INCREMENT, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
-  {.symbol="--", .id=DECREMENT, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
+  {.symbol="++", .id=INCREMENT_OP, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
+  {.symbol="--", .id=DECREMENT_OP, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol="(", .id=OPENING_BRACKET_OP, .precedence=10, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol=")", .id=CLOSING_BRACKET_OP, .precedence=9,  .affix=POSTFIX, .assoc=LEFT_TO_RIGHT}
 };
@@ -97,6 +97,18 @@ Operator *operatorNewByID(OperatorID id) {
 	return NULL;
 }
 
+OperatorInfo *operatorFindInfoByID(OperatorID id){
+	int i;
+	
+	for(i=0;i < MAIN_OPERATOR_TABLE_SIZE; i++){
+		if(mainOperatorTable[i].id == id){
+			return &mainOperatorTable[i];
+		}
+	}
+	
+	return NULL;
+}
+	
 /**
  * Create an Identifier token initialized with the name
  * given.
