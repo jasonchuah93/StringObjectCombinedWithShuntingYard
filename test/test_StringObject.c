@@ -98,6 +98,19 @@ void test_stringNew_should_create_string_with_dynamic_text(void){
 	TEST_ASSERT_EQUAL(2,str->text->reference);
 }
 
+void test_stringNew_should_create_string_with_dynamic_text_2(void){
+	int toCompare;
+	Text *text = textNew("1+2");
+	String *str = stringNew(text);
+	
+	toCompare = strcmp(str->text->string,text->string);
+	TEST_ASSERT_EQUAL(0,toCompare);
+	TEST_ASSERT_EQUAL(1,str->reference);
+	TEST_ASSERT_EQUAL(0,str->start);
+	TEST_ASSERT_EQUAL(3,str->length);
+	TEST_ASSERT_EQUAL(2,str->text->reference);
+}
+
 void test_stringNew_should_create_string_with_static_text(void){
 	int toCompare;
 	Text *text = t"DreFick";
@@ -725,3 +738,4 @@ void test_stringToInteger_should_get_5555(void){
 
 	TEST_ASSERT_EQUAL(5555,stringToInteger(string));
 }
+

@@ -8,3 +8,5 @@
 
 
 int evaluate(char *expression);
+
+int evaluatex(char *expression);

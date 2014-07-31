@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "Token.h"
+#include "getToken.h"
 #include "Text.h"
 #include "StringObject.h"
 #include "CharSet.h"

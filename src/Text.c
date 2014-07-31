@@ -28,6 +28,11 @@ void textDump(Text *text){
 */
 Text *textNew(char *charStr){
 	// Character string copy from charStr to text->string
+	if(charStr==NULL){
+		printf("(NULL)");
+		return;
+	}
+	
 	Text *text = (Text *)malloc(strlen(charStr) + 4 + 1);
 	strcpy(text->string,charStr);
 	text->reference = 1;

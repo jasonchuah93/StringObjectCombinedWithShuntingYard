@@ -161,7 +161,7 @@ int extractValue(String *arguments){
 		stringRemoveChar(arguments);
 		
 	if(stringCharAt(arguments,0) == ';' || stringLength(arguments) == 0)
-		printf("test1 \n");
+		
 		Throw(ERR_NO_ARGUMENT);
 		
 	string = stringRemoveWordNotContaining(arguments,",;");
@@ -201,7 +201,7 @@ int extractDestination(String *arguments){
 		stringRemoveChar(arguments);
 	
 	if(stringLength(arguments) == 0 ||stringCharAt(arguments,0) == ';')
-		printf("test2 \n");
+		
 		Throw(ERR_NO_ARGUMENT);
 		
 	stringTrimLeft(arguments);
@@ -263,7 +263,7 @@ int extractAccessBanked(String *arguments){
 		stringRemoveChar(arguments);
 		
 	if(stringLength(arguments) == 0 ||stringCharAt(arguments,0) == ';')
-		printf("test3 \n");
+		
 		Throw(ERR_NO_ARGUMENT);
 		
 	stringTrimLeft(arguments);

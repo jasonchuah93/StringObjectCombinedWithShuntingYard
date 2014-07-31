@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include "Evaluate.h"
-#include "Stack.h"
-#include "Text.h"
 #include "StringObject.h"
-#include "Types.h"
 #include "Token.h"
-#include "CharSet.h"
-#include "LinkedList.h"
+#include "getToken.h"
 #include "tryEvaluatethenPush.h"
 #include "operatorEvaluate.h"
 #include "calculateToken.h"
+#include "Stack.h"
 #include "stackForEvaluate.h"
+#include "Text.h"
+#include "Types.h"
+#include "CharSet.h"
 #include "ErrorCode.h"
 #include "CException.h"
+
 
 /*
 	This function is to push tokens that tokenize from expression to stack 
@@ -26,6 +27,8 @@
 					   3)stackPush();   push tokens to number stack or operator stack
 					  
 */	
+
+//New evaluate
 
 int evaluate(char *expression){
 	String *tokenizer;
@@ -47,11 +50,8 @@ int evaluate(char *expression){
 	
 	
 	if(expression ==NULL){	
-		printf("test0 \n");
 		Throw(ERR_NO_ARGUMENT);
-		
 	}
-	
 	while((token=getToken(tokenizer))!=NULL){
 		
 		if(isNumber(token)){
@@ -93,3 +93,4 @@ int evaluate(char *expression){
 	return result->value;
 	
 }
+

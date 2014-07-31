@@ -84,8 +84,7 @@ Identifier *identifierNew(Text *name);//2nd
 Token *getToken(String *str);
 void tokenDel(Token *token);
 
-int isOperator(Token * unknownToken);
-int isNumber(Token * unknownToken);
+
 
 
 #endif // Token_H
