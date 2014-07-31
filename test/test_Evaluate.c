@@ -508,3 +508,37 @@ void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10(void){
 	TEST_ASSERT_EQUAL(7,check);
 	printf("Answer : %d ",check);
 }
+
+void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
+
+	Stack dataStack;
+	Stack operatorStack;
+	int check;
+	ErrorCode e;
+	Text *newText;
+	
+	String tokenizer = {.text = t"43#42"};
+	
+	Number number43 = {.type= NUMBER_TOKEN, .value=43};
+	Number number42 = {.type= NUMBER_TOKEN, .value=42};
+	Operator hashtag = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(HASH_OP) };
+	
+	createStack_ExpectAndReturn(&dataStack);
+	createStack_ExpectAndReturn(&operatorStack);
+	textNew_ExpectAndReturn("43#42",newText);
+	stringNew_ExpectAndReturn(newText,&tokenizer);
+	
+	//44
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&number43);
+	isNumber_ExpectAndReturn((Token *)&number43,1);
+	stackPush_Expect((Token *)&number43,&dataStack);
+	//HASHTAG
+	getToken_ExpectAndThrow(&tokenizer,UNKNOWN_OPERATOR);
+	Try{
+		evaluate("43#42");
+		 TEST_FAIL_MESSAGE("Should throw ERR_INVALID_OPERATOR");
+	 }Catch(e){
+		 TEST_ASSERT_EQUAL(UNKNOWN_OPERATOR,e);
+		 
+	 }
+}
