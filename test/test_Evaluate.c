@@ -542,3 +542,107 @@ void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 		 
 	 }
 }
+
+void test_should_evaluate_left_parenthesis_2_right_parenthesis(void){
+	
+	Stack dataStack;
+	Stack operatorStack;
+	int check;
+	Text *newText;
+	
+	String tokenizer = {.text = t"(2)"};
+	
+	Operator leftBracket = {.type= OPERATOR_TOKEN,.info=operatorFindInfoByID(OPENING_BRACKET_OP)};
+	Number number2 = {.type= NUMBER_TOKEN, .value=2};
+	Operator rightBracket = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
+	
+	createStack_ExpectAndReturn(&dataStack);
+	createStack_ExpectAndReturn(&operatorStack);
+	textNew_ExpectAndReturn("(2)",newText);
+	stringNew_ExpectAndReturn(newText,&tokenizer);
+	
+	//Operator token left parenthesis
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&leftBracket);
+	isNumber_ExpectAndReturn((Token *)&leftBracket,0);
+	isOperator_ExpectAndReturn((Token *)&leftBracket,1);
+	stackPop_ExpectAndReturn(&operatorStack,NULL); //If operator stack is null,
+	stackPush_Expect((Token *)&leftBracket,&operatorStack);	  //then push a operator token inside
+	
+	//Number2
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&number2);
+	isNumber_ExpectAndReturn((Token *)&number2,1);
+	stackPush_Expect((Token *)&number2,&dataStack);
+	
+	//Operator token right parenthesis
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&rightBracket);
+	isNumber_ExpectAndReturn((Token *)&rightBracket,0);
+	isOperator_ExpectAndReturn((Token *)&rightBracket,1);
+	stackPop_ExpectAndReturn(&operatorStack,(Token *)&leftBracket); //Operator stack has token1 inside
+	stackPop_ExpectAndReturn(&dataStack,(Token *)&number2); //Once left and right bracket is detected, pop the token1 and number token and evaluate
+	createNumberToken_ExpectAndReturn(2,(Token *)&number2);
+	stackPush_Expect((Token *)&number2,&dataStack);
+	stackPop_ExpectAndReturn(&operatorStack,NULL);
+	getToken_ExpectAndReturn(&tokenizer,NULL);
+	
+	//Evaluate
+	stackPop_ExpectAndReturn(&operatorStack,NULL);
+	stackPop_ExpectAndReturn(&dataStack,(Token *)&number2);
+	destroyStack_Expect(&dataStack);
+	destroyStack_Expect(&operatorStack);
+	
+	check=evaluate("(2)");
+	TEST_ASSERT_EQUAL(2,check);
+	printf("Answer : %d ",check);
+}
+
+void test_should_evaluate_left_parenthesis_25_right_parenthesis(void){
+	
+	Stack dataStack;
+	Stack operatorStack;
+	int check;
+	Text *newText;
+	
+	String tokenizer = {.text = t"(25)"};
+	
+	Operator leftBracket = {.type= OPERATOR_TOKEN,.info=operatorFindInfoByID(OPENING_BRACKET_OP)};
+	Number number25 = {.type= NUMBER_TOKEN, .value=25};
+	Operator rightBracket = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
+	
+	createStack_ExpectAndReturn(&dataStack);
+	createStack_ExpectAndReturn(&operatorStack);
+	textNew_ExpectAndReturn("(25)",newText);
+	stringNew_ExpectAndReturn(newText,&tokenizer);
+	
+	//Operator token left parenthesis
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&leftBracket);
+	isNumber_ExpectAndReturn((Token *)&leftBracket,0);
+	isOperator_ExpectAndReturn((Token *)&leftBracket,1);
+	stackPop_ExpectAndReturn(&operatorStack,NULL); //If operator stack is null,
+	stackPush_Expect((Token *)&leftBracket,&operatorStack);	  //then push a operator token inside
+	
+	//Number2
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&number25);
+	isNumber_ExpectAndReturn((Token *)&number25,1);
+	stackPush_Expect((Token *)&number25,&dataStack);
+	
+	//Operator token right parenthesis
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&rightBracket);
+	isNumber_ExpectAndReturn((Token *)&rightBracket,0);
+	isOperator_ExpectAndReturn((Token *)&rightBracket,1);
+	stackPop_ExpectAndReturn(&operatorStack,(Token *)&leftBracket); //Operator stack has token1 inside
+	stackPop_ExpectAndReturn(&dataStack,(Token *)&number25); //Once left and right bracket is detected, pop the token1 and number token and evaluate
+	createNumberToken_ExpectAndReturn(25,(Token *)&number25);
+	stackPush_Expect((Token *)&number25,&dataStack);
+	stackPop_ExpectAndReturn(&operatorStack,NULL);
+	getToken_ExpectAndReturn(&tokenizer,NULL);
+	
+	//Evaluate
+	stackPop_ExpectAndReturn(&operatorStack,NULL);
+	stackPop_ExpectAndReturn(&dataStack,(Token *)&number25);
+	destroyStack_Expect(&dataStack);
+	destroyStack_Expect(&operatorStack);
+	
+	check=evaluate("(25)");
+	TEST_ASSERT_EQUAL(25,check);
+	printf("Answer : %d ",check);
+}
