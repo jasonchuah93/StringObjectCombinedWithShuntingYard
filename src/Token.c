@@ -153,4 +153,24 @@ void tokenDel(Token *token){
 	}
 }
 
-
+void tokenDump(Token *token){
+	
+	if(token==NULL)
+	{
+		printf("NULL token\n");
+		return;
+	}
+	
+	if(token->type == NUMBER_TOKEN){
+		printf("Number Token=%d\n",((Number*)token)->value);
+	}else if(token->type == OPERATOR_TOKEN){		
+		printf("Operator Token=%s, precedence=%d, affix=%d\n",
+					((Operator*)token)->info->symbol,
+					((Operator*)token)->info->precedence,
+					((Operator*)token)->info->affix);
+	}else if(token->type == IDENTIFIER_TOKEN){
+		printf("Identifier Token=%s\n",((Identifier*)token)->name);
+	}else{
+		printf("Unknown Token\n");
+	}
+}

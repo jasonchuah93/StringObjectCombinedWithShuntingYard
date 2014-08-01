@@ -35,8 +35,11 @@ Token *getToken(String *str) {
 	Token *tokenReturn;
 	String *strReturn;
 	
+	printf("getToken\n");
 	stringTrimLeft(str);
-
+	if(stringLength(str)==0)
+		return NULL;		
+	
 	//Number
 	if(stringIsCharAtInSet(str,0,numberSet)){
 		strReturn = stringRemoveWordContaining(str,numberSet);
@@ -61,6 +64,7 @@ Token *getToken(String *str) {
 	else if(stringIsCharAtInSet(str,0,operatorSet)){
 		charReturn[0] = (char )stringRemoveChar(str);
 		charReturn[1] = 0;
+
 
 		if(stringCharAt(str,0) == charReturn[0]){
 			if(charReturn[0] == '&'){
@@ -89,17 +93,17 @@ Token *getToken(String *str) {
 			str->start++;
 			str->length--;
 		}
-			
-		if(isSpace(stringCharAt(str,0)) || str->length==0){
-			Operator *operator = operatorNewBySymbol(charReturn);
-			tokenReturn = (Token *)operator;
-		}
+		printf("charReturn=%s\n",charReturn);
+
+		Operator *operator = operatorNewBySymbol(charReturn);
+		tokenReturn = (Token *)operator;
+
 	}
 	else
 		
 		Throw(ERR_NO_ARGUMENT);
 		
-	free(strReturn);
+	free(strReturn);	
 	return tokenReturn;
 		
 }

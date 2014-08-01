@@ -83,7 +83,7 @@ OperatorInfo *operatorFindInfoByID(OperatorID id);
 Identifier *identifierNew(Text *name);//2nd
 Token *getToken(String *str);
 void tokenDel(Token *token);
-
+void tokenDump(Token *token);
 
 
 

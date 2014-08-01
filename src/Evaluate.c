@@ -36,7 +36,7 @@ int evaluate(char *expression){
 	Token *token;
 	Token *ansToken;
 	ErrorCode exception;
-	int i;
+	int i=0;
 	int counter=0;
 	Number *result;
 	
@@ -52,28 +52,29 @@ int evaluate(char *expression){
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
 	}
+
 	while((token=getToken(tokenizer))!=NULL){
-		
+		printf("i=%d\n",i);
+		printf("type:%d\n",token->type);
 		if(isNumber(token)){
 			stackPush(token,numberStack);
-		}
-		
-		else if(isOperator(token))
-		{
-			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP)
-			{
+			tokenDump(token);
+		} else if(isOperator(token)) {			
+			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
 				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			}
-			else
-			{
-				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			} else {
+				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);				
 			}	
-		}
+			tokenDump(token);
+		}		
 		counter ++;
+		printf("ii=%d\n",i++);
 	}
-	
+	printf("testing\n");
+
 	if(operatorStack == NULL)
 	{
+		printf("testing\n");
 		 operatorPrefixEvaluate(numberStack , (Operator*)token);
 	}
 	else
