@@ -35,7 +35,7 @@ Token *getToken(String *str) {
 	Token *tokenReturn;
 	String *strReturn;
 	
-	printf("getToken\n");
+	
 	stringTrimLeft(str);
 	if(stringLength(str)==0)
 		return NULL;		
@@ -93,7 +93,7 @@ Token *getToken(String *str) {
 			str->start++;
 			str->length--;
 		}
-		printf("charReturn=%s\n",charReturn);
+		
 
 		Operator *operator = operatorNewBySymbol(charReturn);
 		tokenReturn = (Token *)operator;

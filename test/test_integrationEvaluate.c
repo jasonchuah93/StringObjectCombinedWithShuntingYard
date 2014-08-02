@@ -9,13 +9,12 @@
 #include "calculateToken.h"
 #include "createNumberToken.h"
 #include "stackForEvaluate.h"
-#include "ErrorCode.h"
-#include "CException.h"
 #include "Text.h"
 #include "Types.h"
 #include "Token.h"
 #include "CharSet.h"
-#include "LinkedList.h"
+#include "ErrorCode.h"
+#include "CException.h"
 
 
 void setUp(void){}
@@ -81,11 +80,43 @@ void test_evaluate_2_PLUS_3_MULTIPLY_4_PLUS_5_MULTIPLY_6(void){
 void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10(void){
 	
 	int check;
-	
-	//Token number 2
 	check=evaluate("2|3+4*5-6-10");
 	TEST_ASSERT_EQUAL(7,check);
 	printf("Answer : %d ",check);
 }
 
+void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10_OR_10_AND_53_XOR_21(void){
+	
+	int check;
+	
+	check=evaluate("2|3+4*5-6-10|10&53^21");
+	TEST_ASSERT_EQUAL(23,check);
+	printf("Answer : %d ",check);
+}
+
+void test_evaluate_with_different_expression(void){
+	int check;
+	
+	check=evaluate("2|3+4*5-6-10|10&53^21+95%6^200%5*80");
+	TEST_ASSERT_EQUAL(31,check);
+	printf("Answer : %d ",check);
+}
+
+void test_evaluate_with_longer_expression(void){
+	int check;
+	
+	check=evaluate("2|3&4^5|6^10|10&53^21&95|6^200&5|80");
+	TEST_ASSERT_EQUAL(95,check);
+	printf("Answer : %d ",check);
+}
+
+void xtest_should_evaluate_left_parenthesis_2_right_parenthesis(void){
+	
+	int check;
+	
+	check=evaluate("(2)");
+	TEST_ASSERT_EQUAL(2,check);
+	printf("Answer : %d ",check);
+	
+}	
 

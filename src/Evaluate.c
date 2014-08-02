@@ -54,27 +54,29 @@ int evaluate(char *expression){
 	}
 
 	while((token=getToken(tokenizer))!=NULL){
-		printf("i=%d\n",i);
-		printf("type:%d\n",token->type);
+		//printf("i=%d\n",i);
+		//printf("type:%d\n",token->type);
 		if(isNumber(token)){
 			stackPush(token,numberStack);
-			tokenDump(token);
+			//tokenDump(token);
 		} else if(isOperator(token)) {			
 			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
 				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			} else {
 				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);				
 			}	
-			tokenDump(token);
+			
 		}		
 		counter ++;
 		printf("ii=%d\n",i++);
+	
+	
 	}
-	printf("testing\n");
+	//printf("testing\n");
 
 	if(operatorStack == NULL)
 	{
-		printf("testing\n");
+		//printf("testing\n");
 		 operatorPrefixEvaluate(numberStack , (Operator*)token);
 	}
 	else
