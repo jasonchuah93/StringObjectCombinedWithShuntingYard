@@ -75,7 +75,7 @@ int evaluate(char *expression){
 
 	if(operatorStack == NULL)
 	{
-		printf("testing \n");
+		
 		 operatorPrefixEvaluate(numberStack , (Operator*)token);
 	}
 	else
