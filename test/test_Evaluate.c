@@ -38,7 +38,7 @@ Using following real function :
 							3)tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack);
 							4)calculate(Operator *opeToken, Number *first , Number *second);
  ********************************************************************************************************************************/	
-
+/*
  void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	
 	ErrorCode e;
@@ -793,3 +793,104 @@ void test_left_bracket_20_multiply_3_subtract_50_right_bracket(void){
 	TEST_ASSERT_EQUAL(10,check);
 	printf("Answer : %d ",check);
 }
+
+void test_logic_not_12_SHOULD_RETURN_0(void){
+	
+	Stack numStack;
+	Stack opeStack;
+	int check;
+	Text *newText;
+	
+	//Initialize tokenizer,token and stack
+	String tokenizer = {.text = t"!12"};
+	
+	Operator logicNot = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(LOGICAL_NOT_OP)};
+	Number number12 = {.type= NUMBER_TOKEN, .value=12};
+	Number number0 = {.type=NUMBER_TOKEN, .value=0};
+	
+	//Evaluate the expression
+	createStack_ExpectAndReturn(&numStack);
+	createStack_ExpectAndReturn(&opeStack);
+	textNew_ExpectAndReturn("!12",newText);
+	stringNew_ExpectAndReturn(newText,&tokenizer);
+	
+	//Token operator minus
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&logicNot);
+	isNumber_ExpectAndReturn((Token *)&logicNot,0);
+	isOperator_ExpectAndReturn((Token *)&logicNot,1);
+	stackPop_ExpectAndReturn(&opeStack,NULL);
+	stackPush_Expect((Token *)&logicNot,&opeStack);
+	
+	//Token number 2
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&number12);
+	isNumber_ExpectAndReturn((Token *)&number12,1);
+	stackPush_Expect((Token *)&number12,&numStack);
+	getToken_ExpectAndReturn(&tokenizer,NULL);
+	
+	//Evaluate
+	stackPop_ExpectAndReturn(&opeStack,(Token *)&logicNot);
+	stackPop_ExpectAndReturn(&numStack,(Token *)&number12);
+	stackPop_ExpectAndReturn(&numStack,NULL);
+	createNumberToken_ExpectAndReturn(0,(Token *)&number0);
+	stackPush_Expect((Token *)&number0,&numStack);
+	stackPop_ExpectAndReturn(&opeStack,NULL);
+	stackPop_ExpectAndReturn(&numStack,(Token *)&number0);
+	destroyStack_Expect(&numStack);
+	destroyStack_Expect(&opeStack);
+	
+	check=evaluate("!12");
+	TEST_ASSERT_EQUAL(0,check);
+	printf("Answer : %d ",check);
+
+}
+
+void test_NEGATIVE_2_SHOULD_RETURN_NEGATIVE_2(void){
+	
+	Stack numStack;
+	Stack opeStack;
+	int check;
+	Text *newText;
+	
+	//Initialize tokenizer,token and stack
+	String tokenizer = {.text = t"-2"};
+	
+	Operator subtract = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(MINUS_OP)};
+	Number number2 = {.type= NUMBER_TOKEN, .value=2};
+	Number negNum2 = {.type=NUMBER_TOKEN, .value=-2};
+	
+	//Evaluate the expression
+	createStack_ExpectAndReturn(&numStack);
+	createStack_ExpectAndReturn(&opeStack);
+	textNew_ExpectAndReturn("-2",newText);
+	stringNew_ExpectAndReturn(newText,&tokenizer);
+	
+	//Token operator minus
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&subtract);
+	isNumber_ExpectAndReturn((Token *)&subtract,0);
+	isOperator_ExpectAndReturn((Token *)&subtract,1);
+	stackPop_ExpectAndReturn(&opeStack,NULL);
+	stackPush_Expect((Token *)&subtract,&opeStack);
+	
+	//Token number 2
+	getToken_ExpectAndReturn(&tokenizer,(Token *)&number2);
+	isNumber_ExpectAndReturn((Token *)&number2,1);
+	stackPush_Expect((Token *)&number2,&numStack);
+	getToken_ExpectAndReturn(&tokenizer,NULL);
+	
+	//Evaluate
+	stackPop_ExpectAndReturn(&opeStack,(Token *)&subtract);
+	stackPop_ExpectAndReturn(&numStack,(Token *)&number2);
+	stackPop_ExpectAndReturn(&numStack,NULL);
+	createNumberToken_ExpectAndReturn(-2,(Token *)&negNum2);
+	stackPush_Expect((Token *)&negNum2,&numStack);
+	stackPop_ExpectAndReturn(&opeStack,NULL);
+	stackPop_ExpectAndReturn(&numStack,(Token *)&negNum2);
+	destroyStack_Expect(&numStack);
+	destroyStack_Expect(&opeStack);
+	
+	check=evaluate("-2");
+	TEST_ASSERT_EQUAL(-2,check);
+	printf("Answer : %d ",check);
+
+}
+*/

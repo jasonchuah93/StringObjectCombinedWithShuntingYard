@@ -75,7 +75,7 @@ int prefixCalculate(Operator *opeToken1, Number *first){
 	switch(opeToken1->info->id)
 	{	
 		case OPENING_BRACKET_OP:
-			answer=(first->value);
+			answer= first->value;
 		break;
 		
 		case PLUS_OP:

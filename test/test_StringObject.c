@@ -111,6 +111,19 @@ void test_stringNew_should_create_string_with_dynamic_text_2(void){
 	TEST_ASSERT_EQUAL(2,str->text->reference);
 }
 
+void test_stringNew_should_create_string_with_dynamic_text_3(void){
+	int toCompare;
+	Text *text = textNew("(2)");
+	String *str = stringNew(text);
+	
+	toCompare = strcmp(str->text->string,text->string);
+	TEST_ASSERT_EQUAL(0,toCompare);
+	TEST_ASSERT_EQUAL(1,str->reference);
+	TEST_ASSERT_EQUAL(0,str->start);
+	TEST_ASSERT_EQUAL(3,str->length);
+	TEST_ASSERT_EQUAL(2,str->text->reference);
+}
+
 void test_stringNew_should_create_string_with_static_text(void){
 	int toCompare;
 	Text *text = t"DreFick";
@@ -277,7 +290,7 @@ void test_stringRemoveChar_should_return_negative_one_after_deletion(void){
 	String *str = stringNew(text);
 	
 	toCompare = stringRemoveChar(str);
-	TEST_ASSERT_EQUAL(-1,toCompare);
+	TEST_ASSERT_EQUAL(97,toCompare);
 	TEST_ASSERT_EQUAL(0,str->length);
 	TEST_ASSERT_EQUAL(0,str->start);
 }

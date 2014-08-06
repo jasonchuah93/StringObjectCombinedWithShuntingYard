@@ -90,20 +90,29 @@
 - :test: test_getToken_multiple_times_abc_LOGICAL_AND_OP_12a3_should_throw_error
   :line: 366
   :message: ''
+- :test: test_getToken_should_get_opening_and_closing_bracket
+  :line: 397
+  :message: ''
 - :test: test_tokenDel_should_not_cause_error
-  :line: 398
+  :line: 433
   :message: ''
 - :test: test_getToken_sould_throw_error_mix_Number_Identifier
-  :line: 428
+  :line: 463
   :message: ''
 - :test: test_getToken_sould_not_throw_error_mix_Identifier_Number
-  :line: 441
+  :line: 476
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 32
-  :passed: 32
+  :total: 33
+  :passed: 33
   :failed: 0
   :ignored: 0
-:stdout: []
+:stdout:
+- '[1] f_str[:2]:(2), start:1, len:2, str:2)'
+- Operator Token=(, precedence=10, affix=1
+- '[1] f_str[:3]:(2), start:2, len:1, str:)'
+- Number Token=2
+- '[1] f_str[:3]:(2), start:2, len:0, str:'
+- Operator Token=), precedence=9, affix=3

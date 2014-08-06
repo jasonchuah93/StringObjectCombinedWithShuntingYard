@@ -42,6 +42,7 @@ extern void test_textDel_should_delete_dynamic_text(void);
 extern void test_textDel_should_not_delete_static_text(void);
 extern void test_textDel_should_not_delete_when_reference_not_0(void);
 extern void test_textDel_should_not_delete_and_reduce_reference(void);
+extern void test_textNew_should_accept(void);
 
 
 //=======Test Reset Option=====
@@ -65,6 +66,7 @@ int main(void)
   RUN_TEST(test_textDel_should_not_delete_static_text, 52);
   RUN_TEST(test_textDel_should_not_delete_when_reference_not_0, 61);
   RUN_TEST(test_textDel_should_not_delete_and_reduce_reference, 72);
+  RUN_TEST(test_textNew_should_accept, 83);
 
   return (UnityEnd());
 }

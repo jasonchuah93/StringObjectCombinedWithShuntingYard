@@ -394,7 +394,42 @@ void test_getToken_multiple_times_abc_LOGICAL_AND_OP_12a3_should_throw_error(voi
 	}
 }
 
+void test_getToken_should_get_opening_and_closing_bracket(void){
 
+	Text *text = textNew("(2)");
+	String *string = stringNew(text);
+	Token *token;
+	
+	//Test for (
+	token = getToken(string);
+	TEST_ASSERT_EQUAL(OPERATOR_TOKEN,token->type);
+	TEST_ASSERT_EQUAL_STRING("(",((Operator *)token)->info->symbol);
+	TEST_ASSERT_EQUAL(OPENING_BRACKET_OP,((Operator *)token)->info->id);
+	TEST_ASSERT_EQUAL(10,((Operator *)token)->info->precedence);
+	TEST_ASSERT_EQUAL_String("2)",string);
+	stringDump(string);
+	tokenDump(token);
+	
+	//Test for 2
+	token = getToken(string);
+	TEST_ASSERT_EQUAL(NUMBER_TOKEN,token->type);
+	TEST_ASSERT_EQUAL(2,((Number *)token)->value);
+	TEST_ASSERT_EQUAL_String(")",string);
+	stringDump(string);
+	tokenDump(token);
+	
+	//Test for )
+	token = getToken(string);
+	TEST_ASSERT_EQUAL(OPERATOR_TOKEN,token->type);
+	TEST_ASSERT_EQUAL_STRING(")",((Operator *)token)->info->symbol);
+	TEST_ASSERT_EQUAL(CLOSING_BRACKET_OP,((Operator *)token)->info->id);
+	TEST_ASSERT_EQUAL(9,((Operator *)token)->info->precedence);
+	TEST_ASSERT_EQUAL_String("",string);
+	stringDump(string);
+	tokenDump(token);
+	
+	
+}
 void test_tokenDel_should_not_cause_error(){
 	Text *text = textNew("  abc && 123");
 	String *string = stringNew(text);

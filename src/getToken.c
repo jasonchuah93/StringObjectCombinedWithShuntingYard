@@ -97,7 +97,7 @@ Token *getToken(String *str) {
 
 		Operator *operator = operatorNewBySymbol(charReturn);
 		tokenReturn = (Token *)operator;
-
+		
 	}
 	else
 		

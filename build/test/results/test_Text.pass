@@ -27,11 +27,14 @@
 - :test: test_textDel_should_not_delete_and_reduce_reference
   :line: 72
   :message: ''
+- :test: test_textNew_should_accept
+  :line: 83
+  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 8
-  :passed: 8
+  :total: 9
+  :passed: 9
   :failed: 0
   :ignored: 0
 :stdout: []

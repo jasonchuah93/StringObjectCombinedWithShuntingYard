@@ -2,7 +2,7 @@
 #include <malloc.h>
 #include "CException.h"
 #include "Token.h"
-#include "Text.h"
+#include "Evaluate.h"
 #include "CharSet.h"
 #include "ErrorCode.h"
 #include "CustomTypeAssert.h"
@@ -28,10 +28,9 @@ OperatorInfo mainOperatorTable[] = {
   {.symbol="++", .id=INCREMENT_OP, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol="--", .id=DECREMENT_OP, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol="(", .id=OPENING_BRACKET_OP, .precedence=10, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
-  {.symbol=")", .id=CLOSING_BRACKET_OP, .precedence=9,  .affix=POSTFIX, .assoc=LEFT_TO_RIGHT}
-};
-
-OperatorInfo alternativeOperatorTable[] = {
+  {.symbol=")", .id=CLOSING_BRACKET_OP, .precedence=9,  .affix=POSTFIX, .assoc=LEFT_TO_RIGHT},
+  
+  //OperatorInfo alternativeOperatorTable[] 
   {.symbol="+", .id=PLUS_OP, .precedence=150, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol="-", .id=MINUS_OP, .precedence=150, .affix=PREFIX, .assoc=RIGHT_TO_LEFT}
 };

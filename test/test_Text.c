@@ -79,3 +79,13 @@ void test_textDel_should_not_delete_and_reduce_reference(void){
 	TEST_ASSERT_EQUAL(text1,toCompare);
 	TEST_ASSERT_EQUAL(0x80000000,toCompare->reference);
 }
+
+void test_textNew_should_accept(void){
+	int compare;
+	Text *text = textNew("(2)");
+	compare = strcmp(text->string,"(2)");
+	TEST_ASSERT_EQUAL(0,compare);
+	TEST_ASSERT_EQUAL(1,text->reference);
+	
+
+}

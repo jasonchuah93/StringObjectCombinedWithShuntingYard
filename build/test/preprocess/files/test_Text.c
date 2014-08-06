@@ -157,3 +157,23 @@ void test_textDel_should_not_delete_and_reduce_reference(void){
  UnityAssertEqualNumber((_U_SINT)((0x80000000)), (_U_SINT)((toCompare->reference)), (((void *)0)), (_U_UINT)80, UNITY_DISPLAY_STYLE_INT);
 
 }
+
+
+
+void test_textNew_should_accept(void){
+
+ int compare;
+
+ Text *text = textNew("(2)");
+
+ compare = strcmp(text->string,"(2)");
+
+ UnityAssertEqualNumber((_U_SINT)((0)), (_U_SINT)((compare)), (((void *)0)), (_U_UINT)87, UNITY_DISPLAY_STYLE_INT);
+
+ UnityAssertEqualNumber((_U_SINT)((1)), (_U_SINT)((text->reference)), (((void *)0)), (_U_UINT)88, UNITY_DISPLAY_STYLE_INT);
+
+
+
+
+
+}

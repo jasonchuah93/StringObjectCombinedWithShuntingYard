@@ -4,82 +4,160 @@
   :file: test_Interpret.c
 :successes:
 - :test: test_extractValue_should_return_correct_value_in_integer
-  :line: 18
+  :line: 26
   :message: ''
 - :test: test_extractValue_should_throw_error_with_empty_argument
-  :line: 31
+  :line: 39
   :message: ''
 - :test: test_extractValue_should_throw_error_with_empty_argument_semicolon
-  :line: 44
+  :line: 52
   :message: ''
 - :test: test_extractValue_should_get_thrown_in_evaluate
-  :line: 57
+  :line: 65
   :message: ''
 - :test: test_extractValue_should_supports_FsFd_instruction
-  :line: 73
+  :line: 79
   :message: ''
 - :test: test_extractDestination_should_return_correct_value_in_integer
-  :line: 91
+  :line: 92
   :message: ''
 - :test: test_extractDestination_should_throw_error_with_empty_argument
-  :line: 106
+  :line: 107
   :message: ''
 - :test: test_extractDestination_should_throw_error_with_empty_argument_semicolon
-  :line: 119
+  :line: 120
   :message: ''
 - :test: test_extractDestination_should_get_value_from_evaluate
-  :line: 132
+  :line: 133
   :message: ''
 - :test: test_extractDestination_should_get_value_from_F
-  :line: 150
-  :message: ''
-- :test: test_extractDestination_should_throw_with_invalid_argument
-  :line: 166
+  :line: 148
   :message: ''
 - :test: test_extractAccessBanked_should_return_correct_value_in_integer
-  :line: 188
+  :line: 184
   :message: ''
 - :test: test_extractAccessBanked_should_throw_error_with_empty_argument
-  :line: 208
+  :line: 201
   :message: ''
 - :test: test_extractAccessBanked_should_throw_error_with_empty_argument_semicolon
-  :line: 231
+  :line: 223
   :message: ''
 - :test: test_extractAccessBaked_should_get_value_from_ACCESS
-  :line: 254
+  :line: 246
   :message: ''
 - :test: test_extractAccessBanked_should_get_value_from_evaluate
-  :line: 275
+  :line: 267
   :message: ''
 - :test: test_extractValue_should_able_to_throw_NO_ARGUMENT_for_both
-  :line: 298
+  :line: 290
   :message: ''
 - :test: test_extractValue_should_able_to_throw_EMPTY_ARGUMENT
-  :line: 322
+  :line: 314
   :message: ''
 - :test: test_extractValue_should_able_to_throw_NO_ARGUMENT
-  :line: 346
+  :line: 338
   :message: ''
 - :test: test_getInstruction_should_get_opCode_RLNCF
-  :line: 370
+  :line: 362
   :message: ''
 - :test: test_getInstruction_should_get_opCode_RETLW
-  :line: 379
+  :line: 371
   :message: ''
 - :test: test_interpret_should_able_to_get_correct_value
-  :line: 388
+  :line: 380
   :message: ''
 - :test: test_interpret_should_throw_an_error_for_unexist_instruction
-  :line: 399
+  :line: 391
   :message: ''
 - :test: test_interpret_should_throw_an_error_for_invalid_input_instruction
-  :line: 411
+  :line: 403
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 24
-  :passed: 24
+  :total: 23
+  :passed: 23
   :failed: 0
   :ignored: 0
-:stdout: []
+:stdout:
+- Number Token=12
+- ii=0
+- Operator Token=+, precedence=80, affix=2
+- ii=1
+- Number Token=34
+- ii=2
+- 'Loop needed for each expression to completely evaluate : 3 '
+- 'Answer : 46 '
+- Number Token=12
+- ii=0
+- Operator Token=+, precedence=80, affix=2
+- ii=1
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=321
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=12
+- ii=0
+- Operator Token=+, precedence=80, affix=2
+- ii=1
+- Number Token=34
+- ii=2
+- 'Loop needed for each expression to completely evaluate : 3 '
+- 'Answer : 46'
+- 'Answer : 1 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=1
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=12
+- ii=0
+- Operator Token=+, precedence=80, affix=2
+- ii=1
+- Number Token=34
+- ii=2
+- 'Loop needed for each expression to completely evaluate : 3 '
+- Number Token=3
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=1
+- ii=0
+- Operator Token=+, precedence=80, affix=2
+- ii=1
+- Number Token=2
+- ii=2
+- 'Loop needed for each expression to completely evaluate : 3 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=1
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=1
+- ii=0
+- Operator Token=+, precedence=80, affix=2
+- ii=1
+- Number Token=2
+- ii=2
+- 'Loop needed for each expression to completely evaluate : 3 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
+- Number Token=123
+- ii=0
+- 'Loop needed for each expression to completely evaluate : 1 '
