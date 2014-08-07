@@ -3,6 +3,8 @@
 
 #include "Text.h"
 #include "StringObject.h"
+#include "Stack.h"
+#include "stackForEvaluate.h"
 
 //Throw(ERR_NUMBER_NOT_WELL_FORMED);
 typedef enum {
@@ -85,6 +87,7 @@ Token *getToken(String *str);
 void tokenDel(Token *token);
 void tokenDump(Token *token);
 
+void tryConvertToPrefixThenPush(Operator *newToken,Stack *operatorStack);
 
 
 #endif // Token_H

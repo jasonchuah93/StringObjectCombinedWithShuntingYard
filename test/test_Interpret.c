@@ -22,7 +22,7 @@
 void setUp(void){}
 void tearDown(void){}
 
-
+/*
 void test_extractValue_should_return_correct_value_in_integer(void){
 	Text *text = textNew("12+34,f,BANKED");
 	String *string = stringNew(text);
@@ -412,3 +412,4 @@ void test_interpret_should_throw_an_error_for_invalid_input_instruction(){
 		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
 	}
 }
+*/

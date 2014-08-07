@@ -39,29 +39,6 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_extractValue_should_return_correct_value_in_integer(void);
-extern void test_extractValue_should_throw_error_with_empty_argument(void);
-extern void test_extractValue_should_throw_error_with_empty_argument_semicolon(void);
-extern void test_extractValue_should_get_thrown_in_evaluate(void);
-extern void test_extractValue_should_supports_FsFd_instruction(void);
-extern void test_extractDestination_should_return_correct_value_in_integer(void);
-extern void test_extractDestination_should_throw_error_with_empty_argument(void);
-extern void test_extractDestination_should_throw_error_with_empty_argument_semicolon(void);
-extern void test_extractDestination_should_get_value_from_evaluate(void);
-extern void test_extractDestination_should_get_value_from_F(void);
-extern void test_extractAccessBanked_should_return_correct_value_in_integer(void);
-extern void test_extractAccessBanked_should_throw_error_with_empty_argument(void);
-extern void test_extractAccessBanked_should_throw_error_with_empty_argument_semicolon(void);
-extern void test_extractAccessBaked_should_get_value_from_ACCESS(void);
-extern void test_extractAccessBanked_should_get_value_from_evaluate(void);
-extern void test_extractValue_should_able_to_throw_NO_ARGUMENT_for_both(void);
-extern void test_extractValue_should_able_to_throw_EMPTY_ARGUMENT(void);
-extern void test_extractValue_should_able_to_throw_NO_ARGUMENT(void);
-extern void test_getInstruction_should_get_opCode_RLNCF(void);
-extern void test_getInstruction_should_get_opCode_RETLW(void);
-extern void test_interpret_should_able_to_get_correct_value(void);
-extern void test_interpret_should_throw_an_error_for_unexist_instruction(void);
-extern void test_interpret_should_throw_an_error_for_invalid_input_instruction(void);
 
 
 //=======Mock Management=====
@@ -97,29 +74,6 @@ int main(void)
 {
   Unity.TestFile = "test_Interpret.c";
   UnityBegin();
-  RUN_TEST(test_extractValue_should_return_correct_value_in_integer, 26);
-  RUN_TEST(test_extractValue_should_throw_error_with_empty_argument, 39);
-  RUN_TEST(test_extractValue_should_throw_error_with_empty_argument_semicolon, 52);
-  RUN_TEST(test_extractValue_should_get_thrown_in_evaluate, 65);
-  RUN_TEST(test_extractValue_should_supports_FsFd_instruction, 79);
-  RUN_TEST(test_extractDestination_should_return_correct_value_in_integer, 92);
-  RUN_TEST(test_extractDestination_should_throw_error_with_empty_argument, 107);
-  RUN_TEST(test_extractDestination_should_throw_error_with_empty_argument_semicolon, 120);
-  RUN_TEST(test_extractDestination_should_get_value_from_evaluate, 133);
-  RUN_TEST(test_extractDestination_should_get_value_from_F, 148);
-  RUN_TEST(test_extractAccessBanked_should_return_correct_value_in_integer, 184);
-  RUN_TEST(test_extractAccessBanked_should_throw_error_with_empty_argument, 201);
-  RUN_TEST(test_extractAccessBanked_should_throw_error_with_empty_argument_semicolon, 223);
-  RUN_TEST(test_extractAccessBaked_should_get_value_from_ACCESS, 246);
-  RUN_TEST(test_extractAccessBanked_should_get_value_from_evaluate, 267);
-  RUN_TEST(test_extractValue_should_able_to_throw_NO_ARGUMENT_for_both, 290);
-  RUN_TEST(test_extractValue_should_able_to_throw_EMPTY_ARGUMENT, 314);
-  RUN_TEST(test_extractValue_should_able_to_throw_NO_ARGUMENT, 338);
-  RUN_TEST(test_getInstruction_should_get_opCode_RLNCF, 362);
-  RUN_TEST(test_getInstruction_should_get_opCode_RETLW, 371);
-  RUN_TEST(test_interpret_should_able_to_get_correct_value, 380);
-  RUN_TEST(test_interpret_should_throw_an_error_for_unexist_instruction, 391);
-  RUN_TEST(test_interpret_should_throw_an_error_for_invalid_input_instruction, 403);
 
   return (UnityEnd());
 }

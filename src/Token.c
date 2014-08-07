@@ -2,6 +2,8 @@
 #include <malloc.h>
 #include "CException.h"
 #include "Token.h"
+#include "Stack.h"
+#include "stackForEvaluate.h"
 #include "Evaluate.h"
 #include "CharSet.h"
 #include "ErrorCode.h"
@@ -11,8 +13,8 @@
 #define	ALTERNATIVE_OPERATOR_TABLE_SIZE	(sizeof(alternativeOperatorTable)/sizeof(OperatorInfo))
 
 OperatorInfo mainOperatorTable[] = {
-  {.symbol="~", .id=BITWISE_NOT_OP, .precedence=150, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
-  {.symbol="!", .id=LOGICAL_NOT_OP, .precedence=150, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
+  {.symbol="~", .id=BITWISE_NOT_OP, .precedence=150, .affix=PREFIX, .assoc=LEFT_TO_RIGHT},
+  {.symbol="!", .id=LOGICAL_NOT_OP, .precedence=150, .affix=PREFIX, .assoc=LEFT_TO_RIGHT},
   {.symbol="*", .id=MUL_OP, .precedence=100, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
   {.symbol="/", .id=DIV_OP, .precedence=100, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
   {.symbol="%", .id=MOD_OP, .precedence=100, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
@@ -23,14 +25,12 @@ OperatorInfo mainOperatorTable[] = {
   {.symbol="|", .id=BITWISE_OR_OP, .precedence=40, .affix=INFIX, .assoc=LEFT_TO_RIGHT},  
   {.symbol="&&", .id=LOGICAL_AND_OP, .precedence=30, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
   {.symbol="||", .id=LOGICAL_OR_OP, .precedence=20, .affix=INFIX, .assoc=LEFT_TO_RIGHT},
-  
   // All other symbols MUST have higher precedence than those below:
-  {.symbol="++", .id=INCREMENT_OP, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
-  {.symbol="--", .id=DECREMENT_OP, .precedence=15, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol="(", .id=OPENING_BRACKET_OP, .precedence=10, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
-  {.symbol=")", .id=CLOSING_BRACKET_OP, .precedence=9,  .affix=POSTFIX, .assoc=LEFT_TO_RIGHT},
-  
-  //OperatorInfo alternativeOperatorTable[] 
+  {.symbol=")", .id=CLOSING_BRACKET_OP, .precedence=9,  .affix=POSTFIX, .assoc=LEFT_TO_RIGHT}
+};
+
+OperatorInfo alternativeOperatorTable[] = {
   {.symbol="+", .id=PLUS_OP, .precedence=150, .affix=PREFIX, .assoc=RIGHT_TO_LEFT},
   {.symbol="-", .id=MINUS_OP, .precedence=150, .affix=PREFIX, .assoc=RIGHT_TO_LEFT}
 };
@@ -171,5 +171,20 @@ void tokenDump(Token *token){
 		printf("Identifier Token=%s\n",((Identifier*)token)->name);
 	}else{
 		printf("Unknown Token\n");
+	}
+}
+
+void tryConvertToPrefixThenPush(Operator *newToken,Stack *operatorStack){
+	int i;
+	Affix affix;
+	if(newToken->info->affix == INFIX)
+	{
+		for(i=0;i <ALTERNATIVE_OPERATOR_TABLE_SIZE; i++){
+		if(alternativeOperatorTable[i].affix == affix){
+			newToken->info->affix = PREFIX;
+			return affix;
+			}
+		}
+		
 	}
 }

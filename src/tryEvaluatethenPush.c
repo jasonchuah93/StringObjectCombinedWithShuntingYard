@@ -12,6 +12,9 @@
 #include "stackForEvaluate.h"
 #include <malloc.h>
 
+#define MAIN_OPERATOR_TABLE_SIZE	(sizeof(mainOperatorTable)/sizeof(OperatorInfo))
+#define	ALTERNATIVE_OPERATOR_TABLE_SIZE	(sizeof(alternativeOperatorTable)/sizeof(OperatorInfo))
+
 /**
 	Evaluate all operator token on the operator stack that have strictly lower
 	precedence than the operator token to be pushed. The evaluation of operators token
@@ -115,3 +118,4 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 	}
 	
 }
+

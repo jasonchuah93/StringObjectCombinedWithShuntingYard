@@ -69,7 +69,7 @@ int evaluate(char *expression){
 			
 		}		
 		counter++;
-		printf("ii=%d\n",i++);
+		//printf("ii=%d\n",i++);
 		
 	}
 
