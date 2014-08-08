@@ -108,6 +108,18 @@ OperatorInfo *operatorFindInfoByID(OperatorID id){
 	return NULL;
 }
 
+OperatorInfo *operatorFindAlternateInfoByID(OperatorID id){
+	int i;
+	
+	for(i=0;i < ALTERNATIVE_OPERATOR_TABLE_SIZE; i++){
+		if(alternativeOperatorTable[i].id==id){
+			return &alternativeOperatorTable[i];
+		}
+		
+	}
+	return NULL;
+}
+
 OperatorInfo *operatorFindAlternateInfoByName(char *symbol){
 	int i;
 	
@@ -117,7 +129,6 @@ OperatorInfo *operatorFindAlternateInfoByName(char *symbol){
 		}
 		
 	}
-	
 	return NULL;
 }
 	

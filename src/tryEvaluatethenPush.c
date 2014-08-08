@@ -14,8 +14,7 @@
 #include "ErrorCode.h"
 #include "CException.h"
 
-#define MAIN_OPERATOR_TABLE_SIZE	(sizeof(mainOperatorTable)/sizeof(OperatorInfo))
-#define	ALTERNATIVE_OPERATOR_TABLE_SIZE	(sizeof(alternativeOperatorTable)/sizeof(OperatorInfo))
+
 
 /**
 	Evaluate all operator token on the operator stack that have strictly lower
@@ -121,11 +120,12 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 
 void tryConvertToPrefixThenPush(Operator *opeToken,Stack *operatorStack){
 	
+	int i;
 	OperatorInfo *info=operatorFindAlternateInfoByName(opeToken->info->symbol);
 	
 	if(opeToken->info ==NULL)
 	{
-		Throw(ERR_EMPTY_OPERATOR);
+		Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
 	}
 	
 	opeToken->info=info;

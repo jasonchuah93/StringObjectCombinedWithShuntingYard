@@ -38,7 +38,7 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 	answer = calculate(opeToken,num2,num1); 
 	answerToken=createNumberToken(answer);
 	stackPush(answerToken,numberStack);
-	printf("Ans:%d\n ",answer);
+	
 }	
 
 void executeInfixOperator(Stack *numberStack , Operator *opeToken)
