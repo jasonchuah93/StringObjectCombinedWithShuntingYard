@@ -9,7 +9,7 @@
 int calculate(Operator *opeToken, Number *first, Number *second){
 	
 	int answer;
-
+	
 	if(opeToken->info==NULL)
 	{
 		Throw(ERR_INVALID_OPERATOR);
@@ -31,6 +31,9 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 		
 		case ADD_OP:
 			answer=first->value+second->value;
+			printf("FirstValue:%d\n",first->value);
+			printf("SecondValue:%d\n",second->value);
+			printf("AnsValue :%d \n",answer);
 		break;	
 		
 		case SUB_OP:
@@ -65,7 +68,9 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 
 	}
 	
+	
 	return answer;
+	
 }
 
 int prefixCalculate(Operator *opeToken1, Number *first){

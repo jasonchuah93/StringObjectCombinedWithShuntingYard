@@ -6,7 +6,7 @@
 #include "operatorEvaluate.h"
 #include "calculateToken.h"
 #include "stackForEvaluate.h"
-#include "Text.h"
+#include "mock_Text.h"
 #include "mock_createNumberToken.h"
 #include "mock_StringObject.h"
 #include "mock_getToken.h"
@@ -31,29 +31,29 @@ void tearDown(void){}
 								5)createNumberToken()
 								
  ***********************************************************************/	
- /*
+ 
  void test_operatorEvaluate_should_throw_error_when_encounter_invalid_operator(void){
 	
 	Stack numberStack;
 	Token *tempToken;
 	Number *tempAns;
-	Error exception;
+	ErrorCode exception;
 	
 	//Initialize tokenizer,token and stack
-	String tokenizer = {.rawString = "1$2", .startIndex = 0, .length=3};
-	Number number1 = {.type= NUMBER, .value=1};
-	Operator currentProgramCounter = {.type= OPERATOR, .id=CURRENT_PROGRAM_COUNTER , .precedence =0};
-	Number number2 = {.type= NUMBER, .value=2};
+	String tokenizer = {.text = t"1#2"};
+	Number number1 = {.type= NUMBER_TOKEN, .value=1};
+	Operator hashTag = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(HASH_OP)};
+	Number number2 = {.type= NUMBER_TOKEN, .value=2};
 	
 	stackPop_ExpectAndReturn(&numberStack,&number1);
 	stackPop_ExpectAndReturn(&numberStack,&number2);
 	
 	Try{
-		 operatorEvaluate(&numberStack,&currentProgramCounter);
+		 operatorEvaluate(&numberStack,&hashTag);
 		TEST_FAIL_MESSAGE("Invalid Operator should throw Error Not Operator");
 	}
 	Catch(exception){
-		TEST_ASSERT_EQUAL(UNKNOWN_OPERATOR,exception);
+		TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,exception);
 	}
 }	
 
@@ -64,22 +64,22 @@ void test_operatorEvaluate_3_PLUS_7(void)
 	Number *tempAns;
 	int check;
 	//Initialize tokenizer,token and stack
-	String tokenizer = {.rawString = "3+7", .startIndex = 0, .length=3};
-	Number number3 = {.type= NUMBER, .value=3};
-	Operator plus = {.type= OPERATOR, .id=ADD , .precedence=70};
-	Number number7 = {.type= NUMBER, .value=7};
+	String tokenizer = {.text = t"3+7"};
+	Number number3 = {.type= NUMBER_TOKEN, .value=3};
+	Operator plus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
+	Number number7 = {.type= NUMBER_TOKEN, .value=7};
 	
-	Number answer;
-	Token *answerToken=(Token*)&answer;
+	Number number10;
+	
 	
 	stackPop_ExpectAndReturn(&numberStack,&number7);
 	stackPop_ExpectAndReturn(&numberStack,&number3);
-	createNumberToken_ExpectAndReturn(10,answerToken);
-	stackPush_Expect(&answer,&numberStack);
+	createNumberToken_ExpectAndReturn(10,(Token*)&number10);
+	stackPush_Expect(&number10,&numberStack);
 	
 	operatorEvaluate(&numberStack,&plus);
 }
-
+/*
 void test_operatorEvaluate_100_MINUS_37(void)
 {
 	Stack numberStack;

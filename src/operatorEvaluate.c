@@ -28,24 +28,79 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 	Token *token2; 
 	int answer; 
 	Token *answerToken; 
-	//Infix
-	token1=(Token*)stackPop(numberStack); 
-	num1=(Number*)token1;
 	
-	token2=(Token*)stackPop(numberStack); 
-	num2=(Number*)token2;
+	if(opeToken->info->id==OPENING_BRACKET_OP)
+	{
+		token1=(Token*)stackPop(numberStack); 
+		num1=(Number*)token1; 
+		answer = prefixCalculate(opeToken,num1); 
+		answerToken=createNumberToken(answer);
+		stackPush(answerToken,numberStack);
+	}
+	else if(opeToken->info->id==OPENING_BRACKET_OP)
+	{
+		token1=(Token*)stackPop(numberStack); 
+		num1=(Number*)token1; 
+		token2=(Token*)stackPop(numberStack); 
+		if(token2!=NULL){
+			num2=(Number*)token2;
+			answer = calculate(opeToken,num2,num1); 
+			answerToken=createNumberToken(answer);
+			stackPush(answerToken,numberStack);
+		}
+		else
+		{
+			answer = prefixCalculate(opeToken,num1); 
+			answerToken=createNumberToken(answer);
+			stackPush(answerToken,numberStack);
+		}
+	}
+	else 
+	{
+		token1=(Token*)stackPop(numberStack); 
+		num1=(Number*)token1;
+		token2=(Token*)stackPop(numberStack); 
+		if(token2!=NULL){
+			num2=(Number*)token2;
+			answer = calculate(opeToken,num2,num1); 
+			answerToken=createNumberToken(answer);
+			stackPush(answerToken,numberStack);
+		}
+		else
+		{
+			answer = prefixCalculate(opeToken,num1); 
+			answerToken=createNumberToken(answer);
+			stackPush(answerToken,numberStack);
+		}
+	}
 	
-	answer = calculate(opeToken,num2,num1); 
-	answerToken=createNumberToken(answer);
-	stackPush(answerToken,numberStack);
 	
 }	
 
-void executeInfixOperator(Stack *numberStack , Operator *opeToken)
-{
-
-
-
+void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
+	Number *num1;
+	Number *num2;
+	Token *token1; 
+	Token *token2; 
+	Token *token3;
+	int answer; 
+	Token *answerToken; 
+	
+	
+	token1=(Token*)stackPop(numberStack); 
+	//num1=(Number*)token1;
+	printf("operatorEvaluate\n");
+	tokenDump(token1);
+	
+	token2=(Token*)stackPop(numberStack); 
+	printf("operatorEvaluate2\n");
+	tokenDump(token2);
+	
+	//num2=(Number*)token2;
+	answer = calculate(opeToken,(Number*)token2,(Number*)token1); 
+	answerToken=createNumberToken(answer);
+	stackPush(answerToken,numberStack);
+	
 }
 
 void operatorPrefixEvaluate(Stack *numberStack , Operator *opeToken1){
@@ -61,7 +116,7 @@ void operatorPrefixEvaluate(Stack *numberStack , Operator *opeToken1){
 	answerToken=createNumberToken(answer);
 	stackPush(answerToken,numberStack);
 	
-	
+	tokenDump(answerToken);
 }	
 
 
@@ -79,7 +134,7 @@ void evaluateAllOperatorOnStack(Stack *numberStack,Stack *operatorStack){
 	
 	while((opeToken=stackPop(operatorStack))!=NULL)
 	{
-		operatorEvaluate(numberStack,opeToken);
+		operatorInfixEvaluate(numberStack ,opeToken);
 	}
 }
 

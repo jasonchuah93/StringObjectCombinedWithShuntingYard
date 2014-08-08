@@ -5,7 +5,6 @@
 #include "Text.h"
 #include "StringObject.h"
 #include "Types.h"
-#include "initializeToken.h"
 #include "Token.h"
 
 /*

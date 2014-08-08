@@ -93,7 +93,7 @@ void test_should_return_3_for_1_plus_2(void){
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&plus);
 	isNumber_ExpectAndReturn((Token *)&plus, 0);
 	isOperator_ExpectAndReturn((Token *)&plus, 1);
-	//stackPop_ExpectAndReturn(&operatorStack, NULL);
+	stackPop_ExpectAndReturn(&operatorStack, NULL);
 	stackPush_Expect((Token *)&plus, &operatorStack);
 	
 	//Number2
@@ -103,16 +103,16 @@ void test_should_return_3_for_1_plus_2(void){
 	getToken_ExpectAndReturn(&tokenizer, NULL);
 	
 	//Calculation
-	//stackPop_ExpectAndReturn(&operatorStack, (Token *)&plus);
-	//stackPop_ExpectAndReturn(&numberStack, (Token *)&number2);
-	//stackPop_ExpectAndReturn(&numberStack, (Token *)&number1);
-	//createNumberToken_ExpectAndReturn(3, (Token *)&number3);
-	//stackPush_Expect((Token *)&number3, &numberStack);
-	//stackPop_ExpectAndReturn(&operatorStack, NULL);
+	stackPop_ExpectAndReturn(&operatorStack, (Token *)&plus);
+	stackPop_ExpectAndReturn(&numberStack, (Token *)&number2);
+	stackPop_ExpectAndReturn(&numberStack, (Token *)&number1);
+	createNumberToken_ExpectAndReturn(3, (Token *)&number3);
+	stackPush_Expect((Token *)&number3, &numberStack);
+	stackPop_ExpectAndReturn(&operatorStack, NULL);
 	
-	//stackPop_ExpectAndReturn(&numberStack, (Token *)&number3);
-	//destroyStack_Expect(&numberStack);
-	//destroyStack_Expect(&operatorStack);
+	stackPop_ExpectAndReturn(&numberStack, (Token *)&number3);
+	destroyStack_Expect(&numberStack);
+	destroyStack_Expect(&operatorStack);
 	
 	check=evaluatex("1+2");
 	TEST_ASSERT_EQUAL(3, check);

@@ -115,6 +115,7 @@ int evaluatex(char *expression){
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
 	}
+	
 	while((token=getToken(tokenizer))!=NULL ){
 		if(isNumber(token)){
 			stackPush(token,numberStack);
@@ -124,11 +125,21 @@ int evaluatex(char *expression){
 			stackPush(token,operatorStack);
 			tokenDump(token);
 		}
+		
 	}
 	
 	
 	
+	evaluateAllOperatorOnStack(numberStack,operatorStack);
 	
-
+	result=(Number*)stackPop(numberStack);
+	destroyStack(numberStack);
+	
+	if(operatorStack !=NULL)
+	{
+		destroyStack(operatorStack);
+	}
+	
+	return result->value;
 	
 }	

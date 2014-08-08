@@ -40,16 +40,17 @@ Mock function left stringCreate
 
 
 ********************************************************************************************************************************/	
-/*
+
 void test_should_return_3_for_1_plus_2(void){
 	int check;
 	//Initialize tokenizer,token and stack
 	
-	check=evaluate("1+2");
+	check=evaluatex("1+2");
 	TEST_ASSERT_EQUAL(3,check);
-	printf("Answer : %d ",check);
+	
 }
 
+/*
 void test_should_return_6_for_60_divide_10(void){
 	
 	int check;
