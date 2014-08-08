@@ -119,7 +119,7 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 	
 }
 
-void tryConvertToPrefix(Operator *opeToken){
+void tryConvertToPrefixThenPush(Operator *opeToken,Stack *operatorStack){
 	
 	OperatorInfo *info=operatorFindAlternateInfoByName(opeToken->info->symbol);
 	
@@ -127,8 +127,9 @@ void tryConvertToPrefix(Operator *opeToken){
 	{
 		Throw(ERR_EMPTY_OPERATOR);
 	}
-	printf("smtg \n");
+	
 	opeToken->info=info;
+	stackPush(opeToken,operatorStack);
 	
 }
 //when cannot convert to prefix ,fail 

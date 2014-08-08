@@ -58,20 +58,22 @@ void test_tryEvaluateOperatorOnStackThenPush_will_push_OperatorTOken_into_Operat
 }
  
 void test_tryConvertToPrefixThenPush_Will_Convert_Infix_Token_To_Prefix_Token_In_The_Alternative_Table(void){
-	
+	Stack operatorStack;
 	Operator plus = {.type=OPERATOR_TOKEN , .info=operatorFindInfoByID(ADD_OP)};
 	
-	tryConvertToPrefix(&plus);
+	stackPush_Expect(&plus,&operatorStack);
+	tryConvertToPrefixThenPush(&plus,&operatorStack);
 	TEST_ASSERT_EQUAL(OPERATOR_TOKEN,plus.type);
 	TEST_ASSERT_EQUAL(150,plus.info->precedence);
 	TEST_ASSERT_EQUAL(PLUS_OP,plus.info->id);
 }
 
 void test_tryConvertToPrefixThenPush_Will_Convert_Infix_Token_To_Prefix_Token_In_The_Alternative_Table2(void){
-	
+	Stack operatorStack;
 	Operator minus = {.type=OPERATOR_TOKEN , .info=operatorFindInfoByID(SUB_OP)};
 	
-	tryConvertToPrefix(&minus);
+	stackPush_Expect(&minus,&operatorStack);
+	tryConvertToPrefixThenPush(&minus,&operatorStack);
 	TEST_ASSERT_EQUAL(OPERATOR_TOKEN,minus.type);
 	TEST_ASSERT_EQUAL(150,minus.info->precedence);
 	TEST_ASSERT_EQUAL(MINUS_OP,minus.info->id);
