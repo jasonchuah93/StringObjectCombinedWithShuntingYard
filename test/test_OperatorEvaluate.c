@@ -49,7 +49,7 @@ void tearDown(void){}
 	stackPop_ExpectAndReturn(&numberStack,&number2);
 	
 	Try{
-		 operatorEvaluate(&numberStack,&hashTag);
+		 operatorInfixEvaluate(&numberStack,&hashTag);
 		TEST_FAIL_MESSAGE("Invalid Operator should throw Error Not Operator");
 	}
 	Catch(exception){
@@ -68,18 +68,17 @@ void test_operatorEvaluate_3_PLUS_7(void)
 	Number number3 = {.type= NUMBER_TOKEN, .value=3};
 	Operator plus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
 	Number number7 = {.type= NUMBER_TOKEN, .value=7};
-	
 	Number number10;
-	
 	
 	stackPop_ExpectAndReturn(&numberStack,&number7);
 	stackPop_ExpectAndReturn(&numberStack,&number3);
 	createNumberToken_ExpectAndReturn(10,(Token*)&number10);
 	stackPush_Expect(&number10,&numberStack);
 	
-	operatorEvaluate(&numberStack,&plus);
+	operatorInfixEvaluate(&numberStack,&plus);
 }
-/*
+
+
 void test_operatorEvaluate_100_MINUS_37(void)
 {
 	Stack numberStack;
@@ -87,20 +86,19 @@ void test_operatorEvaluate_100_MINUS_37(void)
 	Number *tempAns;
 	int check;
 	//Initialize tokenizer,token and stack
-	String tokenizer = {.rawString = "100-37", .startIndex = 0, .length=3};
-	Number number100 = {.type= NUMBER, .value=100};
-	Operator minus = {.type= OPERATOR, .id=SUBTRACT , .precedence=70};
-	Number number37 = {.type= NUMBER, .value=37};
+	String tokenizer = {.text = t"100-37"};
+	Number number100 = {.type= NUMBER_TOKEN, .value=100};
+	Operator minus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(SUB_OP)};
+	Number number37 = {.type= NUMBER_TOKEN, .value=37};
+	Number number63;
 	
-	Number answer;
-	Token *answerToken=(Token*)&answer;
 	
 	stackPop_ExpectAndReturn(&numberStack,&number37);
 	stackPop_ExpectAndReturn(&numberStack,&number100);
-	createNumberToken_ExpectAndReturn(63,answerToken);
-	stackPush_Expect(&answer,&numberStack);
+	createNumberToken_ExpectAndReturn(63,(Token*)&number63);
+	stackPush_Expect(&number63,&numberStack);
 	
-	operatorEvaluate(&numberStack,&minus);
+	operatorInfixEvaluate(&numberStack,&minus);
 }
 
 void test_operatorEvaluate_100_MULTIPLY_50(void)
@@ -110,19 +108,18 @@ void test_operatorEvaluate_100_MULTIPLY_50(void)
 	Number *tempAns;
 	int check;
 	//Initialize tokenizer,token and stack
-	String tokenizer = {.rawString = "100*50", .startIndex = 0, .length=3};
-	Number number100 = {.type= NUMBER, .value=100};
-	Operator multiply = {.type= OPERATOR, .id=MULTIPLY , .precedence=100};
-	Number number50 = {.type= NUMBER, .value=50};
-	Number answer;
-	Token *answerToken=(Token*)&answer;
+	String tokenizer = {.text = t"100*50"};
+	Number number100 = {.type= NUMBER_TOKEN, .value=100};
+	Operator multiply = {.type= OPERATOR_TOKEN,.info=operatorFindInfoByID(MUL_OP)}; 
+	Number number50 = {.type= NUMBER_TOKEN, .value=50};
+	Number number5000;
 	
 	stackPop_ExpectAndReturn(&numberStack,&number50);
 	stackPop_ExpectAndReturn(&numberStack,&number100);
-	createNumberToken_ExpectAndReturn(5000,answerToken);
-	stackPush_Expect(&answer,&numberStack);
+	createNumberToken_ExpectAndReturn(5000,(Token*)&number5000);
+	stackPush_Expect(&number5000,&numberStack);
 	
-	operatorEvaluate(&numberStack,&multiply);
+	operatorInfixEvaluate(&numberStack,&multiply);
 }
 
 void test_operatorEvaluate_99_DIVIDE_3(void)
@@ -132,21 +129,20 @@ void test_operatorEvaluate_99_DIVIDE_3(void)
 	Number *tempAns;
 	int check;
 	//Initialize tokenizer,token and stack
-	String tokenizer = {.rawString = "99/3", .startIndex = 0, .length=3};
-	Number number99 = {.type= NUMBER, .value=99};
-	Operator divide = {.type= OPERATOR, .id=DIVIDE , .precedence=100};
-	Number number3 = {.type= NUMBER, .value=3};
-	Number answer;
-	Token *answerToken=(Token*)&answer;
+	String tokenizer = {.text = t"99/3"};
+	Number number99 = {.type= NUMBER_TOKEN, .value=99};
+	Operator divide = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(DIV_OP)}; 
+	Number number3 = {.type= NUMBER_TOKEN, .value=3};
+	Number number33;
 	
 	stackPop_ExpectAndReturn(&numberStack,&number3);
 	stackPop_ExpectAndReturn(&numberStack,&number99);
-	createNumberToken_ExpectAndReturn(33,answerToken);
-	stackPush_Expect(&answer,&numberStack);
+	createNumberToken_ExpectAndReturn(33,(Token*)&number33);
+	stackPush_Expect(&number33,&numberStack);
 	
 	operatorEvaluate(&numberStack,&divide);
 }
-
+/*
 void test_operatorEvaluate_60_MODULUS_7(void)
 {
 	Stack numberStack;

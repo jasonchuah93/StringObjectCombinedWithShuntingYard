@@ -78,25 +78,14 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 }	
 
 void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
-	Number *num1;
-	Number *num2;
+	
 	Token *token1; 
 	Token *token2; 
-	Token *token3;
 	int answer; 
 	Token *answerToken; 
 	
-	
 	token1=(Token*)stackPop(numberStack); 
-	//num1=(Number*)token1;
-	printf("operatorEvaluate\n");
-	tokenDump(token1);
-	
 	token2=(Token*)stackPop(numberStack); 
-	printf("operatorEvaluate2\n");
-	tokenDump(token2);
-	
-	//num2=(Number*)token2;
 	answer = calculate(opeToken,(Number*)token2,(Number*)token1); 
 	answerToken=createNumberToken(answer);
 	stackPush(answerToken,numberStack);

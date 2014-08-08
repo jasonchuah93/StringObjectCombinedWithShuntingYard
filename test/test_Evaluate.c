@@ -93,7 +93,7 @@ void test_should_return_3_for_1_plus_2(void){
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&plus);
 	isNumber_ExpectAndReturn((Token *)&plus, 0);
 	isOperator_ExpectAndReturn((Token *)&plus, 1);
-	stackPop_ExpectAndReturn(&operatorStack, NULL);
+	//stackPop_ExpectAndReturn(&operatorStack, NULL);
 	stackPush_Expect((Token *)&plus, &operatorStack);
 	
 	//Number2

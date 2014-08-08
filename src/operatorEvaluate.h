@@ -2,7 +2,6 @@
 #define __OPERATOREVALUATE_H__
 
 #include "Stack.h"
-#include "Evaluate.h"
 #include "Token.h"
 
 //Function declaration

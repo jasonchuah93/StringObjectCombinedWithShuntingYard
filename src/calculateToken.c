@@ -31,9 +31,7 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 		
 		case ADD_OP:
 			answer=first->value+second->value;
-			printf("FirstValue:%d\n",first->value);
-			printf("SecondValue:%d\n",second->value);
-			printf("AnsValue :%d \n",answer);
+			
 		break;	
 		
 		case SUB_OP:
