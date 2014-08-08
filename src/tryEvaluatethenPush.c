@@ -11,6 +11,8 @@
 #include "LinkedList.h"
 #include "stackForEvaluate.h"
 #include <malloc.h>
+#include "ErrorCode.h"
+#include "CException.h"
 
 #define MAIN_OPERATOR_TABLE_SIZE	(sizeof(mainOperatorTable)/sizeof(OperatorInfo))
 #define	ALTERNATIVE_OPERATOR_TABLE_SIZE	(sizeof(alternativeOperatorTable)/sizeof(OperatorInfo))
@@ -55,8 +57,6 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 			stackPush(previousToken,operatorStack);
 		}
 	stackPush(newToken,operatorStack);
-		
-		
 	}
 }
 
@@ -119,3 +119,16 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 	
 }
 
+void tryConvertToPrefix(Operator *opeToken){
+	
+	OperatorInfo *info=operatorFindAlternateInfoByName(opeToken->info->symbol);
+	
+	if(opeToken->info ==NULL)
+	{
+		Throw(ERR_EMPTY_OPERATOR);
+	}
+	printf("smtg \n");
+	opeToken->info=info;
+	
+}
+//when cannot convert to prefix ,fail 

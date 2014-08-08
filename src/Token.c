@@ -100,9 +100,22 @@ OperatorInfo *operatorFindInfoByID(OperatorID id){
 	int i;
 	
 	for(i=0;i < MAIN_OPERATOR_TABLE_SIZE; i++){
-		if(mainOperatorTable[i].id == id){
+		if(mainOperatorTable[i].id==id)
+		{
 			return &mainOperatorTable[i];
 		}
+	}
+	return NULL;
+}
+
+OperatorInfo *operatorFindAlternateInfoByName(char *symbol){
+	int i;
+	
+	for(i=0;i < ALTERNATIVE_OPERATOR_TABLE_SIZE; i++){
+		if(strcmp(alternativeOperatorTable[i].symbol,symbol)==0){
+			return &alternativeOperatorTable[i];
+		}
+		
 	}
 	
 	return NULL;
@@ -174,17 +187,3 @@ void tokenDump(Token *token){
 	}
 }
 
-void tryConvertToPrefixThenPush(Operator *newToken,Stack *operatorStack){
-	int i;
-	Affix affix;
-	if(newToken->info->affix == INFIX)
-	{
-		for(i=0;i <ALTERNATIVE_OPERATOR_TABLE_SIZE; i++){
-		if(alternativeOperatorTable[i].affix == affix){
-			newToken->info->affix = PREFIX;
-			return affix;
-			}
-		}
-		
-	}
-}

@@ -38,7 +38,7 @@ Using following real function :
 							3)tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack);
 							4)calculate(Operator *opeToken, Number *first , Number *second);
  ********************************************************************************************************************************/	
-/*
+
  void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	
 	ErrorCode e;
@@ -56,15 +56,13 @@ Using following real function :
 	
 	Try
 	{
-		check=evaluate(NULL);
+		check=evaluatex(NULL);
 		TEST_FAIL_MESSAGE("Should throw Error no expression ");
 	}
 	Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_NO_ARGUMENT ,e);
 	}
-	
-	
 }
 
 void test_should_return_3_for_1_plus_2(void){
@@ -95,7 +93,7 @@ void test_should_return_3_for_1_plus_2(void){
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&plus);
 	isNumber_ExpectAndReturn((Token *)&plus, 0);
 	isOperator_ExpectAndReturn((Token *)&plus, 1);
-	stackPop_ExpectAndReturn(&operatorStack, NULL);
+	//stackPop_ExpectAndReturn(&operatorStack, NULL);
 	stackPush_Expect((Token *)&plus, &operatorStack);
 	
 	//Number2
@@ -105,22 +103,22 @@ void test_should_return_3_for_1_plus_2(void){
 	getToken_ExpectAndReturn(&tokenizer, NULL);
 	
 	//Calculation
-	stackPop_ExpectAndReturn(&operatorStack, (Token *)&plus);
-	stackPop_ExpectAndReturn(&numberStack, (Token *)&number2);
-	stackPop_ExpectAndReturn(&numberStack, (Token *)&number1);
-	createNumberToken_ExpectAndReturn(3, (Token *)&number3);
-	stackPush_Expect((Token *)&number3, &numberStack);
-	stackPop_ExpectAndReturn(&operatorStack, NULL);
+	//stackPop_ExpectAndReturn(&operatorStack, (Token *)&plus);
+	//stackPop_ExpectAndReturn(&numberStack, (Token *)&number2);
+	//stackPop_ExpectAndReturn(&numberStack, (Token *)&number1);
+	//createNumberToken_ExpectAndReturn(3, (Token *)&number3);
+	//stackPush_Expect((Token *)&number3, &numberStack);
+	//stackPop_ExpectAndReturn(&operatorStack, NULL);
 	
-	stackPop_ExpectAndReturn(&numberStack, (Token *)&number3);
-	destroyStack_Expect(&numberStack);
-	destroyStack_Expect(&operatorStack);
+	//stackPop_ExpectAndReturn(&numberStack, (Token *)&number3);
+	//destroyStack_Expect(&numberStack);
+	//destroyStack_Expect(&operatorStack);
 	
-	check=evaluate("1+2");
+	check=evaluatex("1+2");
 	TEST_ASSERT_EQUAL(3, check);
 	printf("Answer : %d ",check);
 }	
-
+/*
 void test_should_return_6_for_60_divide_10(void){
 	
 	int check;

@@ -96,3 +96,39 @@ int evaluate(char *expression){
 	
 }
 
+int evaluatex(char *expression){
+	String *tokenizer;
+	Text *newText;
+	Token *token;
+	Token *ansToken;
+	ErrorCode exception;
+	Number *result;
+	//create number and operator stack
+	Stack *numberStack;
+	numberStack=createStack();
+	Stack *operatorStack;
+	operatorStack=createStack();
+	//make expression into text form and generate tokenizer from stringNew
+	newText=textNew(expression);
+	tokenizer = stringNew(newText);
+	
+	if(expression ==NULL){	
+		Throw(ERR_NO_ARGUMENT);
+	}
+	while((token=getToken(tokenizer))!=NULL ){
+		if(isNumber(token)){
+			stackPush(token,numberStack);
+			tokenDump(token);
+		}
+		else if(isOperator(token)) {
+			stackPush(token,operatorStack);
+			tokenDump(token);
+		}
+	}
+	
+	
+	
+	
+
+	
+}	

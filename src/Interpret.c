@@ -10,7 +10,7 @@
 #include "CharSet.h"
 #include "ErrorCode.h"
 #include "CustomTypeAssert.h"
-#include "mock_Evaluate.h"
+#include "Evaluate.h"
 #include "mock_OpCodeDecoder.h"
 
 #define INSTRUCTION_TABLE_SIZE	(sizeof(instructions)/sizeof(instructionTable))

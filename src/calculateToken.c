@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
-#include "Evaluate.h"
-#include "Stack.h"
 #include "Token.h"
-#include "tryEvaluatethenPush.h"
-#include "operatorEvaluate.h"
 #include "calculateToken.h"
-#include "stackForEvaluate.h"
-#include "createNumberToken.h"
 #include "ErrorCode.h"
+#include "CException.h"
 
 int calculate(Operator *opeToken, Number *first, Number *second){
 	
 	int answer;
+
+	if(opeToken->info==NULL)
+	{
+		Throw(ERR_INVALID_OPERATOR);
+	}
+
 	switch(opeToken->info->id)
 	{	
 		case MUL_OP:
@@ -22,6 +23,10 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 		
 		case DIV_OP:
 			answer=first->value/second->value;
+		break;
+		
+		case MOD_OP:
+			answer=first->value%second->value;
 		break;
 		
 		case ADD_OP:
@@ -37,43 +42,50 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 			answer=first->value&second->value;
 		break;
 		
-		case BITWISE_OR_OP:
-			answer=first->value|second->value;
-		break;
-		
 		case BITWISE_XOR_OP:
 			answer=first->value^second->value;
 		break;
 		
-		case MOD_OP:
-			answer=first->value%second->value;
+		case BITWISE_OR_OP:
+			answer=first->value|second->value;
 		break;
 		
-		case BITWISE_NOT_OP:
-			answer=~first->value;
+		case LOGICAL_AND_OP:
+			answer=first->value&&second->value;
 		break;
 		
-		case INCREMENT_OP:
-			answer=++first->value;
+		case LOGICAL_OR_OP:
+			answer=first->value||second->value;
 		break;
 		
-		case DECREMENT_OP:
-			answer=--first->value;
-		break;
-			
+
 		default:
-		{
-			Throw(UNKNOWN_OPERATOR);
-		}
+
+			Throw(ERR_UNKNOWN_INFIX_OPERATOR);
+
 	}
 	
 	return answer;
 }
 
 int prefixCalculate(Operator *opeToken1, Number *first){
-	int answer,i;
+	int answer;
+	
+	if(opeToken1->info==NULL)
+	{
+		Throw(ERR_INVALID_OPERATOR);
+	}
+	
 	switch(opeToken1->info->id)
 	{	
+		case BITWISE_NOT_OP:
+			answer=~first->value;
+		break;
+		
+		case LOGICAL_NOT_OP:
+			answer=!first->value;
+		break;
+		
 		case OPENING_BRACKET_OP:
 			answer= first->value;
 		break;
@@ -87,13 +99,9 @@ int prefixCalculate(Operator *opeToken1, Number *first){
 		
 		break;
 		
-		case LOGICAL_NOT_OP:
-			answer=!first->value;
-		break;
-		
 		default:
 		{
-			Throw(UNKNOWN_OPERATOR);
+			Throw(ERR_UNKNOWN_PREFIX_OPERATOR);
 		}
 	}
 	

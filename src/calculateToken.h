@@ -1,7 +1,7 @@
 #ifndef __CALCULATETOKEN_H__
 #define __CALCULATETOKEN_H__
 
-#include "Evaluate.h"
+#include "Token.h"
 
 //Function declaration
 

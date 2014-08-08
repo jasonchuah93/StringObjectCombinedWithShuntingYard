@@ -82,12 +82,13 @@ Number *numberNew(int value); //1st
 Operator *operatorNewBySymbol(char *symbol);//3rd
 Operator *operatorNewByID(OperatorID id);
 OperatorInfo *operatorFindInfoByID(OperatorID id);
+OperatorInfo *operatorFindAlternateInfoByName(char *symbol);
 Identifier *identifierNew(Text *name);//2nd
 Token *getToken(String *str);
 void tokenDel(Token *token);
 void tokenDump(Token *token);
 
-void tryConvertToPrefixThenPush(Operator *newToken,Stack *operatorStack);
+
 
 
 #endif // Token_H
