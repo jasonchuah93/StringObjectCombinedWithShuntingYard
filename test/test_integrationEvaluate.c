@@ -45,7 +45,7 @@ void test_should_return_3_for_1_plus_2(void){
 	int check;
 	//Initialize tokenizer,token and stack
 	
-	check=evaluatex("3");
+	check=evaluatex("1+2");
 	TEST_ASSERT_EQUAL(3,check);
 	
 }

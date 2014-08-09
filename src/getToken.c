@@ -126,8 +126,8 @@ int isOperator (Token * unknownToken)
 {
 	if(unknownToken->type==OPERATOR_TOKEN)
 		return 1;
-		
-	return 0;
+	else	
+		return 0;
 }
 
 /*
@@ -147,6 +147,6 @@ int isNumber (Token * unknownToken)
 {
 	if(unknownToken->type==NUMBER_TOKEN)
 		return 1;
-		
-	return 0;
+	else	
+		return 0;
 }

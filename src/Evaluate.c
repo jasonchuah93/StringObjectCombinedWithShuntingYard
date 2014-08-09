@@ -117,19 +117,15 @@ int evaluatex(char *expression){
 	}
 	
 	while((token=getToken(tokenizer))!=NULL ){
+		
 		if(isNumber(token)){
 			stackPush(token,numberStack);
 			tokenDump(token);
-		}
-		else if(isOperator(token)) {
+		} else if(isOperator(token)) {			
 			stackPush(token,operatorStack);
-			tokenDump(token);
-		}
-		
+			tokenDump(token);	
+		}		
 	}
-	
-	
-	
 	evaluateAllOperatorOnStack(numberStack,operatorStack);
 	
 	result=(Number*)stackPop(numberStack);
