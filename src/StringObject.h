@@ -37,5 +37,5 @@ int stringIsEqualCaseInsensitive(String *str1, String *str2); //uses char tolowe
 
 int stringCharAt(String *str, int relativeIndex);
 int stringIsCharAtInSet(String *str, int relativeIndex, char set[]); //1 is true, 0 false
-
+int stringCharAtInSet(String *str,int relativeIndex,char set[]);
 #endif // __STRING_OBJECT_H__

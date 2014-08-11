@@ -36,8 +36,25 @@ void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	}
 }
 
-void test_testToken(void)
+void test_should_evaluate_one_plus_two(void)
 {
-	printf("Evaluate function\n");
-	 evaluateExpression("1+2");
+	int check;
+	check=evaluateExpression("1+2");
+	
+	TEST_ASSERT_EQUAL(3,check);
 }
+
+void test_should_evaluate_two_plus_three_multiply_four(void){
+	int check;
+	check=evaluateExpression("2+3*4");
+	
+	TEST_ASSERT_EQUAL(14,check);
+}
+
+void test_should_evaluate_two_multiply_three_plus_four(void){
+	int check;
+	check=evaluateExpression("2*3+4");
+	
+	TEST_ASSERT_EQUAL(10,check);
+}
+

@@ -51,6 +51,7 @@ void stackPush(void *data,Stack *stack )
 	newElement->data = data;
 	List_addFirst(newElement,list);
 	
+	/*
 	if(((Token*)data)->type == NUMBER_TOKEN)
 	{
 		printf("testing got push into number stack \n");
@@ -58,7 +59,8 @@ void stackPush(void *data,Stack *stack )
 	else if(((Token*)data)->type == OPERATOR_TOKEN)
 	{
 		printf("testing got push into operator stack \n");
-	}	
+	}
+	*/	
 }
 
 /*
@@ -80,7 +82,7 @@ void *stackPop(Stack*stack)
 		return NULL;
 	}
 	elem = List_removeFirst(list);
-	
+	/*
 	if(((Token*)elem->data)->type == NUMBER_TOKEN)
 	{
 		printf("testing got pop out from number stack \n");
@@ -89,7 +91,7 @@ void *stackPop(Stack*stack)
 	{
 		printf("testing got pop out from operator stack \n");
 	}	
-	
+	*/
 	return elem->data;
 	
 }

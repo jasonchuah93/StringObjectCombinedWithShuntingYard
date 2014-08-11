@@ -407,6 +407,32 @@ int stringIsCharAtInSet(String *str, int relativeIndex, char set[]){
 }
 
 /**
+*Determine if the character specified by the relative index in the
+*String is in the given set of characters
+*input :
+*	str :	is String Object
+*	relativeIndex : is the relative index into the string.
+*					this value must be positive.
+*					
+*	set 	is the set of character delimited by NULL
+*	Return 1 if the character is within the set.
+*	Otherwise return 0.
+**/
+int stringCharAtInSet(String *str,int relativeIndex,char set[]){
+	int j=0;
+	
+	int string1=str->text->string[str->start+relativeIndex];
+	
+	while(set[j]!=0){
+		if(string1==set[j]){
+			return 1;
+		}
+		j++;
+	}
+	return 0;
+}
+
+/**
 * Convert the string into integer
 *
 * Input:

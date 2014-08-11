@@ -8,6 +8,6 @@
 Token *getToken(String *str);
 int isOperator(Token * unknownToken);
 int isNumber(Token * unknownToken);
-int testToken(char *expression);
+Token *getTokenise(String *str);
 
 #endif // Token_H

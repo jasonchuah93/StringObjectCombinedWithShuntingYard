@@ -80,7 +80,7 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
 	
 	int answer; 
-	
+	printf("testing\n");
 	Token *token2=(Token*)stackPop(numberStack); 
 	Number *number2=(Number*)token2;
 	Token *token1=(Token*)stackPop(numberStack); 
@@ -118,7 +118,7 @@ void evaluateAllOperatorOnStack(Stack *numberStack,Stack *operatorStack){
 	
 	while((opeToken=stackPop(operatorStack))!=NULL)
 	{
-		operatorInfixEvaluate(numberStack ,opeToken);
+		operatorEvaluate(numberStack ,opeToken);
 	}
 }
 

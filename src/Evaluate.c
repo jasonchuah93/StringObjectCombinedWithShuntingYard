@@ -108,14 +108,13 @@ int evaluateExpression(char *expression){
 	
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-	while((token=getToken(tokenizer))!=NULL ){
+	while((token=getTokenise(tokenizer))!=NULL ){
 		if(token->type==NUMBER_TOKEN){
 			stackPush(token,numberStack);
-			
 		}else if(token->type==OPERATOR_TOKEN){
-			stackPush(token,operatorStack);
-			
+			tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);	
 		}
+		
 	}
 	
 	evaluateAllOperatorOnStack(numberStack,operatorStack);
