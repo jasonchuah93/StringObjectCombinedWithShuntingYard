@@ -105,22 +105,37 @@ int evaluateExpression(char *expression){
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
 	}
-	
+	 
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
 	while((token=getTokenise(tokenizer))!=NULL ){
-		if(token->type==NUMBER_TOKEN){
+		if(isNumber(token)){
 			stackPush(token,numberStack);
-		}else if(token->type==OPERATOR_TOKEN){
-			tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);	
+		}else if(isOperator(token)){
+			if(((Operator*)token)->info->affix !=PREFIX){
+				tryConvertToPrefix((Operator*)token);
+				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			}else{
+				//tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);	
+				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			}
 		}
-		
+	}
+	if(operatorStack == NULL)
+	{
+		evaluatePrefixOperatorOnStack(numberStack,operatorStack);
+	}
+	else
+	{
+		evaluateAllOperatorOnStack(numberStack,operatorStack);
 	}
 	
-	evaluateAllOperatorOnStack(numberStack,operatorStack);
-	
 	Number *result=(Number*)stackPop(numberStack);
+	
 	destroyStack(numberStack);
-	destroyStack(operatorStack);
+	if(operatorStack !=NULL)
+	{
+		destroyStack(operatorStack);
+	}
 	return result->value;
 }

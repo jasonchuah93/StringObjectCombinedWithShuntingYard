@@ -32,27 +32,18 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 	Operator *previousToken;
 	previousToken=(Operator*)stackPop(operatorStack);
 	
-	if(previousToken==NULL)
-	{
+	if(previousToken==NULL){
 		stackPush(newToken,operatorStack);
-	}
-	else{
-		while(previousToken!=NULL)
-		{
-			if(newToken->info->precedence > previousToken->info->precedence)
-			{
+	}else{
+		while(previousToken!=NULL){
+			if(newToken->info->precedence > previousToken->info->precedence){
 				break;
-			}
-			else 
-			{
+			}else {
 				operatorEvaluate(numberStack,previousToken);
 			}
-			
 			previousToken=(Operator*)stackPop(operatorStack);
-			
 		}
-		if(previousToken!=NULL )
-		{
+		if(previousToken!=NULL ){
 			stackPush(previousToken,operatorStack);
 		}
 		stackPush(newToken,operatorStack);
@@ -62,63 +53,37 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack)
 {
 	Operator *previousToken=(Operator*)stackPop(operatorStack);
-	
-	printf("testingA\n");
-	
-	if(previousToken == NULL)
-	{
-		printf("testing1\n");
+	if(previousToken == NULL){
 		stackPush(newToken,operatorStack);
 	}
-	
-		while(previousToken!=NULL)
-		{
-			if(((Operator*)newToken)->info->id ==CLOSING_BRACKET_OP)
-			{
-				if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP)
-				{
-					operatorPrefixEvaluate(numberStack ,previousToken);
-					free(newToken);
-					
-					if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP)
-					{
-						previousToken=(Operator*)stackPop(operatorStack);
-						break;
-					}
-				}
-				else 
-				{
-					operatorEvaluate(numberStack,previousToken);
-					
-				}
-				
-			}
-			else if(newToken->info->precedence >= previousToken->info->precedence || ((Operator*)newToken)->info->id==OPENING_BRACKET_OP )
-			{
-				break;
-			}
-			else 
-			{
-				operatorEvaluate(numberStack,previousToken);
-				
-			}
-			
-			previousToken=(Operator*)stackPop(operatorStack);
-			
-		}
-		
-	if(previousToken!=NULL )
+	while(previousToken!=NULL)
 	{
+		if(((Operator*)newToken)->info->id ==CLOSING_BRACKET_OP){
+			if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP){
+				operatorPrefixEvaluate(numberStack ,previousToken);
+				free(newToken);
+				if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP){
+					previousToken=(Operator*)stackPop(operatorStack);
+					break;
+				}
+			}else {
+				operatorEvaluate(numberStack,previousToken);
+			}
+				
+		}else if(newToken->info->precedence >= previousToken->info->precedence || ((Operator*)newToken)->info->id==OPENING_BRACKET_OP ){
+			break;
+		}
+		else {
+			operatorEvaluate(numberStack,previousToken);
+		}
+		previousToken=(Operator*)stackPop(operatorStack);
+	}
+	if(previousToken!=NULL ){
 		stackPush(previousToken,operatorStack);
 	}
-		
-	if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP)
-	{
+	if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP){
 		stackPush(newToken,operatorStack);
 	}
-		
-	
-	
 }
 
 void tryConvertToPrefix(Operator *opeToken){
@@ -128,14 +93,7 @@ void tryConvertToPrefix(Operator *opeToken){
 	
 	if(opeToken->info == NULL)
 	{
-		
 		Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
-		
 	}
-	
-	
 	opeToken->info=info;
-	
-	
 }
-//when cannot convert to prefix ,fail 

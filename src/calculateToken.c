@@ -62,7 +62,7 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 
 		default:
 
-			Throw(ERR_UNKNOWN_INFIX_OPERATOR);
+			Throw(ERR_ILLEGAL_ARGUMENT);
 
 	}
 	
@@ -104,7 +104,7 @@ int prefixCalculate(Operator *opeToken1, Number *first){
 		
 		default:
 		{
-			Throw(ERR_UNKNOWN_PREFIX_OPERATOR);
+			Throw(ERR_ILLEGAL_ARGUMENT);
 		}
 	}
 	

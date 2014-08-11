@@ -177,8 +177,7 @@ Token *getTokenise(String *str) {
 					str->start++;
 					str->length--;
 				}
-			
-			
+				
 			op = operatorNewBySymbol(opeToken);	
 			newToken = (Token*)op;
 			
@@ -268,18 +267,3 @@ int isNumber (Token * unknownToken)
 	}
 }
 
-int testToken(char *expression){
-	
-	Text *text = textNew(expression);
-	String *string = stringNew(text);
-	
-	Token *token = getToken(string);
-	tokenDump(token);
-	
-	token = getToken(string);
-	tokenDump(token);
-	
-	token = getToken(string);
-	tokenDump(token);
-	
-}
