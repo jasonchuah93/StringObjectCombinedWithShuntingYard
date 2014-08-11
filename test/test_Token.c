@@ -516,7 +516,8 @@ void test_getToken_should_get_1_plus_2(void){
 
 void test_testToken(void)
 {
+
 	printf("Evaluate function\n");
-	 evaluateExpression("1+2");
+	TEST_ASSERT_EQUAL(3,evaluateExpression("1+2"));
 }
 

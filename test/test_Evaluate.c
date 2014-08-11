@@ -86,19 +86,19 @@ void test_should_return_3_for_1_plus_2(void){
 	
 	//Number1
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&number1);
-	isNumber_ExpectAndReturn((Token *)&number1, 1);
+	//isNumber_ExpectAndReturn((Token *)&number1, 1);
 	stackPush_Expect((Token *)&number1, &numberStack);
 	
 	//Operator token plus
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&plus);
-	isNumber_ExpectAndReturn((Token *)&plus, 0);
-	isOperator_ExpectAndReturn((Token *)&plus, 1);
-	stackPop_ExpectAndReturn(&operatorStack, NULL);
+	//isNumber_ExpectAndReturn((Token *)&plus, 0);
+	//isOperator_ExpectAndReturn((Token *)&plus, 1);
+	//stackPop_ExpectAndReturn(&operatorStack, NULL);
 	stackPush_Expect((Token *)&plus, &operatorStack);
 	
 	//Number2
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&number2);
-	isNumber_ExpectAndReturn((Token *)&number2, 1);
+	//isNumber_ExpectAndReturn((Token *)&number2, 1);
 	stackPush_Expect((Token *)&number2, &numberStack);
 	getToken_ExpectAndReturn(&tokenizer, NULL);
 	
@@ -114,7 +114,7 @@ void test_should_return_3_for_1_plus_2(void){
 	destroyStack_Expect(&numberStack);
 	destroyStack_Expect(&operatorStack);
 	
-	check=evaluate("1+2");
+	check=evaluateExpression("1+2");
 	TEST_ASSERT_EQUAL(3, check);
 	printf("Answer : %d ",check);
 }	

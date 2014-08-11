@@ -94,9 +94,7 @@ Token *getToken(String *str) {
 			str->start++;
 			str->length--;
 		}
-		//problem most;ly come from this fucntion , it seem u does not hadle for +
-		//but i tested this ady 
-
+		
 		Operator *operator = operatorNewBySymbol(charReturn);
 		tokenReturn = (Token *)operator;
 		

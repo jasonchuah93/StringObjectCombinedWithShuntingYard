@@ -1017,8 +1017,10 @@ void test_testToken(void)
 
 {
 
+
+
  printf("Evaluate function\n");
 
-  evaluateExpression("1+2");
+ UnityAssertEqualNumber((_U_SINT)((3)), (_U_SINT)((evaluateExpression("1+2"))), (((void *)0)), (_U_UINT)521, UNITY_DISPLAY_STYLE_INT);
 
 }

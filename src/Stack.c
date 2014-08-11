@@ -1,6 +1,9 @@
+#include "unity.h"
+#include <malloc.h>
 #include "Stack.h"
 #include "LinkedList.h"
-#include <malloc.h>
+#include "Token.h"
+
 
 /*
 #############################################################################################################
@@ -47,6 +50,15 @@ void stackPush(void *data,Stack *stack )
 	Element *newElement = malloc(sizeof(Element));
 	newElement->data = data;
 	List_addFirst(newElement,list);
+	
+	if(((Token*)data)->type == NUMBER_TOKEN)
+	{
+		printf("testing got push into number stack \n");
+	}
+	else if(((Token*)data)->type == OPERATOR_TOKEN)
+	{
+		printf("testing got push into operator stack \n");
+	}	
 }
 
 /*
@@ -60,6 +72,7 @@ void stackPush(void *data,Stack *stack )
 */
 void *stackPop(Stack*stack)
 {
+	
 	Element *elem;
 	LinkedList *list = (LinkedList*)stack;
 	if(list->head==NULL)
@@ -67,7 +80,18 @@ void *stackPop(Stack*stack)
 		return NULL;
 	}
 	elem = List_removeFirst(list);
+	
+	if(((Token*)elem->data)->type == NUMBER_TOKEN)
+	{
+		printf("testing got pop out from number stack \n");
+	}
+	else if(((Token*)elem->data)->type == OPERATOR_TOKEN)
+	{
+		printf("testing got pop out from operator stack \n");
+	}	
+	
 	return elem->data;
+	
 }
 
 /*

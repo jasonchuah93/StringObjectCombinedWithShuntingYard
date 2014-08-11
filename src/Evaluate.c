@@ -99,6 +99,8 @@ int evaluate(char *expression){
 
 int evaluateExpression(char *expression){
 	Token *token;
+	Stack *numberStack=createStack();
+	Stack *operatorStack=createStack();
 	
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
@@ -106,10 +108,20 @@ int evaluateExpression(char *expression){
 	
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-	 //dr poh ask me use this 2 function textNew and stringNew create text then 
-	 //create string , ok i un d , show me the last one getToken
 	while((token=getToken(tokenizer))!=NULL ){
-		tokenDump(token);//this?
+		if(token->type==NUMBER_TOKEN){
+			stackPush(token,numberStack);
+			
+		}else if(token->type==OPERATOR_TOKEN){
+			stackPush(token,operatorStack);
+			
+		}
 	}
 	
+	evaluateAllOperatorOnStack(numberStack,operatorStack);
+	
+	Number *result=(Number*)stackPop(numberStack);
+	destroyStack(numberStack);
+	destroyStack(operatorStack);
+	return result->value;
 }
