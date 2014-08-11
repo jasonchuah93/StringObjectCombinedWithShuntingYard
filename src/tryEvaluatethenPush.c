@@ -55,20 +55,22 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 		{
 			stackPush(previousToken,operatorStack);
 		}
-	stackPush(newToken,operatorStack);
+		stackPush(newToken,operatorStack);
 	}
 }
 
 void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack)
 {
-	Operator *previousToken;
-	previousToken=(Operator*)stackPop(operatorStack);
+	Operator *previousToken=(Operator*)stackPop(operatorStack);
 	
-	if(previousToken==NULL)
+	printf("testingA\n");
+	
+	if(previousToken == NULL)
 	{
+		printf("testing1\n");
 		stackPush(newToken,operatorStack);
 	}
-	else{
+	
 		while(previousToken!=NULL)
 		{
 			if(((Operator*)newToken)->info->id ==CLOSING_BRACKET_OP)
@@ -104,32 +106,36 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 			previousToken=(Operator*)stackPop(operatorStack);
 			
 		}
-		if(previousToken!=NULL )
-		{
-			stackPush(previousToken,operatorStack);
-		}
 		
-		if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP)
-		{
-			stackPush(newToken,operatorStack);
-		}
-		
+	if(previousToken!=NULL )
+	{
+		stackPush(previousToken,operatorStack);
 	}
+		
+	if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP)
+	{
+		stackPush(newToken,operatorStack);
+	}
+		
+	
 	
 }
 
-void tryConvertToPrefixThenPush(Operator *opeToken,Stack *operatorStack){
+void tryConvertToPrefix(Operator *opeToken){
 	
 	int i;
 	OperatorInfo *info=operatorFindAlternateInfoByName(opeToken->info->symbol);
 	
-	if(opeToken->info ==NULL)
+	if(opeToken->info == NULL)
 	{
+		
 		Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
+		
 	}
 	
+	
 	opeToken->info=info;
-	stackPush(opeToken,operatorStack);
+	
 	
 }
 //when cannot convert to prefix ,fail 

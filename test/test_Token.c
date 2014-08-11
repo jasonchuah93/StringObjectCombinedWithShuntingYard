@@ -1,15 +1,24 @@
 #include "unity.h"
+#include "Evaluate.h"
 #include "Token.h"
 #include "getToken.h"
 #include "Text.h"
 #include "StringObject.h"
 #include "CharSet.h"
-#include "CException.h"
-#include "ErrorCode.h"
 #include "CustomTypeAssert.h"
+#include "Stack.h"
+#include "LinkedList.h"
+#include "tryEvaluatethenPush.h"
+#include "operatorEvaluate.h"
+#include "calculateToken.h"
+#include "createNumberToken.h"
+#include "stackForEvaluate.h"
+#include "ErrorCode.h"
+#include "CException.h"
 
 void setUp(void) {}
 void tearDown(void) {}
+
 
 void test_getToken_should_get_5(void) {
 	Number *number = numberNew(5);
@@ -407,16 +416,12 @@ void test_getToken_should_get_opening_and_closing_bracket(void){
 	TEST_ASSERT_EQUAL(OPENING_BRACKET_OP,((Operator *)token)->info->id);
 	TEST_ASSERT_EQUAL(10,((Operator *)token)->info->precedence);
 	TEST_ASSERT_EQUAL_String("2)",string);
-	stringDump(string);
-	tokenDump(token);
 	
 	//Test for 2
 	token = getToken(string);
 	TEST_ASSERT_EQUAL(NUMBER_TOKEN,token->type);
 	TEST_ASSERT_EQUAL(2,((Number *)token)->value);
 	TEST_ASSERT_EQUAL_String(")",string);
-	stringDump(string);
-	tokenDump(token);
 	
 	//Test for )
 	token = getToken(string);
@@ -425,10 +430,6 @@ void test_getToken_should_get_opening_and_closing_bracket(void){
 	TEST_ASSERT_EQUAL(CLOSING_BRACKET_OP,((Operator *)token)->info->id);
 	TEST_ASSERT_EQUAL(9,((Operator *)token)->info->precedence);
 	TEST_ASSERT_EQUAL_String("",string);
-	stringDump(string);
-	tokenDump(token);
-	
-	
 }
 void test_tokenDel_should_not_cause_error(){
 	Text *text = textNew("  abc && 123");
@@ -487,3 +488,35 @@ void test_getToken_sould_not_throw_error_mix_Identifier_Number(void){
 	TEST_ASSERT_EQUAL_STRING("ABC123",((Identifier *)token)->name->string);
 	TEST_ASSERT_EQUAL_String("",string);
 }
+
+void test_getToken_should_get_1_plus_2(void){
+	int test;
+	char temp[]="1+2";
+	Text *text = textNew(temp);
+	String *string = stringNew(text);
+	//1
+	Token *token = getToken(string);
+	TEST_ASSERT_EQUAL(NUMBER_TOKEN,token->type);
+	TEST_ASSERT_EQUAL(1,((Number *)token)->value);
+	TEST_ASSERT_EQUAL_String("+2",string);
+	//+
+	token = getToken(string);
+	TEST_ASSERT_EQUAL(OPERATOR_TOKEN,token->type);
+	TEST_ASSERT_EQUAL_STRING("+",((Operator *)token)->info->symbol);
+	TEST_ASSERT_EQUAL(ADD_OP,((Operator *)token)->info->id);
+	TEST_ASSERT_EQUAL(80,((Operator *)token)->info->precedence);
+	TEST_ASSERT_EQUAL_String("2",string);
+	//2
+	token = getToken(string);
+	TEST_ASSERT_EQUAL(NUMBER_TOKEN,token->type);
+	TEST_ASSERT_EQUAL(2,((Number *)token)->value);
+	TEST_ASSERT_EQUAL_String("",string);
+	
+}
+
+void test_testToken(void)
+{
+	printf("Evaluate function\n");
+	 evaluateExpression("1+2");
+}
+

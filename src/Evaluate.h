@@ -1,9 +1,9 @@
-#ifndef Evaluate_H
-#define Evaluate_H
+#ifndef __Evaluate_H
+#define __Evaluate_H
 
-#include "StringObject.h"
 
-int evaluate(char *expression);
-int evaluatex(char *expression);
+
+//int evaluate(char *expression);
+int  evaluateExpression(char *expression);
 
 #endif // Evaluate_H

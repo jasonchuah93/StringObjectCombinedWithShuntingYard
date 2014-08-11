@@ -27,7 +27,7 @@ void textDump(Text *text){
 * Return the text that have created 
 */
 Text *textNew(char *charStr){
-	// Character string copy from charStr to text->string
+	
 	if(charStr==NULL){
 		printf("(NULL)");
 		return;
@@ -62,10 +62,7 @@ Text *textAssign(Text *text){
 * Return the text that left 
 */
 Text *textDel(Text *text){
-	//check if text reference not equals to 0x80000000
-	//reduce text reference by one
-	//do normal delete
-	//else do nth
+	
 	if(text->reference < 0x80000000 && text->reference > 0){
 		text->reference--;
 		if(text->reference == 0){

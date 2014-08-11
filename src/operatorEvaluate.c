@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
 #include "Evaluate.h"
 #include "Stack.h"
 #include "StringObject.h"
@@ -9,7 +10,6 @@
 #include "calculateToken.h"
 #include "createNumberToken.h" 
 #include "LinkedList.h"
-#include "stackForEvaluate.h"
 #include <malloc.h>
 
 /**
@@ -80,40 +80,29 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
 	
 	int answer; 
-	
 	Token *token1; 
-	Number *number1;
 	Token *token2; 
+	Number *number1;
 	Number *number2;
 	Token *answerToken; 
 	
-	tokenDump((Token*)opeToken);
-	
-	token1=(Token*)stackPop(numberStack); 
-	
-	number1 = (Number*)token1;
-	tokenDump((Token*)number1);
 	token2=(Token*)stackPop(numberStack); 
-	
-	number2 = (Number*)token2;
-	tokenDump((Token*)number2);
-	answer = calculate(opeToken,number2,number1); 
+	number2=(Number*)token2;
+	token1=(Token*)stackPop(numberStack); 
+	number1=(Number*)token1;
+	answer = calculate(opeToken,number1,number2); 
 	answerToken=createNumberToken(answer);
 	stackPush(answerToken,numberStack);
 	
 }
 
 void operatorPrefixEvaluate(Stack *numberStack , Operator *opeToken1){
-	
-	Number *num1;
-	Token *token1; 
 	int answer; 
-	Token *answerToken; 
 	
-	token1=(Token*)stackPop(numberStack); 
-	num1=(Number*)token1; 
+	Token *token=(Token*)stackPop(numberStack); 
+	Number *num1=(Number*)token; 
 	answer = prefixCalculate(opeToken1,num1); 
-	answerToken=createNumberToken(answer);
+	Token *answerToken=createNumberToken(answer);
 	stackPush(answerToken,numberStack);
 	
 	tokenDump(answerToken);
@@ -134,7 +123,7 @@ void evaluateAllOperatorOnStack(Stack *numberStack,Stack *operatorStack){
 	
 	while((opeToken=stackPop(operatorStack))!=NULL)
 	{
-		operatorInfixEvaluate(numberStack ,opeToken);
+		operatorEvaluate(numberStack ,opeToken);
 	}
 }
 

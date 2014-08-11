@@ -3,8 +3,16 @@
 - CharSet.h
 - CustomTypeAssert.h
 - ErrorCode.h
+- Evaluate.h
+- LinkedList.h
+- Stack.h
 - StringObject.h
 - Text.h
 - Token.h
+- calculateToken.h
+- createNumberToken.h
 - getToken.h
+- operatorEvaluate.h
+- stackForEvaluate.h
+- tryEvaluatethenPush.h
 - unity.h

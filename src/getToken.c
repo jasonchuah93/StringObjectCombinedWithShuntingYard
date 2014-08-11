@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <malloc.h>
-#include "CException.h"
 #include "Token.h"
 #include "Text.h"
 #include "CharSet.h"
-#include "ErrorCode.h"
+#include "StringObject.h"
+#include "getToken.h"
 #include "CustomTypeAssert.h"
-
-
+#include "ErrorCode.h"
+#include "CException.h"
 
 /**
  * Return the one token from the String. The String is updated.
@@ -51,6 +51,7 @@ Token *getToken(String *str) {
 			Number *number = numberNew(stringToInteger(strReturn));
 			tokenReturn = (Token *)number;
 		}
+	
 	}
 	
 	//Identifier
@@ -93,10 +94,12 @@ Token *getToken(String *str) {
 			str->start++;
 			str->length--;
 		}
-		
+		//problem most;ly come from this fucntion , it seem u does not hadle for +
+		//but i tested this ady 
 
 		Operator *operator = operatorNewBySymbol(charReturn);
 		tokenReturn = (Token *)operator;
+		
 		
 	}
 	else
@@ -125,9 +128,13 @@ Token *getToken(String *str) {
 int isOperator (Token * unknownToken)
 {
 	if(unknownToken->type==OPERATOR_TOKEN)
+	{
 		return 1;
-	else	
+	}
+	else
+	{
 		return 0;
+	}
 }
 
 /*
@@ -145,8 +152,29 @@ int isOperator (Token * unknownToken)
 */
 int isNumber (Token * unknownToken)
 {
+	
 	if(unknownToken->type==NUMBER_TOKEN)
+	{	
 		return 1;
+	}
 	else	
+	{
 		return 0;
+	}
+}
+
+int testToken(char *expression){
+	
+	Text *text = textNew(expression);
+	String *string = stringNew(text);
+	
+	Token *token = getToken(string);
+	tokenDump(token);
+	
+	token = getToken(string);
+	tokenDump(token);
+	
+	token = getToken(string);
+	tokenDump(token);
+	
 }

@@ -56,7 +56,7 @@ Using following real function :
 	
 	Try
 	{
-		check=evaluatex(NULL);
+		check=evaluate(NULL);
 		TEST_FAIL_MESSAGE("Should throw Error no expression ");
 	}
 	Catch(e)
@@ -93,7 +93,7 @@ void test_should_return_3_for_1_plus_2(void){
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&plus);
 	isNumber_ExpectAndReturn((Token *)&plus, 0);
 	isOperator_ExpectAndReturn((Token *)&plus, 1);
-	//stackPop_ExpectAndReturn(&operatorStack, NULL);
+	stackPop_ExpectAndReturn(&operatorStack, NULL);
 	stackPush_Expect((Token *)&plus, &operatorStack);
 	
 	//Number2
@@ -114,7 +114,7 @@ void test_should_return_3_for_1_plus_2(void){
 	destroyStack_Expect(&numberStack);
 	destroyStack_Expect(&operatorStack);
 	
-	check=evaluatex("1+2");
+	check=evaluate("1+2");
 	TEST_ASSERT_EQUAL(3, check);
 	printf("Answer : %d ",check);
 }	

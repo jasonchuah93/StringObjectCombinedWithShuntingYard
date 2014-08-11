@@ -8,7 +8,7 @@
 //Function declaration
 void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack);
 void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack);
-void tryConvertToPrefixThenPush(Operator *opeToken,Stack *operatorStack);
+void tryConvertToPrefix(Operator *opeToken);
 
 
 #endif //__TRYEVALUATETHANPUSH_H__

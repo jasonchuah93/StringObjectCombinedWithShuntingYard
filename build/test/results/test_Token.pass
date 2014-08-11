@@ -4,115 +4,119 @@
   :file: test_Token.c
 :successes:
 - :test: test_getToken_should_get_5
-  :line: 14
+  :line: 23
   :message: ''
 - :test: test_getToken_should_get_100
-  :line: 21
+  :line: 30
   :message: ''
 - :test: test_identifierNew_should_get_return_details
-  :line: 28
+  :line: 37
   :message: ''
 - :test: test_identifierNew_should_get_return_details_2
-  :line: 38
+  :line: 47
   :message: ''
 - :test: test_operatorNewBySymbol_should_create
-  :line: 48
+  :line: 57
   :message: ''
 - :test: test_operatorNewBySymbol_should_create2
-  :line: 59
+  :line: 68
   :message: ''
 - :test: test_operatorNewBySymbol_should_retun_NULL
-  :line: 70
+  :line: 79
   :message: ''
 - :test: test_operatorNewByID_should_create
-  :line: 77
+  :line: 86
   :message: ''
 - :test: test_operatorNewByID_should_create2
-  :line: 88
+  :line: 97
   :message: ''
 - :test: test_operatorNewByID_should_retun_NULL
-  :line: 99
+  :line: 108
   :message: ''
 - :test: test_operatorFindInfoById_should_get_the_correct_ID_in_the_Table_List
-  :line: 107
+  :line: 116
   :message: ''
 - :test: test_operatorFindInfoById_should_get_the_correct_ID_in_the_Table_List2
-  :line: 118
+  :line: 127
   :message: ''
 - :test: test_operatorFindInfoById_should_return_null_if_the_input_is_not_within_the_table_list
-  :line: 129
-  :message: ''
-- :test: test_getToken_sould_return_NumberToken_324
   :line: 138
   :message: ''
+- :test: test_getToken_sould_return_NumberToken_324
+  :line: 147
+  :message: ''
 - :test: test_getToken_sould_return_NumberToken_123
-  :line: 151
+  :line: 160
   :message: ''
 - :test: test_getToken_sould_return_NumberToken_123_without_ending_with_space
-  :line: 164
+  :line: 173
   :message: ''
 - :test: test_getToken_sould_return_IdentifierToken_AuCheeLiang
-  :line: 176
+  :line: 185
   :message: ''
 - :test: test_getToken_should_return_IdentifierToken_ChiewBingXuan
-  :line: 189
+  :line: 198
   :message: ''
 - :test: test_getToken_sould_return_IdentifierToken_AuCheeLiang_without_ending_with_space
-  :line: 202
+  :line: 211
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_BITWISE_NOT_OP
-  :line: 215
+  :line: 224
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_BITWISE_AND_OP
-  :line: 230
+  :line: 239
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_LOGICAL_AND_OP
-  :line: 245
+  :line: 254
   :message: ''
 - :test: test_getToken_should_return_OperatorToken_LOGICAL_OR_OP
-  :line: 260
+  :line: 269
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_number_and_alphabet
-  :line: 275
+  :line: 284
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_number_and_operator
-  :line: 288
+  :line: 297
   :message: ''
 - :test: test_getToken_sould_Throw_an_error_with_mixed_up_all_together
-  :line: 301
+  :line: 310
   :message: ''
 - :test: test_getToken_multiple_times_abc_BITWISE_NOT_OP_123
-  :line: 314
+  :line: 323
   :message: ''
 - :test: test_getToken_multiple_times_abc_LOGICAL_AND_OP_123
-  :line: 340
+  :line: 349
   :message: ''
 - :test: test_getToken_multiple_times_abc_LOGICAL_AND_OP_12a3_should_throw_error
-  :line: 366
+  :line: 375
   :message: ''
 - :test: test_getToken_should_get_opening_and_closing_bracket
-  :line: 397
+  :line: 406
   :message: ''
 - :test: test_tokenDel_should_not_cause_error
-  :line: 433
+  :line: 434
   :message: ''
 - :test: test_getToken_sould_throw_error_mix_Number_Identifier
-  :line: 463
+  :line: 464
   :message: ''
 - :test: test_getToken_sould_not_throw_error_mix_Identifier_Number
-  :line: 476
+  :line: 477
+  :message: ''
+- :test: test_getToken_should_get_1_plus_2
+  :line: 492
+  :message: ''
+- :test: test_testToken
+  :line: 517
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 33
-  :passed: 33
+  :total: 35
+  :passed: 35
   :failed: 0
   :ignored: 0
 :stdout:
-- '[1] f_str[:2]:(2), start:1, len:2, str:2)'
-- Operator Token=(, precedence=10, affix=1
-- '[1] f_str[:3]:(2), start:2, len:1, str:)'
+- Evaluate function
+- Number Token=1
+- Operator Token=+, precedence=80, affix=2
 - Number Token=2
-- '[1] f_str[:3]:(2), start:2, len:0, str:'
-- Operator Token=), precedence=9, affix=3

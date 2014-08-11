@@ -63,8 +63,8 @@ void test_tryConvertToPrefixThenPush_Will_Convert_Infix_Token_To_Prefix_Token_In
 	Stack operatorStack;
 	Operator plus = {.type=OPERATOR_TOKEN , .info=operatorFindInfoByID(ADD_OP)};
 	
-	stackPush_Expect(&plus,&operatorStack);
-	tryConvertToPrefixThenPush(&plus,&operatorStack);
+	
+	tryConvertToPrefix(&plus);
 	TEST_ASSERT_EQUAL(OPERATOR_TOKEN,plus.type);
 	TEST_ASSERT_EQUAL(150,plus.info->precedence);
 	TEST_ASSERT_EQUAL(PLUS_OP,plus.info->id);
@@ -74,8 +74,8 @@ void test_tryConvertToPrefixThenPush_Will_Convert_Infix_Token_To_Prefix_Token_In
 	Stack operatorStack;
 	Operator minus = {.type=OPERATOR_TOKEN , .info=operatorFindInfoByID(SUB_OP)};
 	
-	stackPush_Expect(&minus,&operatorStack);
-	tryConvertToPrefixThenPush(&minus,&operatorStack);
+	
+	tryConvertToPrefix(&minus);
 	TEST_ASSERT_EQUAL(OPERATOR_TOKEN,minus.type);
 	TEST_ASSERT_EQUAL(150,minus.info->precedence);
 	TEST_ASSERT_EQUAL(MINUS_OP,minus.info->id);
@@ -86,10 +86,10 @@ void test_tryConvertToPrefixThenPush_will_throw_error_if_operator_token_is_inval
 	CEXCEPTION_T e;
 	Operator multiply = {.type=OPERATOR_TOKEN , .info=operatorFindInfoByID(MUL_OP)};
 	
-	stackPush_Expect(&multiply,&operatorStack);
+	
 	
 	Try{
-		tryConvertToPrefixThenPush(&multiply,&operatorStack);
+		tryConvertToPrefix(&multiply);
 	}Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);

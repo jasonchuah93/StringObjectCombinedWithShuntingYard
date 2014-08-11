@@ -1,20 +1,21 @@
 #include <stdio.h>
-#include <string.h>
-#include "Evaluate.h"
-#include "StringObject.h"
+#include <malloc.h>
 #include "Token.h"
+#include "Text.h"
+#include "CharSet.h"
+#include "StringObject.h"
 #include "getToken.h"
+#include "Evaluate.h"
+#include "CustomTypeAssert.h"
+#include "Stack.h"
+#include "LinkedList.h"
 #include "tryEvaluatethenPush.h"
 #include "operatorEvaluate.h"
 #include "calculateToken.h"
-#include "Stack.h"
+#include "createNumberToken.h"
 #include "stackForEvaluate.h"
-#include "Text.h"
-#include "Types.h"
-#include "CharSet.h"
 #include "ErrorCode.h"
 #include "CException.h"
-
 
 /*
 	This function is to push tokens that tokenize from expression to stack 
@@ -57,14 +58,14 @@ int evaluate(char *expression){
 		
 		if(isNumber(token)){
 			stackPush(token,numberStack);
-			tokenDump(token);
+			
 		} else if(isOperator(token)) {			
 			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
 				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-				tokenDump(token);
+				
 			} else {
 				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);	
-				tokenDump(token);	
+					
 			}	
 			
 		}		
@@ -96,46 +97,19 @@ int evaluate(char *expression){
 	
 }
 
-int evaluatex(char *expression){
-	String *tokenizer;
-	Text *newText;
+int evaluateExpression(char *expression){
 	Token *token;
-	Token *ansToken;
-	ErrorCode exception;
-	Number *result;
-	//create number and operator stack
-	Stack *numberStack;
-	numberStack=createStack();
-	Stack *operatorStack;
-	operatorStack=createStack();
-	//make expression into text form and generate tokenizer from stringNew
-	newText=textNew(expression);
-	tokenizer = stringNew(newText);
 	
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
 	}
 	
+	Text *newText=textNew(expression);
+	String *tokenizer = stringNew(newText);
+	 //dr poh ask me use this 2 function textNew and stringNew create text then 
+	 //create string , ok i un d , show me the last one getToken
 	while((token=getToken(tokenizer))!=NULL ){
-		
-		if(isNumber(token)){
-			stackPush(token,numberStack);
-			tokenDump(token);
-		} else if(isOperator(token)) {			
-			stackPush(token,operatorStack);
-			tokenDump(token);	
-		}		
-	}
-	evaluateAllOperatorOnStack(numberStack,operatorStack);
-	
-	result=(Number*)stackPop(numberStack);
-	destroyStack(numberStack);
-	
-	if(operatorStack !=NULL)
-	{
-		destroyStack(operatorStack);
+		tokenDump(token);//this?
 	}
 	
-	return result->value;
-	
-}	
+}
