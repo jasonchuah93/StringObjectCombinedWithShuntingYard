@@ -32,69 +32,40 @@
 //New evaluate
 
 int evaluate(char *expression){
-	String *tokenizer;
-	Text *newText;
 	Token *token;
-	Token *ansToken;
-	ErrorCode exception;
-	int i=0;
-	int counter=0;
 	Number *result;
 	
-	Stack *numberStack;
-	numberStack=createStack();
-	Stack *operatorStack;
-	operatorStack=createStack();
+	Stack *numberStack=createStack();
+	Stack *operatorStack=createStack();
 	
-	newText=textNew(expression);
-	tokenizer = stringNew(newText);
-	
+	Text *newText=textNew(expression);
+	String *tokenizer = stringNew(newText);
 	
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
 	}
-	
 	while((token=getToken(tokenizer))!=NULL ){
-		
 		if(isNumber(token)){
 			stackPush(token,numberStack);
-			
 		} else if(isOperator(token)) {			
 			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
 				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-				
-			} else {
-				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);	
-					
+			} else{
+				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}	
-			
-		}		
-		counter++;
-		//printf("ii=%d\n",i++);
-		
+		}	
 	}
-
-	if(operatorStack == NULL)
-	{
-		
-		 operatorPrefixEvaluate(numberStack , (Operator*)token);
-	}
-	else
-	{
+	if(operatorStack == NULL){
+		operatorPrefixEvaluate(numberStack ,(Operator*)token);
+	}else{
 		evaluateAllOperatorOnStack(numberStack,operatorStack);
 	}
-	
 	result=(Number*)stackPop(numberStack);
 	destroyStack(numberStack);
-	
-	if(operatorStack !=NULL)
-	{
+	if(operatorStack !=NULL){
 		destroyStack(operatorStack);
 	}
-	
-	printf("Loop needed for each expression to completely evaluate : %d \n",counter);
 	return result->value;
-	
 }
 
 int evaluateExpression(char *expression){
@@ -105,10 +76,9 @@ int evaluateExpression(char *expression){
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
 	}
-	 
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-	while((token=getTokenise(tokenizer))!=NULL ){
+	while((token=getToken(tokenizer))!=NULL ){
 		if(isNumber(token)){
 			stackPush(token,numberStack);
 		}else if(isOperator(token)){
@@ -116,25 +86,18 @@ int evaluateExpression(char *expression){
 				tryConvertToPrefix((Operator*)token);
 				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}else{
-				//tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);	
 				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}
 		}
 	}
-	if(operatorStack == NULL)
-	{
-		evaluatePrefixOperatorOnStack(numberStack,operatorStack);
-	}
-	else
-	{
+	if(operatorStack == NULL){
+		operatorPrefixEvaluate(numberStack ,(Operator*)token);
+	}else{
 		evaluateAllOperatorOnStack(numberStack,operatorStack);
 	}
-	
 	Number *result=(Number*)stackPop(numberStack);
-	
 	destroyStack(numberStack);
-	if(operatorStack !=NULL)
-	{
+	if(operatorStack !=NULL){
 		destroyStack(operatorStack);
 	}
 	return result->value;

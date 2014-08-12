@@ -22,7 +22,7 @@ void setUp(void){}
 void tearDown(void){}
 
 /*********************************************************************************************************************************
- Test on function evaluate
+ Test for function evaluate(char* expression)
  Input parameter : 
 					1)char *expression
 
@@ -37,6 +37,9 @@ Using following real function :
 							2)evaluateAllOperatorOnStack(Stack *numberStack,Stack *operatorStack);
 							3)tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack);
 							4)calculate(Operator *opeToken, Number *first , Number *second);
+
+All the tests below are running using some mocking functions to test my evaluate(char *expression) running in a correct flow.
+The evaluate(char *expression) is the prototype function which will improve to the evaluateExpression(char *expression).
  ********************************************************************************************************************************/	
 
  void test_evaluate_should_throw_error_if_the_expression_is_null(){
@@ -86,19 +89,19 @@ void test_should_return_3_for_1_plus_2(void){
 	
 	//Number1
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&number1);
-	//isNumber_ExpectAndReturn((Token *)&number1, 1);
+	isNumber_ExpectAndReturn((Token *)&number1, 1);
 	stackPush_Expect((Token *)&number1, &numberStack);
 	
 	//Operator token plus
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&plus);
-	//isNumber_ExpectAndReturn((Token *)&plus, 0);
-	//isOperator_ExpectAndReturn((Token *)&plus, 1);
-	//stackPop_ExpectAndReturn(&operatorStack, NULL);
+	isNumber_ExpectAndReturn((Token *)&plus, 0);
+	isOperator_ExpectAndReturn((Token *)&plus, 1);
+	stackPop_ExpectAndReturn(&operatorStack, NULL);
 	stackPush_Expect((Token *)&plus, &operatorStack);
 	
 	//Number2
 	getToken_ExpectAndReturn(&tokenizer, (Token *)&number2);
-	//isNumber_ExpectAndReturn((Token *)&number2, 1);
+	isNumber_ExpectAndReturn((Token *)&number2, 1);
 	stackPush_Expect((Token *)&number2, &numberStack);
 	getToken_ExpectAndReturn(&tokenizer, NULL);
 	
@@ -114,11 +117,11 @@ void test_should_return_3_for_1_plus_2(void){
 	destroyStack_Expect(&numberStack);
 	destroyStack_Expect(&operatorStack);
 	
-	check=evaluateExpression("1+2");
+	check=evaluate("1+2");
 	TEST_ASSERT_EQUAL(3, check);
 	printf("Answer : %d ",check);
 }	
-/*
+
 void test_should_return_6_for_60_divide_10(void){
 	
 	int check;
@@ -531,12 +534,12 @@ void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 	isNumber_ExpectAndReturn((Token *)&number43,1);
 	stackPush_Expect((Token *)&number43,&dataStack);
 	//HASHTAG
-	getToken_ExpectAndThrow(&tokenizer,UNKNOWN_OPERATOR);
+	getToken_ExpectAndThrow(&tokenizer,ERR_UNKNOWN_INFIX_OPERATOR);
 	Try{
 		evaluate("43#42");
 		 TEST_FAIL_MESSAGE("Should throw ERR_INVALID_OPERATOR");
 	 }Catch(e){
-		 TEST_ASSERT_EQUAL(UNKNOWN_OPERATOR,e);
+		 TEST_ASSERT_EQUAL(ERR_UNKNOWN_INFIX_OPERATOR,e);
 		 
 	 }
 }
@@ -792,6 +795,7 @@ void test_left_bracket_20_multiply_3_subtract_50_right_bracket(void){
 	printf("Answer : %d ",check);
 }
 
+
 void test_logic_not_12_SHOULD_RETURN_0(void){
 	
 	Stack numStack;
@@ -852,7 +856,7 @@ void test_NEGATIVE_2_SHOULD_RETURN_NEGATIVE_2(void){
 	//Initialize tokenizer,token and stack
 	String tokenizer = {.text = t"-2"};
 	
-	Operator subtract = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(MINUS_OP)};
+	Operator subtract = {.type= OPERATOR_TOKEN, .info=operatorFindAlternateInfoByID(MINUS_OP)};
 	Number number2 = {.type= NUMBER_TOKEN, .value=2};
 	Number negNum2 = {.type=NUMBER_TOKEN, .value=-2};
 	
@@ -891,4 +895,3 @@ void test_NEGATIVE_2_SHOULD_RETURN_NEGATIVE_2(void){
 	printf("Answer : %d ",check);
 
 }
-*/

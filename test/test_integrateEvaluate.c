@@ -35,7 +35,8 @@ void test_evaluate_should_throw_error_if_the_expression_is_null(){
 		TEST_ASSERT_EQUAL(ERR_NO_ARGUMENT ,e);
 	}
 }
-/*
+
+
 void test_should_throw_error_illegal_argument_for_two_plus(void){
 	int check;
 	CEXCEPTION_T e;
@@ -51,7 +52,7 @@ void test_should_throw_error_illegal_argument_for_multiply_two(void){
 	int check;
 	CEXCEPTION_T e;
 	Try{
-		check=evaluateExpression("*2");
+		check=evaluate("*2");
 	}Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
@@ -112,8 +113,8 @@ void test_should_evaluate_two_multiply_three_plus_four(void){
 	
 	TEST_ASSERT_EQUAL(10,check);
 }
-*/
 
+/*
 void test_should_evaluate_negative_two(void){
 	int check;
 	check=evaluateExpression("-2");
@@ -129,4 +130,4 @@ void test_should_evaluate_negative_negative_two(void){
 	TEST_ASSERT_EQUAL(2,check);
 	printf("Answer : %d \n",check);
 }
-
+*/

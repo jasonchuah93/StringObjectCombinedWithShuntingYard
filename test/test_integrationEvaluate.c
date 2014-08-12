@@ -43,43 +43,34 @@ Mock function left stringCreate
 
 void test_should_return_3_for_1_plus_2(void){
 	int check;
-	//Initialize tokenizer,token and stack
-	
-	check=evaluatex("1+2");
+	check=evaluate("1+2");
 	TEST_ASSERT_EQUAL(3,check);
-	
+	printf("Answer : %d ",check);
 }
 
-/*
+
 void test_should_return_6_for_60_divide_10(void){
-	
 	int check;
-	
 	check=evaluate("60/10");
 	TEST_ASSERT_EQUAL(6,check);
 	printf("Answer : %d ",check);
 }
 
 void test_evaluate_2_MULTIPLY_3_PLUS_4(void){	
-	
 	int check;
-	
 	check=evaluate("2*3+4");
 	TEST_ASSERT_EQUAL(10,check);
 	printf("Answer : %d ",check);
-
 }
 
 void test_evaluate_2_PLUS_3_MULTIPLY_4_PLUS_5_MULTIPLY_6(void){
 	int check;
-	
 	check=evaluate("2+3*4+5*6");
 	TEST_ASSERT_EQUAL(44,check);
 	printf("Answer : %d ",check);
 }
 
 void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10(void){
-	
 	int check;
 	check=evaluate("2|3+4*5-6-10");
 	TEST_ASSERT_EQUAL(7,check);
@@ -87,9 +78,7 @@ void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10(void){
 }
 
 void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10_OR_10_AND_53_XOR_21(void){
-	
 	int check;
-	
 	check=evaluate("2|3+4*5-6-10|10&53^21");
 	TEST_ASSERT_EQUAL(23,check);
 	printf("Answer : %d ",check);
@@ -97,7 +86,6 @@ void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10_OR_10_AND_53_XOR_21(void){
 
 void test_evaluate_with_different_expression(void){
 	int check;
-	
 	check=evaluate("2|3+4*5-6-10|10&53^21+95%6^200%5*80");
 	TEST_ASSERT_EQUAL(31,check);
 	printf("Answer : %d ",check);
@@ -105,13 +93,9 @@ void test_evaluate_with_different_expression(void){
 
 void test_evaluate_with_longer_expression(void){
 	int check;
-	
 	check=evaluate("2|3&4^5|6^10|10&53^21&95|6^200&5|80");
 	TEST_ASSERT_EQUAL(95,check);
 	printf("Answer : %d ",check);
 }
-*/
 
-void test_evaluate_two_plus_three(void){
-	
-}
+

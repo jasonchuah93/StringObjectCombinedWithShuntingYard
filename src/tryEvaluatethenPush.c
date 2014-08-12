@@ -53,36 +53,40 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack)
 {
 	Operator *previousToken=(Operator*)stackPop(operatorStack);
+	
 	if(previousToken == NULL){
 		stackPush(newToken,operatorStack);
+		
 	}
-	while(previousToken!=NULL)
-	{
-		if(((Operator*)newToken)->info->id ==CLOSING_BRACKET_OP){
-			if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP){
-				operatorPrefixEvaluate(numberStack ,previousToken);
-				free(newToken);
+	else{
+		while(previousToken!=NULL)
+		{
+			if(((Operator*)newToken)->info->id ==CLOSING_BRACKET_OP){
 				if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP){
-					previousToken=(Operator*)stackPop(operatorStack);
-					break;
+					operatorPrefixEvaluate(numberStack ,previousToken);
+					free(newToken);
+					if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP){
+						previousToken=(Operator*)stackPop(operatorStack);
+						break;
+					}
+				}else {
+					operatorEvaluate(numberStack,previousToken);
 				}
-			}else {
+				
+			}else if(newToken->info->precedence >= previousToken->info->precedence || ((Operator*)newToken)->info->id==OPENING_BRACKET_OP ){
+				break;
+			}
+			else{
 				operatorEvaluate(numberStack,previousToken);
 			}
-				
-		}else if(newToken->info->precedence >= previousToken->info->precedence || ((Operator*)newToken)->info->id==OPENING_BRACKET_OP ){
-			break;
+			previousToken=(Operator*)stackPop(operatorStack);
 		}
-		else {
-			operatorEvaluate(numberStack,previousToken);
+		if(previousToken!=NULL ){
+			stackPush(previousToken,operatorStack);
 		}
-		previousToken=(Operator*)stackPop(operatorStack);
-	}
-	if(previousToken!=NULL ){
-		stackPush(previousToken,operatorStack);
-	}
-	if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP){
-		stackPush(newToken,operatorStack);
+		if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP){
+			stackPush(newToken,operatorStack);
+		}
 	}
 }
 

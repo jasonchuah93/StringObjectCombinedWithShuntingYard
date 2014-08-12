@@ -34,8 +34,10 @@ Token *getToken(String *str) {
 	
 	char charReturn[3];
 	Token *tokenReturn;
-	String *strReturn;
-	
+	String *strReturn = NULL;
+	Number *number;
+	Identifier *identifier;
+	Operator *operator;
 	
 	stringTrimLeft(str);
 	if(stringLength(str)==0)
@@ -49,7 +51,7 @@ Token *getToken(String *str) {
 			Throw(ERR_NUMBER_NOT_WELL_FORMED);
 		}
 		else{
-			Number *number = numberNew(stringToInteger(strReturn));
+			number = numberNew(stringToInteger(strReturn));
 			tokenReturn = (Token *)number;
 		}
 	
@@ -58,7 +60,7 @@ Token *getToken(String *str) {
 	//Identifier
 	else if(stringIsCharAtInSet(str,0,alphabetSet)){
 		strReturn = stringRemoveWordContaining(str,alphaNumericSet);
-		Identifier *identifier = identifierNew(stringSubstringInText(strReturn,0,strReturn->length));
+		identifier = identifierNew(stringSubstringInText(strReturn,0,strReturn->length));
 		tokenReturn = (Token *)identifier;
 	}
 	
@@ -96,7 +98,7 @@ Token *getToken(String *str) {
 			str->length--;
 		}
 		
-		Operator *operator = operatorNewBySymbol(charReturn);
+		operator = operatorNewBySymbol(charReturn);
 		tokenReturn = (Token *)operator;
 		
 		
@@ -127,7 +129,7 @@ Token *getTokenise(String *str) {
 	Identifier *id;
 	int number;
 	int length;
-	String *stringRemoveWordContain;
+	String *stringRemoveWordContain = NULL;
 	Token *newToken;
 	char opeToken[3];
 	Text *strSubInText;
