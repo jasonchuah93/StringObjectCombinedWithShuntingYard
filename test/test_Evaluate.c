@@ -537,9 +537,8 @@ void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 		evaluate("43#42");
 		 
 	 }Catch(e){
-		 TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
-		 
-	 }
+		 TEST_ASSERT_EQUAL(ERR_UNKNOWN_INFIX_OPERATOR,e);
+	}
 }
 
 void test_should_evaluate_left_parenthesis_2_right_parenthesis(void){

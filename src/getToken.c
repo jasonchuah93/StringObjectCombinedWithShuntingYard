@@ -56,7 +56,6 @@ Token *getToken(String *str) {
 		}
 	
 	}
-	
 	//Identifier
 	else if(stringIsCharAtInSet(str,0,alphabetSet)){
 		strReturn = stringRemoveWordContaining(str,alphaNumericSet);
@@ -114,6 +113,9 @@ Token *getToken(String *str) {
 
 
 /**
+ * This function served as a temporary function use on for my evaluate(char *expression) and 
+ * evaluateExpression (char *expression) function while James fixing his getToken.
+ * Once James fix his getToken function, I will use back his getToken function.
  * Return the one token from the String. The String is updated.
  * If the string is empty, NULL is return.
  *

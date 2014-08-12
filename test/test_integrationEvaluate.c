@@ -38,9 +38,11 @@ void tearDown(void){}
 								10)stringNew(Text *text)
 
 After doing the mocking tests at test_Evaluate.c , I running the integration test for function evaluate(char *expression)
-
-
-
+by copying the mock test from test_Evaluate.
+However, this is evaluate(char *expression) is a prototype function so this function could not evaluate
+expression example like (((((25))))) and -+---++++20. 
+I will improve this function and named it as evaluateExpression(char *expression). 
+The TDD for evaluateExpression(char *expression) will be on file test_integrateEvaluate.c 
 ********************************************************************************************************************************/	
 
 void test_evaluate_should_throw_error_if_the_expression_is_null(){
@@ -122,7 +124,7 @@ void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 	Try{
 		evaluate("43#42");
 	}Catch(e){
-		 TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
+		 TEST_ASSERT_EQUAL(ERR_UNKNOWN_INFIX_OPERATOR,e);
 		 
 	}
 }
