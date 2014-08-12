@@ -38,12 +38,13 @@ int evaluate(char *expression){
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
 	
-	Text *newText=textNew(expression);
-	String *tokenizer = stringNew(newText);
+	
 	
 	if(expression ==NULL){	
 		Throw(ERR_NO_ARGUMENT);
 	}
+	Text *newText=textNew(expression);
+	String *tokenizer = stringNew(newText);
 	while((token=getToken(tokenizer))!=NULL ){
 		if(isNumber(token)){
 			stackPush(token,numberStack);
@@ -65,7 +66,9 @@ int evaluate(char *expression){
 	if(operatorStack !=NULL){
 		destroyStack(operatorStack);
 	}
+	
 	return result->value;
+	
 }
 
 int evaluateExpression(char *expression){

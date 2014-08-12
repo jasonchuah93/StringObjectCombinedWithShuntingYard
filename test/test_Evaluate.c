@@ -27,11 +27,12 @@ void tearDown(void){}
 					1)char *expression
 
  Using following mock function : 
-								1)stringCreate()
+								1)stringNew()
 								2)getToken()
 								3)stackPop()  
 								4)stackPush()
 								5)createNumberToken()
+								6)textNew()
 Using following real function : 
 							1)operatorEvaluate(Stack *numberStack , Operator *opeToken);
 							2)evaluateAllOperatorOnStack(Stack *numberStack,Stack *operatorStack);
@@ -54,9 +55,6 @@ The evaluate(char *expression) is the prototype function which will improve to t
 	
 	createStack_ExpectAndReturn(&numberStack);
 	createStack_ExpectAndReturn(&operatorStack);
-	textNew_ExpectAndReturn(NULL,newText);
-	stringNew_ExpectAndReturn(newText,&tokenizer);
-	
 	Try
 	{
 		check=evaluate(NULL);
@@ -537,9 +535,9 @@ void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 	getToken_ExpectAndThrow(&tokenizer,ERR_UNKNOWN_INFIX_OPERATOR);
 	Try{
 		evaluate("43#42");
-		 TEST_FAIL_MESSAGE("Should throw ERR_INVALID_OPERATOR");
+		 
 	 }Catch(e){
-		 TEST_ASSERT_EQUAL(ERR_UNKNOWN_INFIX_OPERATOR,e);
+		 TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
 		 
 	 }
 }

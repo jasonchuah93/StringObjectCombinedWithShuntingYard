@@ -21,7 +21,7 @@ void setUp(void){}
 void tearDown(void){}
 
 /*********************************************************************************************************************************
- Test on function evaluate
+ Test on function evaluate(char *expression)
  Input parameter : 
 					1)char *expression
 
@@ -34,12 +34,30 @@ void tearDown(void){}
 								6)evaluateAllOperatorOnStack(Stack *numberStack,Stack *operatorStack);
 								7)tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack);
 								8)calculate(Operator *opeToken, Number *first , Number *second);
+								9)textNew(char *expression)
+								10)stringNew(Text *text)
 
-								
-Mock function left stringCreate 
+After doing the mocking tests at test_Evaluate.c , I running the integration test for function evaluate(char *expression)
+
 
 
 ********************************************************************************************************************************/	
+
+void test_evaluate_should_throw_error_if_the_expression_is_null(){
+	
+	ErrorCode e;
+	int check;
+	
+	Try
+	{
+		check=evaluate(NULL);
+		TEST_FAIL_MESSAGE("Should throw Error no expression ");
+	}
+	Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_NO_ARGUMENT ,e);
+	}
+}
 
 void test_should_return_3_for_1_plus_2(void){
 	int check;
@@ -47,7 +65,6 @@ void test_should_return_3_for_1_plus_2(void){
 	TEST_ASSERT_EQUAL(3,check);
 	printf("Answer : %d ",check);
 }
-
 
 void test_should_return_6_for_60_divide_10(void){
 	int check;
@@ -98,4 +115,45 @@ void test_evaluate_with_longer_expression(void){
 	printf("Answer : %d ",check);
 }
 
+void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
+
+	int check;
+	ErrorCode e;
+	Try{
+		evaluate("43#42");
+	}Catch(e){
+		 TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
+		 
+	}
+}
+
+void test_should_evaluate_left_parenthesis_2_right_parenthesis(void){
+	int check;
+	check=evaluate("(2)");
+	TEST_ASSERT_EQUAL(2,check);
+	printf("Answer : %d ",check);
+}
+
+void test_should_evaluate_left_parenthesis_25_right_parenthesis(void){
+	int check;
+	check=evaluate("(25)");
+	TEST_ASSERT_EQUAL(25,check);
+	printf("Answer : %d ",check);
+}
+
+void test_left_bracket_2_plus_3_right_bracket(void){
+	int check;
+	check=evaluate("(20*3-50)");
+	TEST_ASSERT_EQUAL(10,check);
+	printf("Answer : %d ",check);
+}
+
+
+void test_logic_not_12_SHOULD_RETURN_0(void){
+	int check;
+	check=evaluate("!12");
+	TEST_ASSERT_EQUAL(0,check);
+	printf("Answer : %d ",check);
+
+}
 
