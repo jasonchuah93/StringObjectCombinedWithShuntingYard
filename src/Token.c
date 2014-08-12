@@ -70,6 +70,13 @@ Operator *operatorNewBySymbol(char *symbol) {
 			return operator;
 		}
 	}
+	for(i=0;i < ALTERNATIVE_OPERATOR_TABLE_SIZE; i++){
+		if(strcmp(alternativeOperatorTable[i].symbol,symbol)==0){
+			operator->info = &alternativeOperatorTable[i];
+			return operator;
+		}
+	}
+	
 	return NULL;
 }
 
@@ -116,6 +123,18 @@ OperatorInfo *operatorFindAlternateInfoByID(OperatorID id){
 			return &alternativeOperatorTable[i];
 		}
 		
+	}
+	return NULL;
+}
+
+OperatorInfo *operatorFindInfoByName(char *symbol){
+	int i;
+	
+	for(i=0;i < MAIN_OPERATOR_TABLE_SIZE; i++){
+		if(strcmp(mainOperatorTable[i].symbol,symbol)==0)
+		{
+			return &mainOperatorTable[i];
+		}
 	}
 	return NULL;
 }

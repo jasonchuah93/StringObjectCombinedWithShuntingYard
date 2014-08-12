@@ -16,9 +16,30 @@
 #include "ErrorCode.h"
 #include "CException.h"
 
-
 void setUp(void) {}
 void tearDown(void) {}
+
+/*********************************************************************************************************************************
+ Test on function evaluateExpression(char *expression)
+ Input parameter : 
+					1)char *expression
+
+ Using following real function : 
+								1)getToken()
+								2)stackPop()  
+								3)stackPush()
+								4)createNumberToken()
+								5)operatorEvaluate(Stack *numberStack , Operator *opeToken);
+								6)evaluateAllOperatorOnStack(Stack *numberStack,Stack *operatorStack);
+								7)tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack);
+								8)calculate(Operator *opeToken, Number *first , Number *second);
+								9)textNew(char *expression)
+								10)stringNew(Text *text)
+
+This test files will doing all the tests request by Dr. Poh using the latest evaluate function which is 
+evaluateExpression(char *expression)
+
+********************************************************************************************************************************/
 
 void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	
@@ -36,7 +57,6 @@ void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	}
 }
 
-
 void test_should_throw_error_illegal_argument_for_two_plus(void){
 	int check;
 	CEXCEPTION_T e;
@@ -47,7 +67,7 @@ void test_should_throw_error_illegal_argument_for_two_plus(void){
 		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
 	}
 }
-/*
+
 void test_should_throw_error_illegal_argument_for_multiply_two(void){
 	int check;
 	CEXCEPTION_T e;
@@ -113,21 +133,45 @@ void test_should_evaluate_two_multiply_three_plus_four(void){
 	
 	TEST_ASSERT_EQUAL(10,check);
 }
-*/
-/*
+
+
 void test_should_evaluate_negative_two(void){
 	int check;
-	check=evaluateExpression("-2");
 	
+	check=evaluateExpression("-2");
 	TEST_ASSERT_EQUAL(-2,check);
 	printf("Answer : %d \n",check);
 }
 
-void test_should_evaluate_negative_negative_two(void){
+void test_should_evaluate_positive_twenty(void){
+	int check;
+	check=evaluateExpression("+20");
+	
+	TEST_ASSERT_EQUAL(20,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_BITWISE_NOT_5(void){
+	int check;
+	check=evaluateExpression("~5");
+	
+	TEST_ASSERT_EQUAL(-6,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_LOGICAL_NOT_10(void){
+	int check;
+	check=evaluateExpression("!10");
+	
+	TEST_ASSERT_EQUAL(0,check);
+	printf("Answer : %d \n",check);
+}
+
+void xtest_should_evaluate_negative_negative_two(void){
 	int check;
 	check=evaluateExpression("--2");
 	
 	TEST_ASSERT_EQUAL(2,check);
 	printf("Answer : %d \n",check);
 }
-*/
+

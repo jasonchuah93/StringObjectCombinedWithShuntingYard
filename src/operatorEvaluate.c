@@ -55,6 +55,14 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 			stackPush(answerToken,numberStack);
 		}
 	}
+	else if(opeToken->info->id==PLUS_OP)
+	{
+		token1=(Token*)stackPop(numberStack); 
+		num1=(Number*)token1; 
+		answer = prefixCalculate(opeToken,num1); 
+		answerToken=createNumberToken(answer);
+		stackPush(answerToken,numberStack);
+	}
 	else 
 	{
 		token1=(Token*)stackPop(numberStack); 

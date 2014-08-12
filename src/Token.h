@@ -83,6 +83,7 @@ Operator *operatorNewBySymbol(char *symbol);//3rd
 Operator *operatorNewByID(OperatorID id);
 OperatorInfo *operatorFindInfoByID(OperatorID id);
 OperatorInfo *operatorFindAlternateInfoByID(OperatorID id);
+OperatorInfo *operatorFindInfoByName(char *symbol);
 OperatorInfo *operatorFindAlternateInfoByName(char *symbol);
 Identifier *identifierNew(Text *name);//2nd
 Token *getToken(String *str);

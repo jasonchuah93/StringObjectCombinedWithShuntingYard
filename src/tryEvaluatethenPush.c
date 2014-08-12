@@ -94,10 +94,12 @@ void tryConvertToPrefix(Operator *opeToken){
 	
 	int i;
 	OperatorInfo *info=operatorFindAlternateInfoByName(opeToken->info->symbol);
-	
+	opeToken->info=info;
 	if(opeToken->info == NULL)
 	{
 		Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
 	}
-	opeToken->info=info;
+	
+	
+
 }

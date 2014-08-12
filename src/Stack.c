@@ -60,7 +60,7 @@ void stackPush(void *data,Stack *stack )
 	{
 		printf("testing got push into operator stack \n");
 	}
-	*/	
+	*/
 }
 
 /*

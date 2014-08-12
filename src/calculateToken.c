@@ -61,9 +61,9 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 		
 
 		default:
-
+		{
 			Throw(ERR_ILLEGAL_ARGUMENT);
-
+		}
 	}
 	
 	
@@ -76,6 +76,7 @@ int prefixCalculate(Operator *opeToken1, Number *first){
 	
 	if(opeToken1->info==NULL)
 	{
+		
 		Throw(ERR_INVALID_OPERATOR);
 	}
 	
@@ -90,7 +91,7 @@ int prefixCalculate(Operator *opeToken1, Number *first){
 		break;
 		
 		case OPENING_BRACKET_OP:
-			answer= first->value;
+			answer=first->value;
 		break;
 		
 		case PLUS_OP:

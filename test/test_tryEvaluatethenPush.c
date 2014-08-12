@@ -85,9 +85,6 @@ void test_tryConvertToPrefixThenPush_will_throw_error_if_operator_token_is_inval
 	Stack operatorStack;
 	CEXCEPTION_T e;
 	Operator multiply = {.type=OPERATOR_TOKEN , .info=operatorFindInfoByID(MUL_OP)};
-	
-	
-	
 	Try{
 		tryConvertToPrefix(&multiply);
 	}Catch(e)
