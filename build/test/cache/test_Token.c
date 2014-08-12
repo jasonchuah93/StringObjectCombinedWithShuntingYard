@@ -1010,17 +1010,3 @@ void test_getToken_should_get_1_plus_2(void){
 
 
 }
-
-
-
-void test_testToken(void)
-
-{
-
-
-
- printf("Evaluate function\n");
-
- UnityAssertEqualNumber((_U_SINT)((3)), (_U_SINT)((evaluateExpression("1+2"))), (((void *)0)), (_U_UINT)521, UNITY_DISPLAY_STYLE_INT);
-
-}

@@ -105,18 +105,11 @@
 - :test: test_getToken_should_get_1_plus_2
   :line: 492
   :message: ''
-- :test: test_testToken
-  :line: 517
-  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 35
-  :passed: 35
+  :total: 34
+  :passed: 34
   :failed: 0
   :ignored: 0
-:stdout:
-- Evaluate function
-- Number Token=1
-- Operator Token=+, precedence=80, affix=2
-- Number Token=2
+:stdout: []

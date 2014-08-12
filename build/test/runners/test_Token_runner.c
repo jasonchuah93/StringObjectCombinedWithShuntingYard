@@ -68,7 +68,6 @@ extern void test_tokenDel_should_not_cause_error(void);
 extern void test_getToken_sould_throw_error_mix_Number_Identifier(void);
 extern void test_getToken_sould_not_throw_error_mix_Identifier_Number(void);
 extern void test_getToken_should_get_1_plus_2(void);
-extern void test_testToken(void);
 
 
 //=======Test Reset Option=====
@@ -118,7 +117,6 @@ int main(void)
   RUN_TEST(test_getToken_sould_throw_error_mix_Number_Identifier, 464);
   RUN_TEST(test_getToken_sould_not_throw_error_mix_Identifier_Number, 477);
   RUN_TEST(test_getToken_should_get_1_plus_2, 492);
-  RUN_TEST(test_testToken, 517);
 
   return (UnityEnd());
 }

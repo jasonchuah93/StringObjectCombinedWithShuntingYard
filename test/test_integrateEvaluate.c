@@ -47,12 +47,12 @@ void test_should_throw_error_illegal_argument_for_two_plus(void){
 		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
 	}
 }
-
+/*
 void test_should_throw_error_illegal_argument_for_multiply_two(void){
 	int check;
 	CEXCEPTION_T e;
 	Try{
-		check=evaluate("*2");
+		check=evaluateExpression("*2");
 	}Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
@@ -113,7 +113,7 @@ void test_should_evaluate_two_multiply_three_plus_four(void){
 	
 	TEST_ASSERT_EQUAL(10,check);
 }
-
+*/
 /*
 void test_should_evaluate_negative_two(void){
 	int check;
