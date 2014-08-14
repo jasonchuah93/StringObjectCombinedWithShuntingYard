@@ -10,7 +10,8 @@
 #include "calculateToken.h"
 #include "createNumberToken.h" 
 #include "LinkedList.h"
-#include <malloc.h>
+#include "ErrorCode.h"
+#include "CException.h"
 
 /**
 	Evaluate all operators on the operator stack, with top of stack 
@@ -28,18 +29,39 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 	Token *token2; 
 	int answer; 
 	Token *answerToken; 
+	
+	token1=(Token*)stackPop(numberStack); 
+	num1=(Number*)token1; 
+	if(num1 == NULL)
+	{
+		Throw(ERR_EXPECTING_NUMBER);
+	}
+	else{
 	if(opeToken->info->id==OPENING_BRACKET_OP)
 	{
-		token1=(Token*)stackPop(numberStack); 
-		num1=(Number*)token1; 
 		answer = prefixCalculate(opeToken,num1); 
 		answerToken=createNumberToken(answer);
 		stackPush(answerToken,numberStack);
 	}
+	else if(opeToken->info->id==ADD_OP || opeToken->info->id==SUB_OP )
+	{
+		token2=(Token*)stackPop(numberStack); 
+		if(token2!=NULL){
+			num2=(Number*)token2;
+			answer = calculate(opeToken,num2,num1); 
+			answerToken=createNumberToken(answer);
+			stackPush(answerToken,numberStack);
+		}
+		else
+		{
+			tryConvertToPrefix(opeToken);
+			answer = prefixCalculate(opeToken,num1); 
+			answerToken=createNumberToken(answer);
+			stackPush(answerToken,numberStack);
+		}
+	}
 	else 
 	{
-		token1=(Token*)stackPop(numberStack); 
-		num1=(Number*)token1;
 		token2=(Token*)stackPop(numberStack); 
 		if(token2!=NULL){
 			num2=(Number*)token2;
@@ -53,6 +75,7 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 			answerToken=createNumberToken(answer);
 			stackPush(answerToken,numberStack);
 		}
+	}
 	}
 }
 void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
@@ -68,12 +91,11 @@ void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
 	
 }
 
-void operatorPrefixEvaluate(Stack *numberStack , Operator *opeToken1){
+void operatorPrefixEvaluate(Stack *numberStack , Operator *opeToken){
 	int answer; 
-	
 	Token *token=(Token*)stackPop(numberStack); 
-	Number *num1=(Number*)token; 
-	answer = prefixCalculate(opeToken1,num1); 
+	Number *num=(Number*)token; 
+	answer = prefixCalculate(opeToken,num); 
 	Token *answerToken=createNumberToken(answer);
 	stackPush(answerToken,numberStack);
 }	

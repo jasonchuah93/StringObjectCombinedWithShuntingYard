@@ -33,75 +33,69 @@ Token *getToken(String *str) {
 	//		-create operator token
 	
 	char charReturn[3];
-	Token *tokenReturn;
+	Token *tokenReturn = NULL;
 	String *strReturn = NULL;
-	Number *number;
-	Identifier *identifier;
-	Operator *operator;
+	Number *number = NULL;
+	Identifier *identifier = NULL;
+	Operator *operator = NULL;
 	
 	stringTrimLeft(str);
-	if(stringLength(str)==0)
-		return NULL;		
+	if(stringLength(str) == 0)
+		return NULL;
+	
 	
 	//Number
 	if(stringIsCharAtInSet(str,0,numberSet)){
 		strReturn = stringRemoveWordContaining(str,numberSet);
 		if(stringIsCharAtInSet(str,0,alphabetSet)){
-			free(strReturn);
 			Throw(ERR_NUMBER_NOT_WELL_FORMED);
 		}
 		else{
 			number = numberNew(stringToInteger(strReturn));
 			tokenReturn = (Token *)number;
+			stringDel(strReturn);
 		}
-	
 	}
+	
 	//Identifier
 	else if(stringIsCharAtInSet(str,0,alphabetSet)){
 		strReturn = stringRemoveWordContaining(str,alphaNumericSet);
 		identifier = identifierNew(stringSubstringInText(strReturn,0,strReturn->length));
 		tokenReturn = (Token *)identifier;
+		stringDel(strReturn);
 	}
 	
 	//Operator
 	else if(stringIsCharAtInSet(str,0,operatorSet)){
 		charReturn[0] = (char )stringRemoveChar(str);
 		charReturn[1] = 0;
-
-
-		if(stringCharAt(str,0) == charReturn[0]){
+		
+		if(stringCharAt(str,0) == charReturn[0] && stringLength(str) != 0){
 			if(charReturn[0] == '&'){
 				charReturn[0] = '&';
 				charReturn[1] = '&';
 				charReturn[2] = 0;
+				str->start++;
+				str->length--;
 			}
 			else if(charReturn[0] == '|'){
 				charReturn[0] = '|';
 				charReturn[1] = '|';
 				charReturn[2] = 0;
+				str->start++;
+				str->length--;
 			}
-			else
-				Throw(ERR_NUMBER_NOT_WELL_FORMED);
-				
-			str->start++;
-			str->length--;
 		}
-		
 		operator = operatorNewBySymbol(charReturn);
 		tokenReturn = (Token *)operator;
 		
-		
 	}
 	else
+		Throw(ERR_ILLEGAL_ARGUMENT);
 		
-		Throw(ERR_NO_ARGUMENT);
-		
-	free(strReturn);	
+	
 	return tokenReturn;
-		
 }
-
-
 /**
  * This function served as a temporary function use on for my evaluate(char *expression) and 
  * evaluateExpression (char *expression) function while James fixing his getToken.

@@ -62,7 +62,7 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 
 		default:
 		{
-			Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
+			Throw(ERR_UNKNOWN_INFIX_OPERATOR);
 		}
 	}
 	
@@ -94,20 +94,18 @@ int prefixCalculate(Operator *opeToken, Number *first){
 			answer=first->value;
 		break;
 		
-		case ADD_OP:
-			tryConvertToPrefix(opeToken);
+		case PLUS_OP:
 			answer=+first->value;
 		break;
 		
-		case SUB_OP:
-			tryConvertToPrefix(opeToken);
+		case MINUS_OP:
 			answer=-first->value;
-		
 		break;
 		
 		default:
 		{
-			Throw(ERR_ILLEGAL_ARGUMENT);
+			
+			Throw(ERR_INVALID_OPERATOR);
 		}
 	}
 	

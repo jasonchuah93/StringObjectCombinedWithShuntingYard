@@ -86,22 +86,21 @@ int evaluateExpression(char *expression){
 	}
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-	while((token=getTokenise(tokenizer))!=NULL ){
+	
+	while((token=getToken(tokenizer))!=NULL ){
+		if(isOperator(token)){
+			if(((Operator*)token)->info->affix==PREFIX || ((Operator*)token)->info->affix==POSTFIX){
+				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			}else{
+				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			}
+		}
 		if(isNumber(token)){
 			stackPush(token,numberStack);
-			tokenDump(token);
 		}
-		else if(isOperator(token)){			
-			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
-				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			} else{
-				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-				tokenDump(token);
-			}	
-		}	
 	}
 	if(operatorStack == NULL){
-		operatorPrefixEvaluate(numberStack ,(Operator*)token);
+		evaluatePrefixOperatorOnStack(numberStack,operatorStack);
 	}else{
 		evaluateAllOperatorOnStack(numberStack,operatorStack);
 	}
@@ -111,4 +110,8 @@ int evaluateExpression(char *expression){
 		destroyStack(operatorStack);
 	}
 	return result->value;
+	
 }
+
+
+	
