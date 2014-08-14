@@ -89,9 +89,9 @@ void test_evaluate_2_PLUS_3_MULTIPLY_4_PLUS_5_MULTIPLY_6(void){
 	printf("Answer : %d ",check);
 }
 
-void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10(void){
+void test_evaluate_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10(void){
 	int check;
-	check=evaluate("2|3+4*5-6-10");
+	check=evaluate("3+4*5-6-10");
 	TEST_ASSERT_EQUAL(7,check);
 	printf("Answer : %d ",check);
 }

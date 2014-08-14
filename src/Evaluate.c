@@ -86,35 +86,25 @@ int evaluateExpression(char *expression){
 	}
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-	while((token=getToken(tokenizer))!=NULL ){
-		while(operatorStack == NULL){
-		if(isOperator(token)) {			
-			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
-				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			} 
-			if(((Operator*)token)->info->affix != PREFIX){
-				tryConvertToPrefix((Operator*)token);
-				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			}
-			else{
-				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			}
-		}
-	}
+	while((token=getTokenise(tokenizer))!=NULL ){
 		if(isNumber(token)){
 			stackPush(token,numberStack);
+			tokenDump(token);
 		}
-		if(isOperator(token)){
-			tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-		}
-		
+		else if(isOperator(token)){			
+			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
+				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			} else{
+				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+				tokenDump(token);
+			}	
+		}	
 	}
 	if(operatorStack == NULL){
 		operatorPrefixEvaluate(numberStack ,(Operator*)token);
 	}else{
 		evaluateAllOperatorOnStack(numberStack,operatorStack);
 	}
-	
 	Number *result=(Number*)stackPop(numberStack);
 	destroyStack(numberStack);
 	if(operatorStack !=NULL){

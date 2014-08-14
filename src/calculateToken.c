@@ -7,7 +7,7 @@
 #include "CException.h"
 
 int calculate(Operator *opeToken, Number *first, Number *second){
-	
+	Stack *numberStack;
 	int answer;
 	
 	if(opeToken->info==NULL)
@@ -35,8 +35,8 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 		break;	
 		
 		case SUB_OP:
-			answer = first->value - second->value;
-				 
+			answer = first->value-second->value;
+			
 		break;
 		
 		case BITWISE_AND_OP:
@@ -62,7 +62,7 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 
 		default:
 		{
-			Throw(ERR_ILLEGAL_ARGUMENT);
+			Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
 		}
 	}
 	
@@ -71,16 +71,16 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 	
 }
 
-int prefixCalculate(Operator *opeToken1, Number *first){
+int prefixCalculate(Operator *opeToken, Number *first){
 	int answer;
 	
-	if(opeToken1->info==NULL)
+	if(opeToken->info==NULL)
 	{
 		
 		Throw(ERR_INVALID_OPERATOR);
 	}
 	
-	switch(opeToken1->info->id)
+	switch(opeToken->info->id)
 	{	
 		case BITWISE_NOT_OP:
 			answer=~first->value;
@@ -94,11 +94,13 @@ int prefixCalculate(Operator *opeToken1, Number *first){
 			answer=first->value;
 		break;
 		
-		case PLUS_OP:
+		case ADD_OP:
+			tryConvertToPrefix(opeToken);
 			answer=+first->value;
 		break;
 		
-		case MINUS_OP:
+		case SUB_OP:
+			tryConvertToPrefix(opeToken);
 			answer=-first->value;
 		
 		break;

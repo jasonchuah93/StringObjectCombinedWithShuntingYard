@@ -80,16 +80,6 @@ Token *getToken(String *str) {
 				charReturn[1] = '|';
 				charReturn[2] = 0;
 			}
-			else if(charReturn[0] == '+'){
-				charReturn[0] = '+';
-				charReturn[1] = '+';
-				charReturn[2] = 0;
-			}
-			else if(charReturn[0] == '-'){
-				charReturn[0] = '-';
-				charReturn[1] = '-';
-				charReturn[2] = 0;
-			}
 			else
 				Throw(ERR_NUMBER_NOT_WELL_FORMED);
 				

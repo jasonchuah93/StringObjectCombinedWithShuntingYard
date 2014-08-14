@@ -162,28 +162,6 @@ void test_should_calculate_68_MODULUS_7(void)
 	
 }
 
-void test_should_PLUS_3(void){
-	int check;
-	Operator PLUS ={.type=OPERATOR_TOKEN,.info=operatorFindAlternateInfoByID(PLUS_OP)};
-	Number three ={.type=NUMBER_TOKEN,.value=3};
-	
-	check=prefixCalculate(&PLUS,&three);
-	
-	TEST_ASSERT_EQUAL(3,check);
-	
-}
-
-void test_should_MINUS_10(void){
-	int check;
-	Operator MINUS ={.type=OPERATOR_TOKEN,.info=operatorFindAlternateInfoByID(MINUS_OP)};
-	Number ten ={.type=NUMBER_TOKEN,.value=10};
-	
-	check=prefixCalculate(&MINUS,&ten);
-	
-	TEST_ASSERT_EQUAL(-10,check);
-	
-}
-
 void test_should_prefixCalculate_bitwise_not_op(void){
 	int check;
 	Operator bitwiseNOT ={.type=OPERATOR_TOKEN,.info=operatorFindInfoByID(BITWISE_NOT_OP)};

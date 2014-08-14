@@ -36,9 +36,10 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 		stackPush(newToken,operatorStack);
 	}else{
 		while(previousToken!=NULL){
-			if(newToken->info->precedence > previousToken->info->precedence){
+			if(newToken->info->precedence >= previousToken->info->precedence){
 				break;
-			}else {
+			}
+			else{
 				operatorEvaluate(numberStack,previousToken);
 			}
 			previousToken=(Operator*)stackPop(operatorStack);
@@ -87,6 +88,7 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 		if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP){
 			stackPush(newToken,operatorStack);
 		}
+		
 	}
 }
 
