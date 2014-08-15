@@ -76,25 +76,21 @@ int evaluate(char *expression){
 
 void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
 	
-	if(numberStack==NULL){
-	if((Operator*)token != NULL){
+	if(token==NULL){
+		printf("warning token is NULL \n");
+		return ;
+	}
 		if(isOperator(token)){
-			if(((Operator*)token)->info->affix !=PREFIX){
+			if(((Operator*)token)->info->affix !=PREFIX)
 				tryConvertToPrefix((Operator*)token);
-				stackPush(token,operatorStack);
-			}else{
-				stackPush(token,operatorStack);
-			}
+			stackPush(token,operatorStack);
 		}
-	}
-	if((Number*)token!=NULL){
-		if(isNumber(token)){
+		else if(isNumber(token)){
 			stackPush(token,numberStack);
+		}else{
+			Throw(ERR_EXPECTING_NUMBER);
 		}
-	}else{
-		Throw(ERR_EXPECTING_NUMBER);
-	}
-	}
+		
 }
 
 /*******************************************************************************************
@@ -107,20 +103,20 @@ void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,
 ********************************************************************************************/
 
 void evaluatePostfixesAndInfix(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
-	
-	if((Operator*)token!=NULL){
+		
+		if((Operator*)token!=NULL){
 		if(isOperator(token)){
 			if(((Operator*)token)->info->affix == POSTFIX){
 				 tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}else{
-				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+				 tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}
 		}
-	}
-	else{
+		}
+		else{
 		Throw(ERR_EXPECTING_OPERATOR);
-	}
-	//tokenDump(token);
+		}
+		
 }
 /*******************************************************************************************
  *	This function is to evaluate the expression which contains numbers and operators and
@@ -147,21 +143,14 @@ int evaluateExpression(char *expression){
 		
 		evaluatePrefixesAndNumber(expression,token,numberStack,operatorStack);
 		evaluatePostfixesAndInfix(expression,token,numberStack,operatorStack);
-		tokenDump(token);
 	}
-	
-	if(operatorStack == NULL){
-		operatorPrefixEvaluate(numberStack ,(Operator*)token);
-	}else{
-		evaluateAllOperatorOnStack(numberStack,operatorStack);
-	}
+	evaluateAllOperatorOnStack(numberStack,operatorStack);
 	Number *result=(Number*)stackPop(numberStack);
 	destroyStack(numberStack);
 	if(operatorStack !=NULL){
 		destroyStack(operatorStack);
 	}
 	return result->value;
-	
 	
 }
 

@@ -56,14 +56,6 @@ void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	}
 }
 
-void test_should_evaluate_1_plus_2(void){
-	int check;
-	check=evaluateExpression("1+2");
-	TEST_ASSERT_EQUAL(3,check);
-	printf("Answer : %d \n",check);
-}
-
-/*
 void test_evaluate_5(void){
 	int check;
 	check=evaluateExpression("5");
@@ -80,6 +72,16 @@ void test_evaluate_negative_2(void){
 	printf("Answer : %d \n",check);
 }
 
+void test_should_evaluate_1_plus_2(void){
+	ErrorCode e;
+	int check;
+	
+	check=evaluateExpression("1+2");
+	TEST_ASSERT_EQUAL(3,check);
+	printf("Answer : %d \n",check);
+}
+
+/*
 void test_should_evaluate_negative_negative_60(void){
 	int check;
 	
@@ -287,8 +289,8 @@ void test_should_throw_error_expecting_number_for__evaluate_multiply(void){
 /******************************************************************************************
 	Tests for evaluatePrefixesAndNumber(char *expression,token,numberStack,operatorStack)
 *******************************************************************************************/
-/*
-void test_evaluate_should_push_10_into_number_stack(void){
+
+void test_evaluatePrefixesAndNumber_evaluate_should_push_10_into_number_stack(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -302,8 +304,9 @@ void test_evaluate_should_push_10_into_number_stack(void){
 	TEST_ASSERT_EQUAL(10,((Number*)token)->value);
 }
 
-void test_evaluate_should_push_negative_into_operatorStack_and_10_into_number_stack(void){
+void test_evaluatePrefixesAndNumber_evaluate_should_push_negative_into_operatorStack_and_5_into_number_stack(void){
 	Token *token;
+	
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
 	
@@ -322,7 +325,7 @@ void test_evaluate_should_push_negative_into_operatorStack_and_10_into_number_st
 	TEST_ASSERT_EQUAL(5,((Number*)token)->value);
 }
 
-void test_evaluate_should_push_negative_and_plus_into_operatorStack_and_6_into_number_stack(void){
+void test_evaluatePrefixesAndNumber_evaluate_should_push_negative_and_plus_into_operatorStack_and_6_into_number_stack(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -349,7 +352,7 @@ void test_evaluate_should_push_negative_and_plus_into_operatorStack_and_6_into_n
 	TEST_ASSERT_EQUAL(6,((Number*)token)->value);
 }
 
-void test_evaluate_should_push_negative_plus_negative_into_operatorStack_and_9_into_number_stack(void){
+void test_evaluatePrefixesAndNumber_evaluate_should_push_negative_plus_negative_into_operatorStack_and_9_into_number_stack(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -382,7 +385,7 @@ void test_evaluate_should_push_negative_plus_negative_into_operatorStack_and_9_i
 	TEST_ASSERT_EQUAL(9,((Number*)token)->value);
 }
 
-void test_evaluate_opening_bracket_7(void){
+void test_evaluatePrefixesAndNumber_evaluate_opening_bracket_7(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -404,7 +407,7 @@ void test_evaluate_opening_bracket_7(void){
 	TEST_ASSERT_EQUAL(7,((Number*)token)->value);
 }
 
-void test_evaluate_opening_opening_bracket_8(void){
+void test_evaluatePrefixesAndNumber_evaluate_opening_opening_bracket_8(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -433,7 +436,7 @@ void test_evaluate_opening_opening_bracket_8(void){
 	TEST_ASSERT_EQUAL(8,((Number*)token)->value);
 }
 
-void test_evaluate_opening_opening_opening_bracket_10(void){
+void test_evaluatePrefixesAndNumber_evaluate_opening_opening_opening_bracket_10(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -469,7 +472,7 @@ void test_evaluate_opening_opening_opening_bracket_10(void){
 	TEST_ASSERT_EQUAL(8,((Number*)token)->value);
 }
 
-void test_evaluate_multiply_should_throw_error_cannot_convert_to_prefix_operator(void){
+void test_evaluatePrefixesAndNumber_evaluate_multiply_should_throw_error_cannot_convert_to_prefix_operator(void){
 	CEXCEPTION_T e;
 	Token *token;
 	Stack *numberStack=createStack();
@@ -491,7 +494,7 @@ void test_evaluate_multiply_should_throw_error_cannot_convert_to_prefix_operator
 	}
 }
 
-void test_evaluate_negative_multiply_should_throw_error_cannot_convert_to_prefix_operator(void){
+void test_evaluatePrefixesAndNumber_evaluate_negative_multiply_should_throw_error_cannot_convert_to_prefix_operator(void){
 	CEXCEPTION_T e;
 	Token *token;
 	Stack *numberStack=createStack();
@@ -513,7 +516,7 @@ void test_evaluate_negative_multiply_should_throw_error_cannot_convert_to_prefix
 	}
 }
 
-void test_evaluate_negative_should_throw_error_expecting_number(void){
+void test_evaluatePrefixesAndNumber_evaluate_negative_should_throw_error_expecting_number(void){
 	CEXCEPTION_T e;
 	Token *token;
 	Stack *numberStack=createStack();
@@ -534,7 +537,7 @@ void test_evaluate_negative_should_throw_error_expecting_number(void){
 	}
 }
 
-void test_evaluate_negative_positive_should_throw_error_expecting_number(void){
+void test_evaluatePrefixesAndNumber_evaluate_negative_positive_should_throw_error_expecting_number(void){
 	CEXCEPTION_T e;
 	Token *token;
 	Stack *numberStack=createStack();
@@ -555,7 +558,7 @@ void test_evaluate_negative_positive_should_throw_error_expecting_number(void){
 	}
 }
 
-void test_evaluate_divide_multiply_should_throw_error_expecting_number(void){
+void test_evaluatePrefixesAndNumber_evaluate_divide_multiply_should_throw_error_expecting_number(void){
 	CEXCEPTION_T e;
 	Token *token;
 	Stack *numberStack=createStack();
@@ -574,12 +577,12 @@ void test_evaluate_divide_multiply_should_throw_error_expecting_number(void){
 		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);
 	}
 }
-*/
+
 /*****************************************************************************************
 	Tests for evaluatePostfixesAndInfix(char *expression,(token,numberStack,operatorStack)
 *******************************************************************************************/
-/*
-void test_should_throw_error_expecting_operator(void){
+
+void test_evaluatePostfixesAndInfix_should_throw_error_expecting_operator(void){
 	CEXCEPTION_T e;
 	Token *token;
 	Stack *numberStack=createStack();
@@ -597,7 +600,7 @@ void test_should_throw_error_expecting_operator(void){
 	}
 }	
 
-void test_should_evaluate_2_plus_and_push_to_their_respective_stack(void){
+void test_evaluatePostfixesAndInfix_should_evaluate_2_plus_and_push_to_their_respective_stack(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -611,14 +614,17 @@ void test_should_evaluate_2_plus_and_push_to_their_respective_stack(void){
 	token = (Token*)stackPop(numberStack);
 	TEST_ASSERT_NOT_NULL(token);
 	TEST_ASSERT_EQUAL(2,((Number*)token)->value);
+	token = (Token*)stackPop(numberStack);
+	TEST_ASSERT_NULL(stackPop(numberStack));
 	
 	token = (Token*)stackPop(operatorStack);
 	TEST_ASSERT_NOT_NULL(token);
 	TEST_ASSERT_EQUAL_STRING("+",((Operator*)token)->info->symbol);
 	TEST_ASSERT_EQUAL(ADD_OP,((Operator*)token)->info->id);
+	TEST_ASSERT_NULL(stackPop(operatorStack));
 }	
 
-void test_should_evaluate_opening_bracket_14_closing_bracket_plus_and_push_to_their_respective_stack(void){
+void test_evaluatePostfixesAndInfix_should_evaluate_opening_bracket_14_closing_bracket_plus_and_push_to_their_respective_stack(void){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
@@ -633,29 +639,34 @@ void test_should_evaluate_opening_bracket_14_closing_bracket_plus_and_push_to_th
 	stackPush(&number10,numberStack);
 	
 	evaluatePostfixesAndInfix("(10)+",(Token*)&openBracket,numberStack,operatorStack);
+	
 	token = (Token*)stackPop(operatorStack);
 	TEST_ASSERT_NOT_NULL(token);
 	TEST_ASSERT_EQUAL_STRING("(",((Operator*)token)->info->symbol);
 	TEST_ASSERT_EQUAL(OPENING_BRACKET_OP,((Operator*)token)->info->id);
-
+	TEST_ASSERT_NULL(stackPop(operatorStack));
+	
 	token = (Token*)stackPop(numberStack);
 	TEST_ASSERT_NOT_NULL(token);
 	TEST_ASSERT_EQUAL(10,((Number*)token)->value);
+	TEST_ASSERT_NULL(stackPop(numberStack));
 	
 	evaluatePostfixesAndInfix("(10)+",(Token*)&closeBracket,numberStack,operatorStack);
 	token = (Token*)stackPop(operatorStack);
 	TEST_ASSERT_NOT_NULL(token);
 	TEST_ASSERT_EQUAL_STRING(")",((Operator*)token)->info->symbol);
 	TEST_ASSERT_EQUAL(CLOSING_BRACKET_OP,((Operator*)token)->info->id);
+	TEST_ASSERT_NULL(stackPop(operatorStack));
 	
 	evaluatePostfixesAndInfix("(10)+",(Token*)&plus,numberStack,operatorStack);
 	token = (Token*)stackPop(operatorStack);
 	TEST_ASSERT_NOT_NULL(token);
 	TEST_ASSERT_EQUAL_STRING("+",((Operator*)token)->info->symbol);
 	TEST_ASSERT_EQUAL(ADD_OP,((Operator*)token)->info->id);
+	TEST_ASSERT_NULL(stackPop(operatorStack));
 }	
 
-void test_should_evaluate_12_closing_bracket_plus_and_push_to_their_respective_stack(void){
+void test_evaluatePostfixesAndInfix_should_throw_error_for_10_closing_bracket(void){
 	CEXCEPTION_T e;
 	Token *token;
 	Stack *numberStack=createStack();
@@ -678,9 +689,29 @@ void test_should_evaluate_12_closing_bracket_plus_and_push_to_their_respective_s
 		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
 	}
 }	
-*/
 
-
+void test_evaluatePostfixesAndInfix_should_throw_error_for_open_bracket_2_open_bracket(void){
+	CEXCEPTION_T e;
+	Token *token;
+	Stack *numberStack=createStack();
+	Stack *operatorStack=createStack();
+	
+	Operator openBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(OPENING_BRACKET_OP)};
+	Number number10 = {.type= NUMBER_TOKEN, .value=10};
+	
+	stackPush(&openBracket,operatorStack);
+	stackPush(&number10,numberStack);
+	stackPush(&openBracket,operatorStack);
+	
+	Try
+	{
+		evaluatePostfixesAndInfix("(10(",(Token*)&openBracket,numberStack,operatorStack);
+	}
+	Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
+	}
+}
 
 /*
 void test_should_evaluate_negative_1_plus_10(void){
