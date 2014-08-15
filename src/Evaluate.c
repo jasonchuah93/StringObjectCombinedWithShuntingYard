@@ -75,6 +75,8 @@ int evaluate(char *expression){
 ********************************************************************************************/
 
 void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
+	
+	if(numberStack==NULL){
 	if((Operator*)token != NULL){
 		if(isOperator(token)){
 			if(((Operator*)token)->info->affix !=PREFIX){
@@ -92,6 +94,7 @@ void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,
 	}else{
 		Throw(ERR_EXPECTING_NUMBER);
 	}
+	}
 }
 
 /*******************************************************************************************
@@ -104,6 +107,7 @@ void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,
 ********************************************************************************************/
 
 void evaluatePostfixesAndInfix(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
+	
 	if((Operator*)token!=NULL){
 		if(isOperator(token)){
 			if(((Operator*)token)->info->affix == POSTFIX){
@@ -113,6 +117,10 @@ void evaluatePostfixesAndInfix(char *expression,Token *token,Stack *numberStack,
 			}
 		}
 	}
+	else{
+		Throw(ERR_EXPECTING_OPERATOR);
+	}
+	//tokenDump(token);
 }
 /*******************************************************************************************
  *	This function is to evaluate the expression which contains numbers and operators and
@@ -135,7 +143,26 @@ int evaluateExpression(char *expression){
 	}
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-
+	while((token=getToken(tokenizer))!=NULL ){
+		
+		evaluatePrefixesAndNumber(expression,token,numberStack,operatorStack);
+		evaluatePostfixesAndInfix(expression,token,numberStack,operatorStack);
+		tokenDump(token);
+	}
+	
+	if(operatorStack == NULL){
+		operatorPrefixEvaluate(numberStack ,(Operator*)token);
+	}else{
+		evaluateAllOperatorOnStack(numberStack,operatorStack);
+	}
+	Number *result=(Number*)stackPop(numberStack);
+	destroyStack(numberStack);
+	if(operatorStack !=NULL){
+		destroyStack(operatorStack);
+	}
+	return result->value;
+	
+	
 }
 
 

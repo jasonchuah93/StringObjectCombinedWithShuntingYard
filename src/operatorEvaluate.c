@@ -32,10 +32,9 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 	
 	token1=(Token*)stackPop(numberStack); 
 	num1=(Number*)token1; 
-	
 	if(num1 == NULL)
 	{	
-		if(opeToken->info->id ==  PREFIX){
+		if(opeToken->info->id == PREFIX){
 			answer = prefixCalculate(opeToken,num1); 
 			answerToken=createNumberToken(answer);
 			stackPush(answerToken,numberStack);
@@ -56,7 +55,6 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 			stackPush(answerToken,numberStack);
 		}
 	}
-	
 }
 void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
 	

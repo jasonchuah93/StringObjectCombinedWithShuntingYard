@@ -56,6 +56,238 @@ void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	}
 }
 
+void test_should_evaluate_1_plus_2(void){
+	int check;
+	check=evaluateExpression("1+2");
+	TEST_ASSERT_EQUAL(3,check);
+	printf("Answer : %d \n",check);
+}
+
+/*
+void test_evaluate_5(void){
+	int check;
+	check=evaluateExpression("5");
+	
+	TEST_ASSERT_EQUAL(5,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_evaluate_negative_2(void){
+	int check;
+	check=evaluateExpression("-2");
+	
+	TEST_ASSERT_EQUAL(-2,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_negative_negative_60(void){
+	int check;
+	
+	check=evaluateExpression("--60");
+	TEST_ASSERT_EQUAL(60,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_LOGICAL_NOT_10(void){
+	int check;
+	check=evaluateExpression("!10");
+	
+	TEST_ASSERT_EQUAL(0,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_BITWISE_NOT_5(void){
+	int check;
+	check=evaluateExpression("~5");
+	
+	TEST_ASSERT_EQUAL(-6,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_positive_100(void){
+	int check;
+	check=evaluateExpression("+100");
+	
+	TEST_ASSERT_EQUAL(100,check);
+	printf("Answer : %d \n",check);
+}
+
+
+void test_should_evaluate_negative_negative_3(void){
+	int check;
+	check=evaluateExpression("--3");
+	
+	TEST_ASSERT_EQUAL(3,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_positive_positive_30(void){
+	int check;
+	check=evaluateExpression("++30");
+	
+	TEST_ASSERT_EQUAL(30,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_positive_negative_80(void){
+	int check;
+	check=evaluateExpression("+-80");
+	
+	TEST_ASSERT_EQUAL(-80,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_negative_positive_70(void){
+	int check;
+	check=evaluateExpression("-+70");
+	
+	TEST_ASSERT_EQUAL(-70,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_positive_positive_positive_45(void){
+	int check;
+	check=evaluateExpression("+++45");
+	
+	TEST_ASSERT_EQUAL(45,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_negative_negative_negative_negative_66(void){
+	int check;
+	check=evaluateExpression("----66");
+	
+	TEST_ASSERT_EQUAL(66,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_negative_positive_negative_15(void){
+	int check;
+	check=evaluateExpression("-+-15");
+	
+	TEST_ASSERT_EQUAL(15,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_negative_positive_positive_21(void){
+	int check;
+	check=evaluateExpression("-+-21");
+	
+	TEST_ASSERT_EQUAL(21,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_positive_positive_negative_25(void){
+	int check;
+	check=evaluateExpression("++-25");
+	
+	TEST_ASSERT_EQUAL(-25,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_positive_negative_negative_31(void){	
+	int check;
+	check=evaluateExpression("+--31");
+	
+	TEST_ASSERT_EQUAL(31,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_positive_positive_negative_negative_14(void){	
+	int check;
+	check=evaluateExpression("++--14");
+	
+	TEST_ASSERT_EQUAL(14,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_evaluate_negative_negative_positive_positive_18(void){	
+	int check;
+	check=evaluateExpression("--++18");
+	
+	TEST_ASSERT_EQUAL(18,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_longer_prefix_expression(void){	
+	int check;
+	check=evaluateExpression("-+-++++---+-+-99");
+	TEST_ASSERT_EQUAL(-99,check);
+	printf("Answer : %d \n",check);
+}
+
+void test_should_throw_error_illegal_argument_for_2_plus(void){
+	int check;
+	CEXCEPTION_T e;
+	Try{
+		check=evaluateExpression("2+");
+	}Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
+	}
+}
+
+void test_should_throw_error_illegal_argument_for_multiply_2(void){
+	int check;
+	CEXCEPTION_T e;
+	Try{
+		check=evaluateExpression("*2");
+	}Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);
+	}
+}
+
+void test_should_throw_error_illegal_argument_for_left_bracket_2(void){
+	int check;
+	CEXCEPTION_T e;
+	Try{
+		check=evaluateExpression("(2");
+	}Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
+	}
+}
+
+void test_should_throw_error_cannot_convert_to_prefix_for_negative_multiply_10(void){
+	int check;
+	CEXCEPTION_T e;
+	
+	Try{
+		check=evaluateExpression("-*10");
+	}Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);
+	}
+}
+
+void test_should_throw_error_cannot_convert_to_prefix_for_multiply(void){
+	int check;
+	CEXCEPTION_T e;
+	
+	Try{
+		check=evaluateExpression("*");
+	}Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);
+	}
+}
+
+void test_should_throw_error_expecting_number_for__evaluate_multiply(void){
+	int check;
+	CEXCEPTION_T e;
+	Try{
+		check=evaluateExpression("-");
+	}Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
+	}
+}
+*/
+/******************************************************************************************
+	Tests for evaluatePrefixesAndNumber(char *expression,token,numberStack,operatorStack)
+*******************************************************************************************/
+/*
 void test_evaluate_should_push_10_into_number_stack(void){
 	Token *token;
 	Stack *numberStack=createStack();
@@ -342,6 +574,28 @@ void test_evaluate_divide_multiply_should_throw_error_expecting_number(void){
 		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);
 	}
 }
+*/
+/*****************************************************************************************
+	Tests for evaluatePostfixesAndInfix(char *expression,(token,numberStack,operatorStack)
+*******************************************************************************************/
+/*
+void test_should_throw_error_expecting_operator(void){
+	CEXCEPTION_T e;
+	Token *token;
+	Stack *numberStack=createStack();
+	Stack *operatorStack=createStack();
+	//2+
+	Number number2 = {.type= NUMBER_TOKEN, .value=2};
+	Number number4 = {.type= NUMBER_TOKEN, .value=4};
+	
+	stackPush(&number2,numberStack);
+	
+	Try{
+		evaluatePostfixesAndInfix("2 4",(Token*)&number4,numberStack,operatorStack);
+	}Catch(e){
+		TEST_ASSERT_EQUAL(ERR_EXPECTING_OPERATOR,e);
+	}
+}	
 
 void test_should_evaluate_2_plus_and_push_to_their_respective_stack(void){
 	Token *token;
@@ -369,14 +623,15 @@ void test_should_evaluate_opening_bracket_14_closing_bracket_plus_and_push_to_th
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
 	
-	//(2)+
+	
 	Operator openBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(OPENING_BRACKET_OP)};
 	Number number10 = {.type= NUMBER_TOKEN, .value=10};
 	Operator closeBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
 	Operator plus =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
 	
-	stackPush(&number10,numberStack);
 	stackPush(&openBracket,operatorStack);
+	stackPush(&number10,numberStack);
+	
 	evaluatePostfixesAndInfix("(10)+",(Token*)&openBracket,numberStack,operatorStack);
 	token = (Token*)stackPop(operatorStack);
 	TEST_ASSERT_NOT_NULL(token);
@@ -406,14 +661,14 @@ void test_should_evaluate_12_closing_bracket_plus_and_push_to_their_respective_s
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
 	
-	//(2)+
 	Operator openBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(OPENING_BRACKET_OP)};
 	Number number10 = {.type= NUMBER_TOKEN, .value=10};
 	Operator closeBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
 	Operator plus =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
 	
-	
+	stackPush(&openBracket,operatorStack);
 	stackPush(&number10,numberStack);
+	
 	Try
 	{
 		evaluatePostfixesAndInfix("10)",(Token*)&closeBracket,numberStack,operatorStack);
@@ -423,16 +678,11 @@ void test_should_evaluate_12_closing_bracket_plus_and_push_to_their_respective_s
 		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
 	}
 }	
+*/
+
+
 
 /*
-void test_evaluate_negative_2(void){
-	int check;
-	check=evaluateExpression("-2");
-	
-	TEST_ASSERT_EQUAL(-2,check);
-	printf("Answer : %d \n",check);
-}
-
 void test_should_evaluate_negative_1_plus_10(void){
 	int check;
 	check=evaluateExpression("-1+10");
@@ -447,25 +697,6 @@ void test_should_evaluate_testing(void){
 	printf("Answer : %d \n",check);
 }
 
-void test_should_evaluate_negative_negative_60(void){
-	int check;
-	
-	check=evaluateExpression("--60");
-	TEST_ASSERT_EQUAL(60,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_throw_error_illegal_argument_for_2_plus(void){
-	int check;
-	CEXCEPTION_T e;
-	Try{
-		check=evaluateExpression("2+");
-	}Catch(e)
-	{
-		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
-	}
-}
-
 void test_should_throw_error_illegal_argument_for_2_multiply_divide(void){
 	int check;
 	CEXCEPTION_T e;
@@ -474,28 +705,6 @@ void test_should_throw_error_illegal_argument_for_2_multiply_divide(void){
 	}Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
-	}
-}
-
-void test_should_throw_error_illegal_argument_for_multiply_2(void){
-	int check;
-	CEXCEPTION_T e;
-	Try{
-		check=evaluateExpression("*2");
-	}Catch(e)
-	{
-		TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
-	}
-}
-
-void test_should_throw_error_illegal_argument_for_left_bracket_2(void){
-	int check;
-	CEXCEPTION_T e;
-	Try{
-		check=evaluateExpression("(2");
-	}Catch(e)
-	{
-		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
 	}
 }
 
@@ -510,175 +719,14 @@ void test_should_throw_error_illegal_argument_for_right_bracket_5(void){
 	}
 }
 
-void test_should_throw_error_cannot_convert_to_prefix_for_negative_multiply_10(void){
-	int check;
-	CEXCEPTION_T e;
-	
-	Try{
-		check=evaluateExpression("-*10");
-	}Catch(e)
-	{
-		TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
-	}
-}
-
-void test_should_throw_error_cannot_convert_to_prefix_for_multiply(void){
-	int check;
-	CEXCEPTION_T e;
-	
-	Try{
-		check=evaluateExpression("*");
-	}Catch(e)
-	{
-		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
-	}
-}
-
-void test_should_throw_error_expecting_number_for__evaluate_multiply(void){
-	int check;
-	CEXCEPTION_T e;
-	Try{
-		check=evaluateExpression("-");
-	}Catch(e)
-	{
-		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
-	}
-}
-
-void test_should_evaluate_LOGICAL_NOT_10(void){
-	int check;
-	check=evaluateExpression("!10");
-	
-	TEST_ASSERT_EQUAL(0,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_BITWISE_NOT_5(void){
-	int check;
-	check=evaluateExpression("~5");
-	
-	TEST_ASSERT_EQUAL(-6,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_100(void){
-	int check;
-	check=evaluateExpression("+100");
-	
-	TEST_ASSERT_EQUAL(100,check);
-	printf("Answer : %d \n",check);
-}
 
 
-void test_should_evaluate_negative_negative_3(void){
-	int check;
-	check=evaluateExpression("--3");
-	
-	TEST_ASSERT_EQUAL(3,check);
-	printf("Answer : %d \n",check);
-}
 
-void test_should_evaluate_positive_positive_30(void){
-	int check;
-	check=evaluateExpression("++30");
-	
-	TEST_ASSERT_EQUAL(30,check);
-	printf("Answer : %d \n",check);
-}
 
-void test_should_evaluate_positive_negative_80(void){
-	int check;
-	check=evaluateExpression("+-80");
-	
-	TEST_ASSERT_EQUAL(-80,check);
-	printf("Answer : %d \n",check);
-}
 
-void test_should_evaluate_negative_positive_70(void){
-	int check;
-	check=evaluateExpression("-+70");
-	
-	TEST_ASSERT_EQUAL(-70,check);
-	printf("Answer : %d \n",check);
-}
 
-void test_should_evaluate_positive_positive_positive_45(void){
-	int check;
-	check=evaluateExpression("+++45");
-	
-	TEST_ASSERT_EQUAL(45,check);
-	printf("Answer : %d \n",check);
-}
 
-void test_should_evaluate_negative_negative_negative_negative_66(void){
-	int check;
-	check=evaluateExpression("----66");
-	
-	TEST_ASSERT_EQUAL(66,check);
-	printf("Answer : %d \n",check);
-}
 
-void test_should_evaluate_negative_positive_negative_15(void){
-	int check;
-	check=evaluateExpression("-+-15");
-	
-	TEST_ASSERT_EQUAL(15,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_negative_positive_positive_21(void){
-	int check;
-	check=evaluateExpression("-+-21");
-	
-	TEST_ASSERT_EQUAL(21,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_positive_negative_25(void){
-	int check;
-	check=evaluateExpression("++-25");
-	
-	TEST_ASSERT_EQUAL(-25,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_negative_negative_31(void){	
-	int check;
-	check=evaluateExpression("+--31");
-	
-	TEST_ASSERT_EQUAL(31,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_positive_negative_negative_14(void){	
-	int check;
-	check=evaluateExpression("++--14");
-	
-	TEST_ASSERT_EQUAL(14,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_negative_negative_positive_positive_18(void){	
-	int check;
-	check=evaluateExpression("--++18");
-	
-	TEST_ASSERT_EQUAL(18,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_longer_prefix_expression(void){	
-	int check;
-	check=evaluateExpression("-+-++++---+-+-99");
-	TEST_ASSERT_EQUAL(-99,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_1_plus_2(void){
-	int check;
-	check=evaluateExpression("1+2");
-	TEST_ASSERT_EQUAL(3,check);
-	printf("Answer : %d \n",check);
-}
 
 void test_should_evaluate_1_plus_10_minus_5(void){
 	int check;
