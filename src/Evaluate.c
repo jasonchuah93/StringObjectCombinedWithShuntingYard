@@ -66,6 +66,55 @@ int evaluate(char *expression){
 }
 
 /*******************************************************************************************
+ *	This function is to evaluate prefixes and number.
+ *	This function will stop and return after number is detected.
+ *	input  : expression,token,numberStack,operatorStack
+ *	output : none
+ *	return : function
+ *	Throw : ERR_EXPECTING_NUMBER
+********************************************************************************************/
+
+void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
+	if((Operator*)token != NULL){
+		if(isOperator(token)){
+			if(((Operator*)token)->info->affix !=PREFIX){
+				tryConvertToPrefix((Operator*)token);
+				stackPush(token,operatorStack);
+			}else{
+				stackPush(token,operatorStack);
+			}
+		}
+	}
+	if((Number*)token!=NULL){
+		if(isNumber(token)){
+			stackPush(token,numberStack);
+		}
+	}else{
+		Throw(ERR_EXPECTING_NUMBER);
+	}
+}
+
+/*******************************************************************************************
+ *	This function is to evaluate postfix and infix operator.
+ *	This function will stop and return after infix operator is detected.
+ *	input  : expression,token,numberStack,operatorStack
+ *	output : none
+ *	return : function
+ *	Throw  : 
+********************************************************************************************/
+
+void evaluatePostfixesAndInfix(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
+	if((Operator*)token!=NULL){
+		if(isOperator(token)){
+			if(((Operator*)token)->info->affix == POSTFIX){
+				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			}else{
+				 tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			}
+		}
+	}
+}
+/*******************************************************************************************
  *	This function is to evaluate the expression which contains numbers and operators and
  *	return the results in number form.
  *	This function is the improved function from the evaluate(char *expression)
@@ -86,30 +135,6 @@ int evaluateExpression(char *expression){
 	}
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-
-	while((token=getToken(tokenizer))!=NULL ){
-		if(isOperator(token)){
-			if(((Operator*)token)->info->affix==PREFIX || ((Operator*)token)->info->affix==POSTFIX){
-				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			}else{
-				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			}
-		}
-		if(isNumber(token)){
-			stackPush(token,numberStack);
-		}
-	}
-	if(operatorStack == NULL){
-		operatorPrefixEvaluate(numberStack ,(Operator*)token);
-	}else{
-		evaluateAllOperatorOnStack(numberStack,operatorStack);
-	}
-	Number *result=(Number*)stackPop(numberStack);
-	destroyStack(numberStack);
-	if(operatorStack !=NULL){
-		destroyStack(operatorStack);
-	}
-	return result->value;
 
 }
 

@@ -32,9 +32,26 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 	previousToken=(Operator*)stackPop(operatorStack);
 	
 	if(previousToken==NULL){
-		stackPush(newToken,operatorStack);
-	} else{
+		
+		if(newToken->info->precedence == 100){
+			stackPush(newToken,operatorStack);
+		}
+		else if(newToken->info->affix != PREFIX){
+			tryConvertToPrefix(newToken);
+			stackPush(newToken,operatorStack);
+		}else{
+			stackPush(newToken,operatorStack);
+		}
+		//tokenDump((Token*)newToken);
+	}else{
 		while(previousToken!=NULL){
+			if(newToken->info->id == SUB_OP){	
+				if(previousToken->info->affix == INFIX){
+					tryConvertToPrefix(newToken);
+					stackPush(newToken,operatorStack);
+				}
+			}		
+			
 			if(newToken->info->precedence >= previousToken->info->precedence){
 				break;
 			}
@@ -43,23 +60,10 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 			}
 			previousToken=(Operator*)stackPop(operatorStack);
 		}
-		
 		if(previousToken!=NULL ){
-			if(previousToken->info->affix !=PREFIX){
-				tryConvertToPrefix(previousToken);
-				tokenDump((Token*)previousToken);
-				stackPush(previousToken,operatorStack);
-			}else if(previousToken->info->affix==INFIX){
-				stackPush(previousToken,operatorStack);
-			}
+			stackPush(previousToken,operatorStack);
 		}
-		if(previousToken->info->precedence > newToken->info->precedence){
-			operatorPrefixEvaluate(numberStack,previousToken);
-			previousToken=(Operator*)stackPop(operatorStack);
-			stackPush(newToken,operatorStack);
-		}else{
-			stackPush(newToken,operatorStack);
-		}
+		stackPush(newToken,operatorStack);
 	}
 }
 
@@ -68,7 +72,12 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 	Operator *previousToken=(Operator*)stackPop(operatorStack);
 	
 	if(previousToken == NULL){
-		stackPush(newToken,operatorStack);
+		if(newToken->info->affix != PREFIX){
+			tryConvertToPrefix(newToken);
+			stackPush(newToken,operatorStack);
+		}else{
+			stackPush(newToken,operatorStack);
+		}
 	}
 	else{
 		while(previousToken!=NULL)
@@ -110,7 +119,6 @@ void tryConvertToPrefix(Operator *opeToken){
 	opeToken->info=info;
 	if(opeToken->info == NULL)
 	{
-		
 		Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
 	}
 }
