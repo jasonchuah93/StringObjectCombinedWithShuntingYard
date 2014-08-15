@@ -357,10 +357,11 @@ void test_should_evaluate_2_plus_and_push_to_their_respective_stack(void){
 	token = (Token*)stackPop(numberStack);
 	TEST_ASSERT_NOT_NULL(token);
 	TEST_ASSERT_EQUAL(2,((Number*)token)->value);
-	//TEST_ASSERT_EQUAL_STRING("+",((Operator*)token)->info->symbol);
-	//TEST_ASSERT_EQUAL(ADD_OP,((Operator*)token)->info->id);
 	
-	
+	token = (Token*)stackPop(operatorStack);
+	TEST_ASSERT_NOT_NULL(token);
+	TEST_ASSERT_EQUAL_STRING("+",((Operator*)token)->info->symbol);
+	TEST_ASSERT_EQUAL(ADD_OP,((Operator*)token)->info->id);
 }	
 
 void test_should_evaluate_opening_bracket_14_closing_bracket_plus_and_push_to_their_respective_stack(void){
@@ -368,9 +369,59 @@ void test_should_evaluate_opening_bracket_14_closing_bracket_plus_and_push_to_th
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
 	
+	//(2)+
+	Operator openBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(OPENING_BRACKET_OP)};
+	Number number10 = {.type= NUMBER_TOKEN, .value=10};
+	Operator closeBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
+	Operator plus =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
+	
+	stackPush(&number10,numberStack);
+	stackPush(&openBracket,operatorStack);
+	evaluatePostfixesAndInfix("(10)+",(Token*)&openBracket,numberStack,operatorStack);
+	token = (Token*)stackPop(operatorStack);
+	TEST_ASSERT_NOT_NULL(token);
+	TEST_ASSERT_EQUAL_STRING("(",((Operator*)token)->info->symbol);
+	TEST_ASSERT_EQUAL(OPENING_BRACKET_OP,((Operator*)token)->info->id);
+
+	token = (Token*)stackPop(numberStack);
+	TEST_ASSERT_NOT_NULL(token);
+	TEST_ASSERT_EQUAL(10,((Number*)token)->value);
+	
+	evaluatePostfixesAndInfix("(10)+",(Token*)&closeBracket,numberStack,operatorStack);
+	token = (Token*)stackPop(operatorStack);
+	TEST_ASSERT_NOT_NULL(token);
+	TEST_ASSERT_EQUAL_STRING(")",((Operator*)token)->info->symbol);
+	TEST_ASSERT_EQUAL(CLOSING_BRACKET_OP,((Operator*)token)->info->id);
+	
+	evaluatePostfixesAndInfix("(10)+",(Token*)&plus,numberStack,operatorStack);
+	token = (Token*)stackPop(operatorStack);
+	TEST_ASSERT_NOT_NULL(token);
+	TEST_ASSERT_EQUAL_STRING("+",((Operator*)token)->info->symbol);
+	TEST_ASSERT_EQUAL(ADD_OP,((Operator*)token)->info->id);
+}	
+
+void test_should_evaluate_12_closing_bracket_plus_and_push_to_their_respective_stack(void){
+	CEXCEPTION_T e;
+	Token *token;
+	Stack *numberStack=createStack();
+	Stack *operatorStack=createStack();
+	
+	//(2)+
+	Operator openBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(OPENING_BRACKET_OP)};
+	Number number10 = {.type= NUMBER_TOKEN, .value=10};
+	Operator closeBracket =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
+	Operator plus =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
 	
 	
-	
+	stackPush(&number10,numberStack);
+	Try
+	{
+		evaluatePostfixesAndInfix("10)",(Token*)&closeBracket,numberStack,operatorStack);
+	}
+	Catch(e)
+	{
+		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
+	}
 }	
 
 /*

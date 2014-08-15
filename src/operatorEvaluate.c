@@ -32,8 +32,7 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 	
 	token1=(Token*)stackPop(numberStack); 
 	num1=(Number*)token1; 
-	printf("answerrrr : %d\n",num1->value);
-	tokenDump((Token*)opeToken);
+	
 	if(num1 == NULL)
 	{	
 		if(opeToken->info->id ==  PREFIX){
@@ -45,37 +44,6 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 		}
 	}
 	else{
-	if(opeToken->info->id==OPENING_BRACKET_OP)
-	{
-		answer = prefixCalculate(opeToken,num1); 
-		answerToken=createNumberToken(answer);
-		stackPush(answerToken,numberStack);
-	}
-	else if(opeToken->info->id==PLUS_OP || opeToken->info->id==MINUS_OP )
-	{
-		answer = prefixCalculate(opeToken,num1); 
-		answerToken=createNumberToken(answer);
-		stackPush(answerToken,numberStack);
-		
-		
-	}
-	else if(opeToken->info->id==ADD_OP || opeToken->info->id==SUB_OP )
-	{
-		token2=(Token*)stackPop(numberStack); 
-		if(token2!=NULL){
-			num2=(Number*)token2;
-			answer = calculate(opeToken,num2,num1); 
-			answerToken=createNumberToken(answer);
-			stackPush(answerToken,numberStack);
-		}else{
-			tryConvertToPrefix(opeToken);
-			answer = prefixCalculate(opeToken,num1); 
-			answerToken=createNumberToken(answer);
-			stackPush(answerToken,numberStack);
-		}
-	}
-	else 
-	{
 		token2=(Token*)stackPop(numberStack); 
 		if(token2!=NULL){
 			num2=(Number*)token2;
@@ -88,7 +56,7 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 			stackPush(answerToken,numberStack);
 		}
 	}
-	}
+	
 }
 void operatorInfixEvaluate(Stack *numberStack , Operator *opeToken){
 	

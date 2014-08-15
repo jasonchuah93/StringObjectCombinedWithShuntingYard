@@ -107,9 +107,9 @@ void evaluatePostfixesAndInfix(char *expression,Token *token,Stack *numberStack,
 	if((Operator*)token!=NULL){
 		if(isOperator(token)){
 			if(((Operator*)token)->info->affix == POSTFIX){
-				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+				 tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}else{
-				 tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}
 		}
 	}
