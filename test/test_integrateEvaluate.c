@@ -63,10 +63,10 @@ void test_evaluate_negative_2(void){
 	TEST_ASSERT_EQUAL(-2,check);
 	printf("Answer : %d \n",check);
 }
-
+/*
 void test_should_evaluate_negative_negative_negative_60(void){
 	int check;
-	check=evaluateExpression("---60");
+	check=evaluateExpression("--60");
 	
 	TEST_ASSERT_EQUAL(-60,check);
 	printf("Answer : %d \n",check);
@@ -87,7 +87,7 @@ void test_should_throw_error_illegal_argument_for_2_multiply_divide(void){
 	int check;
 	CEXCEPTION_T e;
 	Try{
-		check=evaluateExpression("2*/");
+		check=evaluateExpression("2/*");
 	}Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_INVALID_OPERATOR,e);
@@ -227,8 +227,6 @@ void test_should_evaluate_positive_positive_positive_45(void){
 	printf("Answer : %d \n",check);
 }
 
-
-
 void test_should_evaluate_negative_negative_negative_negative_66(void){
 	int check;
 	check=evaluateExpression("----66");
@@ -306,10 +304,10 @@ void test_should_evaluate_1_plus_10_minus_5(void){
 	printf("Answer : %d \n",check);
 }
 
-void test_should_evaluate_negative_1_plus_10(void){
+void test_should_evaluate_1_multiply_10_divide_5(void){
 	int check;
-	check=evaluateExpression("-1+10");
-	TEST_ASSERT_EQUAL(9,check);
+	check=evaluateExpression("1*10/5");
+	TEST_ASSERT_EQUAL(2,check);
 	printf("Answer : %d \n",check);
 }
 
@@ -317,13 +315,6 @@ void test_should_evaluate_negative_1_plus_negative_10_minus_5(void){
 	int check;
 	check=evaluateExpression("-1+-10-5");
 	TEST_ASSERT_EQUAL(-16,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_1_multiply_10_divide_5(void){
-	int check;
-	check=evaluateExpression("1*10/5");
-	TEST_ASSERT_EQUAL(2,check);
 	printf("Answer : %d \n",check);
 }
 
@@ -343,8 +334,8 @@ void test_should_evaluate_negative_100_divide_4_multiply_5(void){
 
 void test_should_evaluate_10_multiply_negative_5(void){
 	int check;
-	check=evaluateExpression("10*-5");
-	TEST_ASSERT_EQUAL(-125,check);
+	check=evaluateExpression("-5*10");
+	TEST_ASSERT_EQUAL(-50,check);
 	printf("Answer : %d \n",check);
 }
 
@@ -369,7 +360,7 @@ void test_should_evaluate_two_multiply_three_plus_four(void){
 	printf("Answer : %d \n",check);
 }
 
-void test_should_evaluate_two_plus_negative_three(void){
+void test_should_evaluate_2_plus_negative_3(void){
 	int check;
 	check=evaluateExpression("2+-3");
 	TEST_ASSERT_EQUAL(-1,check);
@@ -429,6 +420,12 @@ void test_should_evaluate_50_plus_open_open_bracket_2_multiply_3_plus_4_closing_
 	check=evaluateExpression("50+((2*3+4))");
 	TEST_ASSERT_EQUAL(60,check);
 	printf("Answer : %d \n",check);
-
 }
+*/
 
+void test_should_evaluate_negative_1_plus_10(void){
+	int check;
+	check=evaluateExpression("-1+10");
+	TEST_ASSERT_EQUAL(9,check); 
+	printf("Answer : %d \n",check);
+}

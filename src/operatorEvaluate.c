@@ -43,6 +43,7 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 		answerToken=createNumberToken(answer);
 		stackPush(answerToken,numberStack);
 	}
+	
 	else if(opeToken->info->id==ADD_OP || opeToken->info->id==SUB_OP )
 	{
 		token2=(Token*)stackPop(numberStack); 
@@ -51,15 +52,15 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 			answer = calculate(opeToken,num2,num1); 
 			answerToken=createNumberToken(answer);
 			stackPush(answerToken,numberStack);
-		}
-		else
-		{
+		}else{
 			tryConvertToPrefix(opeToken);
 			answer = prefixCalculate(opeToken,num1); 
 			answerToken=createNumberToken(answer);
 			stackPush(answerToken,numberStack);
 		}
+	
 	}
+	
 	else 
 	{
 		token2=(Token*)stackPop(numberStack); 
@@ -68,9 +69,8 @@ void operatorEvaluate(Stack *numberStack , Operator *opeToken){
 			answer = calculate(opeToken,num2,num1); 
 			answerToken=createNumberToken(answer);
 			stackPush(answerToken,numberStack);
-		}
-		else
-		{
+		}else{
+			tryConvertToPrefix(opeToken);
 			answer = prefixCalculate(opeToken,num1); 
 			answerToken=createNumberToken(answer);
 			stackPush(answerToken,numberStack);
@@ -98,6 +98,7 @@ void operatorPrefixEvaluate(Stack *numberStack , Operator *opeToken){
 	answer = prefixCalculate(opeToken,num); 
 	Token *answerToken=createNumberToken(answer);
 	stackPush(answerToken,numberStack);
+	
 }	
 
 

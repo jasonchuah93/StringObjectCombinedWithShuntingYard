@@ -23,18 +23,18 @@
  *	This function is a prototype function which use as reference to
  *	improve in the evaluateExpression(char*expression) function.
  *	Thus, this function could not evaluate expression like -2,*2,(((2))), +-+-2... *
- *	input  : expression 
+ *	input  : expression
  *	output : none
  *	return : ((Number*)token)->value
- *						  
-********************************************************************************************/	
+ *
+********************************************************************************************/
 int evaluate(char *expression){
 	Token *token;
 	Number *result;
-	
+
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
-	if(expression ==NULL){	
+	if(expression ==NULL){
 		Throw(ERR_NO_ARGUMENT);
 	}
 	Text *newText=textNew(expression);
@@ -42,13 +42,13 @@ int evaluate(char *expression){
 	while((token=getToken(tokenizer))!=NULL ){
 		if(isNumber(token)){
 			stackPush(token,numberStack);
-		} else if(isOperator(token)) {			
+		} else if(isOperator(token)) {
 			if(((Operator*)token)->info->id==OPENING_BRACKET_OP || ((Operator*)token)->info->id==CLOSING_BRACKET_OP) {
 				tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			} else{
 				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
-			}	
-		}	
+			}
+		}
 	}
 	if(operatorStack == NULL){
 		operatorPrefixEvaluate(numberStack ,(Operator*)token);
@@ -60,9 +60,9 @@ int evaluate(char *expression){
 	if(operatorStack !=NULL){
 		destroyStack(operatorStack);
 	}
-	
+
 	return result->value;
-	
+
 }
 
 /*******************************************************************************************
@@ -70,23 +70,23 @@ int evaluate(char *expression){
  *	return the results in number form.
  *	This function is the improved function from the evaluate(char *expression)
  *	Thus, this function can evaluate expression like -2,*2,(((2))), +-+-2... *
- *	input  : expression 
+ *	input  : expression
  *	output : none
  *	return : ((Number*)token)->value
- *						  
-********************************************************************************************/	
+ *
+********************************************************************************************/
 
 int evaluateExpression(char *expression){
 	Token *token;
 	Stack *numberStack=createStack();
 	Stack *operatorStack=createStack();
-	
-	if(expression ==NULL){	
+
+	if(expression ==NULL){
 		Throw(ERR_NO_ARGUMENT);
 	}
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-	
+
 	while((token=getToken(tokenizer))!=NULL ){
 		if(isOperator(token)){
 			if(((Operator*)token)->info->affix==PREFIX || ((Operator*)token)->info->affix==POSTFIX){
@@ -100,7 +100,7 @@ int evaluateExpression(char *expression){
 		}
 	}
 	if(operatorStack == NULL){
-		evaluatePrefixOperatorOnStack(numberStack,operatorStack);
+		operatorPrefixEvaluate(numberStack ,(Operator*)token);
 	}else{
 		evaluateAllOperatorOnStack(numberStack,operatorStack);
 	}
@@ -110,8 +110,7 @@ int evaluateExpression(char *expression){
 		destroyStack(operatorStack);
 	}
 	return result->value;
-	
+
 }
 
 
-	

@@ -27,33 +27,39 @@
 		
 **/
 
-void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack)
-{
+void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack){
 	Operator *previousToken;
 	previousToken=(Operator*)stackPop(operatorStack);
 	
 	if(previousToken==NULL){
 		stackPush(newToken,operatorStack);
-	}else{
+	} else{
 		while(previousToken!=NULL){
-			if(newToken->info->precedence > previousToken->info->precedence){
+			if(newToken->info->precedence >= previousToken->info->precedence){
 				break;
 			}
 			else{
-				if(previousToken->info->affix == INFIX){
-					if(newToken->info->id==SUB_OP){
-						tryConvertToPrefix(newToken);
-						 tryEvaluatePrefixOperatorOnStackThenPush(newToken,numberStack,operatorStack);
-					}
-				}
 				operatorEvaluate(numberStack,previousToken);
 			}
 			previousToken=(Operator*)stackPop(operatorStack);
 		}
+		
 		if(previousToken!=NULL ){
-			stackPush(previousToken,operatorStack);
+			if(previousToken->info->affix !=PREFIX){
+				tryConvertToPrefix(previousToken);
+				tokenDump((Token*)previousToken);
+				stackPush(previousToken,operatorStack);
+			}else if(previousToken->info->affix==INFIX){
+				stackPush(previousToken,operatorStack);
+			}
 		}
-		stackPush(newToken,operatorStack);
+		if(previousToken->info->precedence > newToken->info->precedence){
+			operatorPrefixEvaluate(numberStack,previousToken);
+			previousToken=(Operator*)stackPop(operatorStack);
+			stackPush(newToken,operatorStack);
+		}else{
+			stackPush(newToken,operatorStack);
+		}
 	}
 }
 
@@ -78,7 +84,6 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 				}else {
 					operatorEvaluate(numberStack,previousToken);
 				}
-				
 			}else if(newToken->info->precedence >= previousToken->info->precedence || ((Operator*)newToken)->info->id==OPENING_BRACKET_OP ){
 				break;
 			}
