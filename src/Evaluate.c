@@ -83,13 +83,13 @@ void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,
 		if(isNumber(token)){
 			stackPush(token,numberStack);
 		}
-		
+		/*
 		if(isOperator(token)){
 			if(((Operator*)token)->info->affix !=PREFIX)
 				tryConvertToPrefix((Operator*)token);
 			tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 		}
-		
+		*/
 		
 }
 /*******************************************************************************************
@@ -143,8 +143,8 @@ int evaluateExpression(char *expression){
 		if(((Operator*)firstToken)->info->affix !=PREFIX)
 			tryConvertToPrefix((Operator*)firstToken);
 		stackPush(firstToken,operatorStack);
-			while((token=getToken(tokenizer))->type !=NUMBER_TOKEN){
-				
+			if((token=getToken(tokenizer))!=NULL){
+				while(token->type !=NUMBER_TOKEN){
 				if(isOperator(token)){
 					if(((Operator*)token)->info->affix !=PREFIX){
 						tryConvertToPrefix((Operator*)token);
@@ -152,6 +152,11 @@ int evaluateExpression(char *expression){
 						break;
 					}
 				}
+				}
+			}
+			if(isNumber(token)){
+				stackPush(token,numberStack);
+				
 			}
 	}
 	if(isNumber(firstToken)){
