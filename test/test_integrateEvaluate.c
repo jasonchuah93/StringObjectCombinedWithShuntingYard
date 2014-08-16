@@ -41,6 +41,17 @@ evaluateExpression(char *expression)
 
 ********************************************************************************************************************************/
 
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
 void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	
 	ErrorCode e;
@@ -56,6 +67,16 @@ void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	}
 }
 
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	5	|		|		|				|	5	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 void test_evaluate_5(void){
 	int check;
 	check=evaluateExpression("5");
@@ -64,6 +85,18 @@ void test_evaluate_5(void){
 	printf("Answer : %d \n",check);
 }
 
+
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	2	|		|	-	|				|	-2	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
 void test_evaluate_negative_2(void){
 	int check;
 	check=evaluateExpression("-2");
@@ -71,6 +104,92 @@ void test_evaluate_negative_2(void){
 	TEST_ASSERT_EQUAL(-2,check);
 	printf("Answer : %d \n",check);
 }
+
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	-	|				|		|		|		|
+	|	60	|		|	-	|				|	60	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void test_should_evaluate_negative_negative_60(void){
+	int check;
+	
+	check=evaluateExpression("--60");
+	TEST_ASSERT_EQUAL(60,check);
+	printf("Answer : %d \n",check);
+}
+
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|	60	|		|	-	|				|	-60	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void test_should_evaluate_negative_positive_60(void){
+	int check;
+	
+	check=evaluateExpression("-+60");
+	TEST_ASSERT_EQUAL(-60,check);
+	printf("Answer : %d \n",check);
+}
+
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	10	|		|	!	|				|	0	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void test_should_evaluate_LOGICAL_NOT_10(void){
+	int check;
+	check=evaluateExpression("!10");
+	
+	TEST_ASSERT_EQUAL(0,check);
+	printf("Answer : %d \n",check);
+}
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	5	|		|	~	|				|	-6	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void test_should_evaluate_BITWISE_NOT_5(void){
+	int check;
+	check=evaluateExpression("~5");
+	
+	TEST_ASSERT_EQUAL(-6,check);
+	printf("Answer : %d \n",check);
+}
+
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	2	|		|		|				|		|		|		|
+	|	1	|		|	+	|				|	3	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 
 void test_should_evaluate_1_plus_2(void){
 	ErrorCode e;
@@ -81,144 +200,105 @@ void test_should_evaluate_1_plus_2(void){
 	printf("Answer : %d \n",check);
 }
 
-/*
-void test_should_evaluate_negative_negative_60(void){
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|	7	|		|		|				|		|		|		|
+	|	2	|		|		|				|		|		|		|
+	|	10	|		|	-	|				|	15	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void test_should_evaluate_10_minus_2_plus_7(void){
+	ErrorCode e;
 	int check;
 	
-	check=evaluateExpression("--60");
-	TEST_ASSERT_EQUAL(60,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_LOGICAL_NOT_10(void){
-	int check;
-	check=evaluateExpression("!10");
-	
-	TEST_ASSERT_EQUAL(0,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_BITWISE_NOT_5(void){
-	int check;
-	check=evaluateExpression("~5");
-	
-	TEST_ASSERT_EQUAL(-6,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_100(void){
-	int check;
-	check=evaluateExpression("+100");
-	
-	TEST_ASSERT_EQUAL(100,check);
-	printf("Answer : %d \n",check);
-}
-
-
-void test_should_evaluate_negative_negative_3(void){
-	int check;
-	check=evaluateExpression("--3");
-	
-	TEST_ASSERT_EQUAL(3,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_positive_30(void){
-	int check;
-	check=evaluateExpression("++30");
-	
-	TEST_ASSERT_EQUAL(30,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_negative_80(void){
-	int check;
-	check=evaluateExpression("+-80");
-	
-	TEST_ASSERT_EQUAL(-80,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_negative_positive_70(void){
-	int check;
-	check=evaluateExpression("-+70");
-	
-	TEST_ASSERT_EQUAL(-70,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_positive_positive_45(void){
-	int check;
-	check=evaluateExpression("+++45");
-	
-	TEST_ASSERT_EQUAL(45,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_negative_negative_negative_negative_66(void){
-	int check;
-	check=evaluateExpression("----66");
-	
-	TEST_ASSERT_EQUAL(66,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_negative_positive_negative_15(void){
-	int check;
-	check=evaluateExpression("-+-15");
-	
+	check=evaluateExpression("10-2+7");
 	TEST_ASSERT_EQUAL(15,check);
 	printf("Answer : %d \n",check);
 }
 
-void test_should_evaluate_negative_positive_positive_21(void){
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	20	|		|		|				|		|		|		|
+	|	2	|		|	*	|				|		|		|		|
+	|	1	|		|	+	|				|	41	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void test_should_evaluate_1_plus_2_multiply_20(void){
+	ErrorCode e;
 	int check;
-	check=evaluateExpression("-+-21");
 	
-	TEST_ASSERT_EQUAL(21,check);
+	check=evaluateExpression("1+2*20");
+	TEST_ASSERT_EQUAL(41,check);
 	printf("Answer : %d \n",check);
+	
 }
 
-void test_should_evaluate_positive_positive_negative_25(void){
-	int check;
-	check=evaluateExpression("++-25");
-	
-	TEST_ASSERT_EQUAL(-25,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_negative_negative_31(void){	
-	int check;
-	check=evaluateExpression("+--31");
-	
-	TEST_ASSERT_EQUAL(31,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_positive_positive_negative_negative_14(void){	
-	int check;
-	check=evaluateExpression("++--14");
-	
-	TEST_ASSERT_EQUAL(14,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_evaluate_negative_negative_positive_positive_18(void){	
-	int check;
-	check=evaluateExpression("--++18");
-	
-	TEST_ASSERT_EQUAL(18,check);
-	printf("Answer : %d \n",check);
-}
-
-void test_should_longer_prefix_expression(void){	
+/****************************************************************************
+	|		|		|	-	|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|		|		|	-	|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|		|		|	-	|				|		|		|		|
+	|		|		|	-	|				|		|		|		|
+	|		|		|	-	|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|		|		|	-	|				|		|		|		|
+	|		|		|	+	|				|		|		|		|
+	|	99	|		|	-	|				|	-99	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+void test_should_evaluate_longer_prefix_expression(void){	
 	int check;
 	check=evaluateExpression("-+-++++---+-+-99");
 	TEST_ASSERT_EQUAL(-99,check);
 	printf("Answer : %d \n",check);
 }
 
-void test_should_throw_error_illegal_argument_for_2_plus(void){
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	20	|		|	*	|				|		|		|		|
+	|	2	|		|	+	|				|		|		|		|
+	|	10	|		|	-	|				|	30	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void test_should_evaluate_negative_10_plus_2_multiply_20(void){
+	ErrorCode e;
+	int check;
+	printf("testinghere\n");
+	check=evaluateExpression("-10+2*20");
+	TEST_ASSERT_EQUAL(30,check);
+	printf("Answer : %d \n",check);
+}
+
+
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	2	|		|	+	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+
+void xtest_should_throw_error_illegal_argument_for_2_plus(void){
 	int check;
 	CEXCEPTION_T e;
 	Try{
@@ -229,7 +309,18 @@ void test_should_throw_error_illegal_argument_for_2_plus(void){
 	}
 }
 
-void test_should_throw_error_illegal_argument_for_multiply_2(void){
+
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	2	|		|	*	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+void xtest_should_throw_error_illegal_argument_for_multiply_2(void){
 	int check;
 	CEXCEPTION_T e;
 	Try{
@@ -240,30 +331,60 @@ void test_should_throw_error_illegal_argument_for_multiply_2(void){
 	}
 }
 
-void test_should_throw_error_illegal_argument_for_left_bracket_2(void){
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	20	|		|	(	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+void xtest_should_throw_error_illegal_argument_for_left_bracket_20(void){
 	int check;
 	CEXCEPTION_T e;
 	Try{
-		check=evaluateExpression("(2");
+		check=evaluateExpression("(20");
 	}Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_ILLEGAL_ARGUMENT,e);
 	}
 }
 
-void test_should_throw_error_cannot_convert_to_prefix_for_negative_multiply_10(void){
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	10	|		|	*	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+void xtest_should_throw_error_cannot_convert_to_prefix_for_negative_multiply_10(void){
 	int check;
 	CEXCEPTION_T e;
 	
 	Try{
-		check=evaluateExpression("-*10");
+		check=evaluateExpression("*-10");
 	}Catch(e)
 	{
 		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);
 	}
 }
 
-void test_should_throw_error_cannot_convert_to_prefix_for_multiply(void){
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	*	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+void xtest_should_throw_error_cannot_convert_to_prefix_for_multiply(void){
 	int check;
 	CEXCEPTION_T e;
 	
@@ -275,7 +396,17 @@ void test_should_throw_error_cannot_convert_to_prefix_for_multiply(void){
 	}
 }
 
-void test_should_throw_error_expecting_number_for__evaluate_multiply(void){
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	-	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
+void xtest_should_throw_error_expecting_number_for_evaluate_subtract(void){
 	int check;
 	CEXCEPTION_T e;
 	Try{
@@ -285,11 +416,11 @@ void test_should_throw_error_expecting_number_for__evaluate_multiply(void){
 		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
 	}
 }
-*/
+
 /******************************************************************************************
 	Tests for evaluatePrefixesAndNumber(char *expression,token,numberStack,operatorStack)
 *******************************************************************************************/
-
+/*
 void test_evaluatePrefixesAndNumber_evaluate_should_push_10_into_number_stack(void){
 	Token *token;
 	Stack *numberStack=createStack();
@@ -577,11 +708,11 @@ void test_evaluatePrefixesAndNumber_evaluate_divide_multiply_should_throw_error_
 		TEST_ASSERT_EQUAL(ERR_CANNOT_CONVERT_TO_PREFIX,e);
 	}
 }
-
+*/
 /*****************************************************************************************
 	Tests for evaluatePostfixesAndInfix(char *expression,(token,numberStack,operatorStack)
 *******************************************************************************************/
-
+/*
 void test_evaluatePostfixesAndInfix_should_throw_error_expecting_operator(void){
 	CEXCEPTION_T e;
 	Token *token;
@@ -712,7 +843,7 @@ void test_evaluatePostfixesAndInfix_should_throw_error_for_open_bracket_2_open_b
 		TEST_ASSERT_EQUAL(ERR_EXPECTING_NUMBER,e);
 	}
 }
-
+*/
 /*
 void test_should_evaluate_negative_1_plus_10(void){
 	int check;

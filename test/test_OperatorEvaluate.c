@@ -78,28 +78,6 @@ void test_operatorEvaluate_100_MINUS_37(void)
 	operatorInfixEvaluate(numberStack,&minus);
 }
 
-void test_operatorEvaluate_56_BITWISEXOR_30(void)
-{
-	Stack *numberStack=createStack();
-	Stack *operatorStack=createStack();
-	Token *tempToken;
-	Number *tempAns;
-	int check;
-	//Initialize tokenizer,token and stack
-	String tokenizer = {.text = t"56^30"};
-	Number number56 = {.type= NUMBER_TOKEN, .value=56};
-	Operator bitwiseXOR = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(BITWISE_XOR_OP)};
-	Number number30 = {.type= NUMBER_TOKEN, .value=30};
-	Number number38;
-	
-	stackPush(&number56,numberStack);
-	stackPush(&bitwiseXOR,operatorStack);
-	stackPush(&number30,numberStack);
-	
-	operatorEvaluate(numberStack,&bitwiseXOR);
-	
-}
-
 void test_operatorEvaluate_opening_bracket_3_should_throw_error(void){
 	Token *tempToken;
 	Number *tempAns;
@@ -117,96 +95,7 @@ void test_operatorEvaluate_opening_bracket_3_should_throw_error(void){
 	
 	operatorEvaluate(numberStack,&openBracket);
 }
-/***********************************************************************	
- Test on function evaluateAllOperatorOnStack
- Input parameter : 
-					1)Stack *numberStack
-					2)Stack *operatorStack
-					
- Using following mock function : 
-								1)stringCreate()
-								2)getToken()
-								3)stackPop()  
-								4)stackPush()
-								5)createNumberToken()
-								6)operatorEvaluate
-								
- ***********************************************************************/	
 
- void test_evaluateAllOperatorOnStack_100_divide_5_multiply_6_plus_99_minus_20(void){
-	Stack *numberStack=createStack();
-	Stack *operatorStack=createStack();
-	Token *tempToken;
-	Number *tempAns;
-	int check;
-	//Initialize tokenizer,token and stack
-	String tokenizer = {.text = t"100/5*6+99-20"};
-	
-	Number number100 = {.type= NUMBER_TOKEN, .value=100};
-	Operator divide= {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(DIV_OP)};
-	Number number5 = {.type= NUMBER_TOKEN, .value=5};
-	Operator multiply = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(MUL_OP)};
-	Number number6 = {.type= NUMBER_TOKEN, .value=6};
-	Operator plus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
-	Number number99 = {.type= NUMBER_TOKEN, .value=99};
-	Operator minus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(SUB_OP)};
-	Number number20 = {.type= NUMBER_TOKEN, .value=20};
-	Number number120 = {.type= NUMBER_TOKEN, .value=120};
-	Number number219 = {.type= NUMBER_TOKEN, .value=219};
-	Number number199 = {.type= NUMBER_TOKEN, .value=199};
-	
-	stackPush(&number100,numberStack);
-	stackPush(&divide,operatorStack);
-	stackPush(&number5,numberStack);
-	stackPush(&multiply,operatorStack);
-	stackPush(&number6,numberStack);
-	stackPush(&plus,operatorStack);
-	stackPush(&number99,numberStack);
-	stackPush(&minus,operatorStack);
-	stackPush(&number20,numberStack);
-	
-	evaluateAllOperatorOnStack(numberStack,operatorStack);
-}
-
-void test_evaluateAllOperatorOnStack_100_divide_5_multiply_6_plus_99_minus_20_modulus_30(void){
-	Stack *numberStack=createStack();
-	Stack *operatorStack=createStack();
-	Token *tempToken;
-	Number *tempAns;
-	int check;
-	//Initialize tokenizer,token and stack
-	String tokenizer = {.text = t"100/5*6+99-20%30"};
-	
-	Number number100 = {.type= NUMBER_TOKEN, .value=100};
-	Operator divide= {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(DIV_OP)};
-	Number number5 = {.type= NUMBER_TOKEN, .value=5};
-	Operator multiply = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(MUL_OP)};
-	Number number6 = {.type= NUMBER_TOKEN, .value=6};
-	Operator plus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(ADD_OP)};
-	Number number99 = {.type= NUMBER_TOKEN, .value=99};
-	Operator minus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(SUB_OP)};
-	Number number20 = {.type= NUMBER_TOKEN, .value=20};
-	Operator modulus = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(MOD_OP)};
-	Number number30 = {.type= NUMBER_TOKEN, .value=30};
-	Number number120 = {.type= NUMBER_TOKEN, .value=120};
-	Number number219 = {.type= NUMBER_TOKEN, .value=219};
-	Number number199 = {.type= NUMBER_TOKEN, .value=199};
-	Number number19 = {.type= NUMBER_TOKEN, .value=19};;
-	
-	stackPush(&number100,numberStack);
-	stackPush(&divide,operatorStack);
-	stackPush(&number5,numberStack);
-	stackPush(&multiply,operatorStack);
-	stackPush(&number6,numberStack);
-	stackPush(&plus,operatorStack);
-	stackPush(&number99,numberStack);
-	stackPush(&minus,operatorStack);
-	stackPush(&number20,numberStack);
-	stackPush(&modulus,operatorStack);
-	stackPush(&number30,numberStack);
-
-	evaluateAllOperatorOnStack(numberStack,operatorStack);
-}
 
 
 

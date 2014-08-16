@@ -14,8 +14,6 @@
 #include "ErrorCode.h"
 #include "CException.h"
 
-
-
 /**
 	Evaluate all operator token on the operator stack that have strictly lower
 	precedence than the operator token to be pushed. The evaluation of operators token
@@ -47,6 +45,7 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 			stackPush(previousToken,operatorStack);
 		}
 		stackPush(newToken,operatorStack);
+		
 	}
 }
 
@@ -84,13 +83,12 @@ void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberSt
 		if(previousToken!=NULL ){
 			stackPush(previousToken,operatorStack);
 		}
-		if(((Operator*)newToken)->info->id ==OPENING_BRACKET_OP){
+		if(newToken->info->affix == PREFIX){
 			stackPush(newToken,operatorStack);
 		}
 		
 	}
 }
-
 
 void tryConvertToPrefix(Operator *opeToken){
 	
@@ -100,5 +98,16 @@ void tryConvertToPrefix(Operator *opeToken){
 	if(opeToken->info == NULL)
 	{
 		Throw(ERR_CANNOT_CONVERT_TO_PREFIX);
+	}
+}
+
+void tryConvertToInfix(Operator *opeToken){
+	
+	int i;
+	OperatorInfo *info=operatorFindInfoByName(opeToken->info->symbol);
+	opeToken->info=info;
+	if(opeToken->info == NULL)
+	{
+		Throw(ERR_CANNOT_CONVERT_TO_INFIX);
 	}
 }

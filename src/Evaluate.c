@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <malloc.h>
+#include <string.h>
 #include "Token.h"
 #include "Text.h"
 #include "CharSet.h"
@@ -75,24 +77,21 @@ int evaluate(char *expression){
 ********************************************************************************************/
 
 void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
-	
-	if(token==NULL){
-		printf("warning token is NULL \n");
-		return ;
-	}
+		
+		//printf("testing111\n");
+		//tokenDump(token);
+		if(isNumber(token)){
+			stackPush(token,numberStack);
+		}
+		
 		if(isOperator(token)){
 			if(((Operator*)token)->info->affix !=PREFIX)
 				tryConvertToPrefix((Operator*)token);
-			stackPush(token,operatorStack);
-		}
-		else if(isNumber(token)){
-			stackPush(token,numberStack);
-		}else{
-			Throw(ERR_EXPECTING_NUMBER);
+			tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 		}
 		
+		
 }
-
 /*******************************************************************************************
  *	This function is to evaluate postfix and infix operator.
  *	This function will stop and return after infix operator is detected.
@@ -104,19 +103,18 @@ void evaluatePrefixesAndNumber(char *expression,Token *token,Stack *numberStack,
 
 void evaluatePostfixesAndInfix(char *expression,Token *token,Stack *numberStack,Stack *operatorStack){
 		
-		if((Operator*)token!=NULL){
-		if(isOperator(token)){
-			if(((Operator*)token)->info->affix == POSTFIX){
+		if(isNumber(token)){
+			stackPush(token,numberStack);
+		}
+		else if(isOperator(token)){
+			if(((Operator*)token)->info->affix == INFIX ){
+				tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+			}else if(((Operator*)token)->info->affix == POSTFIX){
 				 tryEvaluatePrefixOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
 			}else{
-				 tryEvaluateOperatorOnStackThenPush((Operator*)token,numberStack,operatorStack);
+				Throw(ERR_EXPECTING_OPERATOR);
 			}
 		}
-		}
-		else{
-		Throw(ERR_EXPECTING_OPERATOR);
-		}
-		
 }
 /*******************************************************************************************
  *	This function is to evaluate the expression which contains numbers and operators and
@@ -139,11 +137,40 @@ int evaluateExpression(char *expression){
 	}
 	Text *newText=textNew(expression);
 	String *tokenizer = stringNew(newText);
-	while((token=getToken(tokenizer))!=NULL ){
-		
-		evaluatePrefixesAndNumber(expression,token,numberStack,operatorStack);
-		evaluatePostfixesAndInfix(expression,token,numberStack,operatorStack);
+	
+	Token *firstToken=getToken(tokenizer);
+	if(isOperator(firstToken)){
+		if(((Operator*)firstToken)->info->affix !=PREFIX)
+			tryConvertToPrefix((Operator*)firstToken);
+		stackPush(firstToken,operatorStack);
+			while((token=getToken(tokenizer))->type !=NUMBER_TOKEN){
+				
+				if(isOperator(token)){
+					if(((Operator*)token)->info->affix !=PREFIX){
+						tryConvertToPrefix((Operator*)token);
+						stackPush(token,operatorStack);
+						break;
+					}
+				}
+			}
 	}
+	if(isNumber(firstToken)){
+		stackPush(firstToken,numberStack);
+	}
+	tokenDump(firstToken);
+	
+	while((token=getToken(tokenizer))!=NULL){
+		
+		if(isOperator(firstToken)){
+			evaluatePrefixesAndNumber(expression,token,numberStack,operatorStack);
+		}
+		
+		if(isNumber(firstToken)){
+			evaluatePostfixesAndInfix(expression,token,numberStack,operatorStack);
+		}
+		//tokenDump(token);
+	}
+	
 	evaluateAllOperatorOnStack(numberStack,operatorStack);
 	Number *result=(Number*)stackPop(numberStack);
 	destroyStack(numberStack);

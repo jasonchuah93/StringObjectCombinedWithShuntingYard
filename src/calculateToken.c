@@ -76,7 +76,6 @@ int prefixCalculate(Operator *opeToken, Number *first){
 	
 	if(opeToken->info==NULL)
 	{
-		
 		Throw(ERR_INVALID_OPERATOR);
 	}
 	
@@ -104,8 +103,7 @@ int prefixCalculate(Operator *opeToken, Number *first){
 		
 		default:
 		{
-			
-			Throw(ERR_INVALID_OPERATOR);
+			Throw(ERR_UNKNOWN_PREFIX_OPERATOR);
 		}
 	}
 	
