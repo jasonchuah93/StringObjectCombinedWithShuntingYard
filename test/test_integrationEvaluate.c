@@ -61,26 +61,16 @@ void test_evaluate_should_throw_error_if_the_expression_is_null(){
 	}
 }
 
-void test_should_return_3_for_1_plus_2(void){
-	int check;
-	check=evaluate("1+2");
-	TEST_ASSERT_EQUAL(3,check);
-	printf("Answer : %d ",check);
-}
-
-void test_should_return_6_for_60_divide_10(void){
-	int check;
-	check=evaluate("60/10");
-	TEST_ASSERT_EQUAL(6,check);
-	printf("Answer : %d ",check);
-}
-
-void test_evaluate_2_MULTIPLY_3_PLUS_4(void){	
-	int check;
-	check=evaluate("2*3+4");
-	TEST_ASSERT_EQUAL(10,check);
-	printf("Answer : %d ",check);
-}
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|	6	|		|		|				|		|		|		|
+	|	5	|		|	*	|				|		|		|		|
+	|	4	|		|	+	|				|		|		|		|
+	|	3	|		|	*	|				|		|		|		|
+	|	2	|		|	+	|				|	44	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 
 void test_evaluate_2_PLUS_3_MULTIPLY_4_PLUS_5_MULTIPLY_6(void){
 	int check;
@@ -89,33 +79,7 @@ void test_evaluate_2_PLUS_3_MULTIPLY_4_PLUS_5_MULTIPLY_6(void){
 	printf("Answer : %d ",check);
 }
 
-void test_evaluate_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10(void){
-	int check;
-	check=evaluate("3+4*5-6-10");
-	TEST_ASSERT_EQUAL(7,check);
-	printf("Answer : %d ",check);
-}
 
-void test_2_OR_3_PLUS_4_MULTIPLY_5_MINUS_6_MINUS_10_OR_10_AND_53_XOR_21(void){
-	int check;
-	check=evaluate("2|3+4*5-6-10|10&53^21");
-	TEST_ASSERT_EQUAL(23,check);
-	printf("Answer : %d ",check);
-}
-
-void test_evaluate_with_different_expression(void){
-	int check;
-	check=evaluate("2|3+4*5-6-10|10&53^21+95%6^200%5*80");
-	TEST_ASSERT_EQUAL(31,check);
-	printf("Answer : %d ",check);
-}
-
-void test_evaluate_with_longer_expression(void){
-	int check;
-	check=evaluate("2|3&4^5|6^10|10&53^21&95|6^200&5|80");
-	TEST_ASSERT_EQUAL(95,check);
-	printf("Answer : %d ",check);
-}
 
 void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 
@@ -129,19 +93,17 @@ void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 	}
 }
 
-void test_should_evaluate_left_parenthesis_2_right_parenthesis(void){
-	int check;
-	check=evaluate("(2)");
-	TEST_ASSERT_EQUAL(2,check);
-	printf("Answer : %d ",check);
-}
 
-void test_should_evaluate_left_parenthesis_25_right_parenthesis(void){
-	int check;
-	check=evaluate("(25)");
-	TEST_ASSERT_EQUAL(25,check);
-	printf("Answer : %d ",check);
-}
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	)	|				|		|		|		|
+	|	50	|		|	-	|				|		|		|		|
+	|	3	|		|	*	|				|		|		|		|
+	|	20  |		|	(	|				|	10	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 
 void test_left_bracket_2_plus_3_right_bracket(void){
 	int check;
@@ -150,7 +112,16 @@ void test_left_bracket_2_plus_3_right_bracket(void){
 	printf("Answer : %d ",check);
 }
 
-
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	12	|		|	!	|				|	0	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 void test_logic_not_12_SHOULD_RETURN_0(void){
 	int check;
 	check=evaluate("!12");
@@ -159,3 +130,10 @@ void test_logic_not_12_SHOULD_RETURN_0(void){
 
 }
 
+void test_logic_not_13_SHOULD_RETURN_0(void){
+	int check;
+	check=evaluate("10+(5)");
+	TEST_ASSERT_EQUAL(15,check);
+	printf("Answer : %d ",check);
+
+}

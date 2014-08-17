@@ -65,7 +65,16 @@ The evaluate(char *expression) is the prototype function which will improve to t
 		TEST_ASSERT_EQUAL(ERR_NO_ARGUMENT ,e);
 	}
 }
-
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	2	|		|		|				|		|		|		|
+	|	1	|		|	+	|				|	3	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 void test_should_return_3_for_1_plus_2(void){
 	
 	int check;
@@ -119,61 +128,16 @@ void test_should_return_3_for_1_plus_2(void){
 	TEST_ASSERT_EQUAL(3, check);
 	printf("Answer : %d ",check);
 }	
-
-void test_should_return_6_for_60_divide_10(void){
-	
-	int check;
-	Stack numberStack;
-	Stack operatorStack;
-	Text *newText;
-	
-	String tokenizer = {.text = t"60/10"};
-	
-	Number number60 = {.type= NUMBER_TOKEN, .value=60};
-	Number number10 = {.type= NUMBER_TOKEN, .value=10};	
-	Number number6 = {.type= NUMBER_TOKEN, .value=6};
-	Operator divide =  {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(DIV_OP)};
-	
-	createStack_ExpectAndReturn(&numberStack);
-	createStack_ExpectAndReturn(&operatorStack);
-	textNew_ExpectAndReturn("60/10",newText);
-	stringNew_ExpectAndReturn(newText,&tokenizer);
-	
-	//Number60
-	getToken_ExpectAndReturn(&tokenizer, (Token *)&number60);
-	isNumber_ExpectAndReturn((Token *)&number60, 1);
-	stackPush_Expect((Token *)&number60, &numberStack);
-	
-	//Operator token divide
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&divide);
-	isNumber_ExpectAndReturn((Token *)&divide,0);
-	isOperator_ExpectAndReturn((Token *)&divide,1);
-	stackPop_ExpectAndReturn(&operatorStack,NULL);
-	stackPush_Expect((Token *)&divide,&operatorStack);
-	
-	//Number10
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&number10);
-	isNumber_ExpectAndReturn((Token *)&number10,1);
-	stackPush_Expect((Token *)&number10,&numberStack);
-	getToken_ExpectAndReturn(&tokenizer,NULL);
-	
-	//Calculation
-	stackPop_ExpectAndReturn(&operatorStack,(Token *)&divide);
-	stackPop_ExpectAndReturn(&numberStack,(Token *)&number10);
-	stackPop_ExpectAndReturn(&numberStack,(Token *)&number60);
-	createNumberToken_ExpectAndReturn(6,(Token *)&number6);
-	stackPush_Expect((Token *)&number6,&numberStack);
-	stackPop_ExpectAndReturn(&operatorStack,NULL);
-	
-	stackPop_ExpectAndReturn(&numberStack,(Token *)&number6);
-	destroyStack_Expect(&numberStack);
-	destroyStack_Expect(&operatorStack);
-	
-	check=evaluate("60/10");
-	TEST_ASSERT_EQUAL(6, check);
-	printf("Answer : %d ",check);
-}
-
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	4	|		|		|				|		|		|		|
+	|	3	|		|	+	|				|		|		|		|
+	|	2	|		|	*	|				|	10	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 void test_evaluate_2_MULTIPLY_3_PLUS_4(void){	
 	
 	int check;
@@ -249,7 +213,16 @@ void test_evaluate_2_MULTIPLY_3_PLUS_4(void){
 	printf("Answer : %d ",check);
 	
 }
-
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|	42	|		|		|				|		|		|		|
+	|	43	|		|	#	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 
 	Stack dataStack;
@@ -283,57 +256,16 @@ void test_should_evaluate_43_HASHTAG_42_and_throw_error_invalid_operator(void){
 	}
 }
 
-void test_should_evaluate_left_parenthesis_2_right_parenthesis(void){
-	
-	Stack dataStack;
-	Stack operatorStack;
-	int check;
-	Text *newText;
-	
-	String tokenizer = {.text = t"(2)"};
-	
-	Operator leftBracket = {.type= OPERATOR_TOKEN,.info=operatorFindInfoByID(OPENING_BRACKET_OP)};
-	Number number2 = {.type= NUMBER_TOKEN, .value=2};
-	Operator rightBracket = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
-	
-	createStack_ExpectAndReturn(&dataStack);
-	createStack_ExpectAndReturn(&operatorStack);
-	textNew_ExpectAndReturn("(2)",newText);
-	stringNew_ExpectAndReturn(newText,&tokenizer);
-	
-	//Operator token left parenthesis
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&leftBracket);
-	isNumber_ExpectAndReturn((Token *)&leftBracket,0);
-	isOperator_ExpectAndReturn((Token *)&leftBracket,1);
-	stackPop_ExpectAndReturn(&operatorStack,NULL); //If operator stack is null,
-	stackPush_Expect((Token *)&leftBracket,&operatorStack);	  //then push a operator token inside
-	
-	//Number2
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&number2);
-	isNumber_ExpectAndReturn((Token *)&number2,1);
-	stackPush_Expect((Token *)&number2,&dataStack);
-	
-	//Operator token right parenthesis
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&rightBracket);
-	isNumber_ExpectAndReturn((Token *)&rightBracket,0);
-	isOperator_ExpectAndReturn((Token *)&rightBracket,1);
-	stackPop_ExpectAndReturn(&operatorStack,(Token *)&leftBracket); //Operator stack has token1 inside
-	stackPop_ExpectAndReturn(&dataStack,(Token *)&number2); //Once left and right bracket is detected, pop the token1 and number token and evaluate
-	createNumberToken_ExpectAndReturn(2,(Token *)&number2);
-	stackPush_Expect((Token *)&number2,&dataStack);
-	stackPop_ExpectAndReturn(&operatorStack,NULL);
-	getToken_ExpectAndReturn(&tokenizer,NULL);
-	
-	//Evaluate
-	stackPop_ExpectAndReturn(&operatorStack,NULL);
-	stackPop_ExpectAndReturn(&dataStack,(Token *)&number2);
-	destroyStack_Expect(&dataStack);
-	destroyStack_Expect(&operatorStack);
-	
-	check=evaluate("(2)");
-	TEST_ASSERT_EQUAL(2,check);
-	printf("Answer : %d ",check);
-}
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	)	|				|		|		|		|
+	|	25  |		|	(	|				|		|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 
 void test_should_evaluate_left_parenthesis_25_right_parenthesis(void){
 	
@@ -387,70 +319,16 @@ void test_should_evaluate_left_parenthesis_25_right_parenthesis(void){
 	printf("Answer : %d ",check);
 }
 
-void test_left_bracket_2_plus_3_right_bracket(void){
-	
-	Stack dataStack;
-	Stack operatorStack;
-	int check;
-	Text *newText;
-	//Initialize tokenizer,token and stack
-	String tokenizer = {.text = t"(2+3)"};
-	
-	Operator leftBracket = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(OPENING_BRACKET_OP)};
-	Number number2 = {.type= NUMBER_TOKEN, .value=2};
-	Operator plus = {.type= OPERATOR_TOKEN,.info=operatorFindInfoByID(ADD_OP)};
-	Number number3 = {.type= NUMBER_TOKEN, .value=3};
-	Operator rightBracket = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(CLOSING_BRACKET_OP)};
-	Number number5 = {.type= NUMBER_TOKEN, .value=5};
-	
-	createStack_ExpectAndReturn(&dataStack);
-	createStack_ExpectAndReturn(&operatorStack);
-	textNew_ExpectAndReturn("(2+3)",newText);
-	stringNew_ExpectAndReturn(newText,&tokenizer);
-	
-	//(
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&leftBracket);
-	isNumber_ExpectAndReturn((Token *)&leftBracket,0);
-	isOperator_ExpectAndReturn((Token *)&leftBracket,1);
-	stackPop_ExpectAndReturn(&operatorStack,NULL);
-	stackPush_Expect((Token *)&leftBracket,&operatorStack);
-	//2
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&number2);
-	isNumber_ExpectAndReturn((Token *)&number2,1);
-	stackPush_Expect((Token *)&number2,&dataStack);
-	//+
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&plus);
-	isNumber_ExpectAndReturn((Token *)&plus,0);
-	isOperator_ExpectAndReturn((Token *)&plus,1);
-	stackPop_ExpectAndReturn(&operatorStack,(Token *)&leftBracket);
-	stackPush_Expect((Token *)&leftBracket,&operatorStack);
-	stackPush_Expect((Token *)&plus,&operatorStack);
-	//3
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&number3);
-	isNumber_ExpectAndReturn((Token *)&number3,1);
-	stackPush_Expect((Token *)&number3,&dataStack);
-	//)
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&rightBracket);
-	isNumber_ExpectAndReturn((Token *)&rightBracket,0);
-	isOperator_ExpectAndReturn((Token *)&rightBracket,1);
-	stackPop_ExpectAndReturn(&operatorStack,(Token *)&plus);
-	stackPop_ExpectAndReturn(&dataStack,(Token *)&number3);
-	stackPop_ExpectAndReturn(&dataStack,(Token *)&number2);
-	createNumberToken_ExpectAndReturn(5,(Token *)&number5);
-	stackPush_Expect((Token *)&number5,&dataStack);
-	stackPop_ExpectAndReturn(&operatorStack,NULL);
-	getToken_ExpectAndReturn(&tokenizer,NULL);
-	
-	//Evaluate
-	stackPop_ExpectAndReturn(&operatorStack,NULL);
-	stackPop_ExpectAndReturn(&dataStack,(Token *)&number5);
-	destroyStack_Expect(&dataStack);
-	destroyStack_Expect(&operatorStack);
-	
-	check=evaluate("(2+3)");
-	TEST_ASSERT_EQUAL(5,check);
-	printf("Answer : %d ",check);
-}
+/****************************************************************************
+	|		|		|		|				|		|		|		|
+	|		|		|		|				|		|		|		|
+	|		|		|	)	|				|		|		|		|
+	|	50	|		|	-	|				|		|		|		|
+	|	3	|		|	*	|				|		|		|		|
+	|	20	|		|	(	|				|	10	|		|		|
+	numberstack		operatorStack			numberstack		operatorStack
+			BEFORE									  AFTER
+****************************************************************************/
 
 void test_left_bracket_20_multiply_3_subtract_50_right_bracket(void){
 	Stack dataStack;
@@ -535,53 +413,5 @@ void test_left_bracket_20_multiply_3_subtract_50_right_bracket(void){
 }
 
 
-void test_logic_not_12_SHOULD_RETURN_0(void){
-	
-	Stack numStack;
-	Stack opeStack;
-	int check;
-	Text *newText;
-	
-	//Initialize tokenizer,token and stack
-	String tokenizer = {.text = t"!12"};
-	
-	Operator logicNot = {.type= OPERATOR_TOKEN, .info=operatorFindInfoByID(LOGICAL_NOT_OP)};
-	Number number12 = {.type= NUMBER_TOKEN, .value=12};
-	Number number0 = {.type=NUMBER_TOKEN, .value=0};
-	
-	//Evaluate the expression
-	createStack_ExpectAndReturn(&numStack);
-	createStack_ExpectAndReturn(&opeStack);
-	textNew_ExpectAndReturn("!12",newText);
-	stringNew_ExpectAndReturn(newText,&tokenizer);
-	
-	//Token operator minus
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&logicNot);
-	isNumber_ExpectAndReturn((Token *)&logicNot,0);
-	isOperator_ExpectAndReturn((Token *)&logicNot,1);
-	stackPop_ExpectAndReturn(&opeStack,NULL);
-	stackPush_Expect((Token *)&logicNot,&opeStack);
-	
-	//Token number 2
-	getToken_ExpectAndReturn(&tokenizer,(Token *)&number12);
-	isNumber_ExpectAndReturn((Token *)&number12,1);
-	stackPush_Expect((Token *)&number12,&numStack);
-	getToken_ExpectAndReturn(&tokenizer,NULL);
-	
-	//Evaluate
-	stackPop_ExpectAndReturn(&opeStack,(Token *)&logicNot);
-	stackPop_ExpectAndReturn(&numStack,(Token *)&number12);
-	stackPop_ExpectAndReturn(&numStack,NULL);
-	createNumberToken_ExpectAndReturn(0,(Token *)&number0);
-	stackPush_Expect((Token *)&number0,&numStack);
-	stackPop_ExpectAndReturn(&opeStack,NULL);
-	stackPop_ExpectAndReturn(&numStack,(Token *)&number0);
-	destroyStack_Expect(&numStack);
-	destroyStack_Expect(&opeStack);
-	
-	check=evaluate("!12");
-	TEST_ASSERT_EQUAL(0,check);
-	printf("Answer : %d ",check);
 
-}
 

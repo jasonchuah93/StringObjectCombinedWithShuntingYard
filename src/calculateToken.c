@@ -73,7 +73,6 @@ int calculate(Operator *opeToken, Number *first, Number *second){
 
 int prefixCalculate(Operator *opeToken, Number *first){
 	int answer;
-	
 	if(opeToken->info==NULL)
 	{
 		Throw(ERR_INVALID_OPERATOR);

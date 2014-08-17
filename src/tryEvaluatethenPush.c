@@ -33,6 +33,7 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 		stackPush(newToken,operatorStack);
 	}else{
 		while(previousToken!=NULL){
+			
 			if(newToken->info->precedence > previousToken->info->precedence){
 				break;
 			}
@@ -52,20 +53,18 @@ void tryEvaluateOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,St
 void tryEvaluatePrefixOperatorOnStackThenPush(Operator *newToken,Stack *numberStack,Stack *operatorStack)
 {
 	Operator *previousToken=(Operator*)stackPop(operatorStack);
-	
 	if(previousToken == NULL){
 		stackPush(newToken,operatorStack);
 	}
 	else{
 		while(previousToken!=NULL)
 		{
-			if(((Operator*)newToken)->info->id ==CLOSING_BRACKET_OP){
-				if(((Operator*)previousToken)->info == NULL){
-					Throw(ERR_EXPECTING_OPENING_BRACKET);
-				}else if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP){
+			if(newToken->info->id ==CLOSING_BRACKET_OP){
+				
+				if(previousToken->info->id == OPENING_BRACKET_OP){
 					operatorPrefixEvaluate(numberStack ,previousToken);
 					free(newToken);
-					if(((Operator*)previousToken)->info->id == OPENING_BRACKET_OP){
+					if(previousToken->info->id == OPENING_BRACKET_OP){
 						previousToken=(Operator*)stackPop(operatorStack);
 						break;
 					}
